@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { Header } from "@/components/header";
+import { Header } from "@/components";
 import { useAuth } from "@/contexts/auth-context";
 
-export function MinhaSalaHeader() {
+export function ClassroomHeader() {
   const { user, signOut } = useAuth();
 
   const teacherProfile = user
@@ -25,4 +25,3 @@ export function MinhaSalaHeader() {
     />
   );
 }
-

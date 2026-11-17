@@ -23,6 +23,8 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    env_file:
+      - ./apps/api/.env
     environment:
       - DATABASE_URL=postgresql://admin:secretpassword@postgres-db:5432/adapt_edu?schema=public
       # O DNS interno do Docker agora usa o nome do serviço 'engine'

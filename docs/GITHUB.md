@@ -66,7 +66,7 @@ When resolving an issue:
 4. **Version Bump:** Increment the version of the modified application(s) according to the Semantic Versioning rules below.
 5. **Changelog Entry:** Document the new feature, bug fix, or refactor in [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
 6. **Checklist & Scope Verification:** Read the target issue description and ensure all requirements, deliverables, and checkboxes are 100% fulfilled.
-7. **Security Verification Gate:** Reviewers and AI coding agents MUST verify all changes against the comprehensive security checklist in [`docs/CODE_REVIEW_SECURITY.md`](docs/CODE_REVIEW_SECURITY.md) (covering IDOR, parameter tampering, data exposure, sanitization, and dependency audits).
+7. **Security Verification Gate:** Reviewers and AI coding agents MUST verify all changes against the comprehensive security checklist in [`docs/skills/code-review-security/SKILL.md`](docs/skills/code-review-security/SKILL.md) (covering IDOR, parameter tampering, data exposure, sanitization, and dependency audits).
 8. **Collaborative Code Review Gate (MANDATORY STOP — NO AUTONOMOUS COMMITS):**
    - The agent MUST NOT commit or push changes autonomously.
    - The agent stops and presents the code package, changed files, and test results for interactive user inspection and joint review.

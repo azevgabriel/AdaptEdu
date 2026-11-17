@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MinhaSalaHeader } from "./minha-sala-header";
+import { ClassroomHeader } from "./components";
 import styles from "./layout.module.css";
 
 export const metadata: Metadata = {
@@ -8,14 +8,14 @@ export const metadata: Metadata = {
     "Gerenciamento inclusivo de sala de aula e adaptações pedagógicas para estudantes neurodivergentes.",
 };
 
-export default function MinhaSalaLayout({
+export default function ClassroomLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <div className={styles.layoutContainer}>
-      <MinhaSalaHeader />
+      <ClassroomHeader />
       <main className={styles.mainContent}>{children}</main>
     </div>
   );

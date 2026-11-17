@@ -6,7 +6,7 @@ This document establishes the official code organization patterns, file structur
 
 ## 🎯 Core Principles & Language Rules
 
-As established in the repository's root [`AGENTS.md`](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/AGENTS.md) and [`GLOBAL.md`](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/web/docs/GLOBAL.md):
+As established in the repository's root [`AGENTS.md`](AGENTS.md) and [`GLOBAL.md`](apps/web/docs/GLOBAL.md):
 
 1. **Code & Agent Instructions Language (English):**
    - All directory names, file names, source code, component identifiers, functions, variables, types, interfaces, test suites, docstrings, and commit messages **MUST** be written strictly in English.
@@ -22,6 +22,15 @@ All directory names across `apps/web/` **MUST** be formatted in lowercase `kebab
 ```
 apps/web/src/
 ├── app/
+│   ├── login/                      # ✅ kebab-case route segment
+│   │   ├── components/             # ✅ dedicated route components directory
+│   │   │   ├── login-auth-card/    # ✅ kebab-case internal component directory
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── index.spec.tsx
+│   │   │   └── index.ts            # ✅ route components barrel re-export
+│   │   ├── page.module.css
+│   │   ├── page.spec.tsx
+│   │   └── page.tsx
 │   ├── minha-sala/                 # ✅ kebab-case route segment
 │   │   ├── planos-aula/            # ✅ kebab-case nested route segment
 │   │   └── estudantes/             # ✅ kebab-case nested route segment
@@ -44,7 +53,9 @@ apps/web/src/
 
 ## 🧩 Component Directory Anatomy
 
-Every UI component in `src/components/` lives inside its own dedicated directory named in `kebab-case`. The internal structure is strictly standardized:
+### 1. Global Shared Components (`src/components/`)
+
+Every global UI component in `src/components/` lives inside its own dedicated directory named in `kebab-case`. The internal structure is strictly standardized:
 
 ```
 src/components/header/
@@ -135,13 +146,133 @@ import { Header } from "@/components";
 import { Header } from "@/components/header";
 ```
 
+### 2. Internal Page Components (`src/app/**/components/`)
+
+When a page requires sub-components that are exclusively used within that route segment (and not shared across the rest of the application), they **MUST NOT** be created as flat, loose files inside the route folder (e.g., avoid `src/app/login/login-auth-card.tsx`). They must also not pollute the global `src/components/` directory.
+
+Instead, create a dedicated `components/` directory within the page folder, following this standardized anatomy:
+
+```
+src/app/login/
+├── components/
+│   ├── login-auth-card/         # Dedicated internal component folder (kebab-case)
+│   │   ├── index.tsx            # Component implementation & exported interfaces
+│   │   ├── index.spec.tsx       # Co-located unit test suite (Vitest + React Testing Library)
+│   │   └── index.module.css     # (Optional) Component-scoped styles if not using page styles
+│   └── index.ts                 # Route barrel re-export: export * from "./login-auth-card";
+├── page.module.css              # Page layout styling
+├── page.spec.tsx                # Page-level integration tests & route metadata assertions
+└── page.tsx                     # Main page component importing from "./components"
+```
+
+#### Step-by-Step Rules for Internal Page Components:
+
+1. **Create the `components` directory:** Inside the route folder (e.g., `src/app/login/components/`).
+2. **Create the component folder in `kebab-case`:** A sub-folder named after the component (e.g., `src/app/login/components/login-auth-card/`).
+3. **Create `index.tsx`:** The React component implementation, props interfaces, and named exports.
+4. **Create `index.spec.tsx`:** Co-located unit tests covering component states, conditional alerts, user events, and accessibility.
+5. **Create the barrel `index.ts`:** Directly inside `src/app/<route>/components/index.ts`, re-export all internal component folders:
+   ```typescript
+   export * from "./login-auth-card";
+   ```
+6. **Import via relative barrel in the page:** Inside `page.tsx` (and other sibling files in that route segment), import cleanly from `./components`:
+   ```typescript
+   import { LoginAuthCard } from "./components";
+   ```
+
+#### Concrete Example: `LoginAuthCard` Component
+
+##### Component Implementation (`src/app/login/components/login-auth-card/index.tsx`)
+```tsx
+"use client";
+
+import React from "react";
+import { useSearchParams } from "next/navigation";
+import { GoogleSignInButton } from "@/components";
+import styles from "../../page.module.css";
+
+export function LoginAuthCard() {
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get("returnUrl") || "/minha-sala";
+  const errorMessage = searchParams.get("error");
+
+  return (
+    <div className={styles.authCard}>
+      <div className={styles.authCardHeader}>
+        <h2 id="auth-card-title" className={styles.authCardTitle}>
+          Acesso do Educador
+        </h2>
+        <p className={styles.authCardSubtitle}>
+          Acesse o painel da sua turma com sua conta Google institucional ou pessoal para consultar e registrar adaptações.
+        </p>
+      </div>
+
+      {errorMessage && (
+        <div className={styles.errorMessage} role="alert" aria-live="polite">
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      <div className={styles.authActions}>
+        <GoogleSignInButton returnUrl={returnUrl} />
+      </div>
+    </div>
+  );
+}
+```
+
+##### Co-located Unit Tests (`src/app/login/components/login-auth-card/index.spec.tsx`)
+```tsx
+import React from "react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { LoginAuthCard } from "./index";
+import * as navigation from "next/navigation";
+
+describe("LoginAuthCard", () => {
+  it("renders educator access card title in Portuguese", () => {
+    vi.spyOn(navigation, "useSearchParams").mockReturnValue({
+      get: () => null,
+    } as unknown as ReturnType<typeof navigation.useSearchParams>);
+
+    render(<LoginAuthCard />);
+    expect(
+      screen.getByRole("heading", { level: 2, name: /acesso do educador/i }),
+    ).toBeInTheDocument();
+  });
+});
+```
+
+##### Internal Barrel Re-export (`src/app/login/components/index.ts`)
+```typescript
+export * from "./login-auth-card";
+```
+
+##### Consumer Page (`src/app/login/page.tsx`)
+```tsx
+import React, { Suspense } from "react";
+import { LoginAuthCard } from "./components";
+
+export default function LoginPage() {
+  return (
+    <main>
+      <Suspense fallback={<div>Carregando...</div>}>
+        <LoginAuthCard />
+      </Suspense>
+    </main>
+  );
+}
+```
+
 ---
 
 ## 🏷️ Identifier Naming Conventions
 
 | Category | Convention | Example | Notes |
 | :--- | :--- | :--- | :--- |
-| **Component Directories** | `kebab-case` | `header/`, `student-card/` | Co-located `index.tsx`, `index.spec.tsx`, `index.module.css`. |
+| **Global Component Directories** | `kebab-case` | `header/`, `student-card/` | Co-located `index.tsx`, `index.spec.tsx`, `index.module.css` under `src/components/`. |
+| **Internal Component Directories** | `kebab-case` | `login-auth-card/` | Co-located `index.tsx`, `index.spec.tsx` inside `src/app/<route>/components/<name>/`. |
+| **Route Component Barrels** | `index.ts` | `src/app/login/components/index.ts` | Re-exports all internal components for that specific route. |
 | **React Components** | `PascalCase` | `Header`, `StudentCard` | Defined in `index.tsx`, exported by name. |
 | **Component Props** | `PascalCase` + `Props` | `HeaderProps`, `StudentCardProps` | Exported alongside the component. |
 | **TypeScript Types/Interfaces** | `PascalCase` | `TeacherProfile`, `StudentItem` | Descriptive English names. |
@@ -192,10 +323,12 @@ src/app/minha-sala/page.tsx
 // WRONG:
 const [nomeProfessor, setNomeProfessor] = useState("");
 function salvarPlano() {}
+export default function MinhaSalaPage() {}
 
 // CORRECT:
 const [teacherName, setTeacherName] = useState("");
 function handleSavePlan() {}
+export default function ClassroomPage() {} // App Router page components must be in English PascalCase
 ```
 
 ### 5. ❌ Mixing English into User-Facing UI
@@ -206,4 +339,28 @@ function handleSavePlan() {}
 // CORRECT (Brazilian Portuguese for public school teachers):
 <button type="submit">Salvar alterações</button>
 ```
+
+### 6. ❌ Loose or Flat Internal Page Components
+```
+// WRONG:
+src/app/login/login-auth-card.tsx
+src/app/login/login-auth-card.spec.tsx
+
+// CORRECT:
+src/app/login/components/
+├── login-auth-card/
+│   ├── index.tsx
+│   └── index.spec.tsx
+└── index.ts
+```
+
+### 7. ❌ Deep Nested Imports Bypassing Route Barrel
+```typescript
+// WRONG:
+import { LoginAuthCard } from "./components/login-auth-card/index";
+
+// CORRECT:
+import { LoginAuthCard } from "./components";
+```
+
 

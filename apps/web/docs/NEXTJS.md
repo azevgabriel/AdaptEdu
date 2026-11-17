@@ -117,7 +117,7 @@ All commands must be executed within `apps/web/`:
 
 - Path alias `@/*` is mapped to `./src/*` in `tsconfig.json`.
 - Recommended folder structure:
-  - `src/app/`: Route definitions, layouts, error boundaries (`error.tsx`), and loading states (`loading.tsx`).
+  - `src/app/`: Route definitions, layouts, error boundaries (`error.tsx`), loading states (`loading.tsx`), and route-internal components (`src/app/<route>/components/<component-name>/` with `index.ts` barrel re-exports; see [NAMING_CONVENTIONS.md](apps/web/docs/NAMING_CONVENTIONS.md)).
   - `src/components/`: Reusable UI components (buttons, cards, modals, navigation).
   - `src/hooks/`: Custom React hooks for client-side state and browser interactions.
   - `src/lib/`: Shared utilities, API client helpers, and constants.

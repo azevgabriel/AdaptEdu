@@ -138,8 +138,105 @@
   --hierarchy-example-text: #065f46;
 }
 
+:root[data-theme="dark"] {
+  --bg-canvas: #0b0f19;
+  --bg-surface: #1e293b;
+  --bg-subtle: #334155;
+  --border-subtle: #334155;
+  --border-strong: #475569;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Backward Compatibility Defaults */
+  --background: var(--bg-canvas);
+  --foreground: var(--text-primary);
+
+  /* Dark Mode Brand */
+  --color-brand-primary: #6366f1;
+  --color-brand-hover: #818cf8;
+  --color-brand-surface: #1e1b4b;
+  --color-brand-border: #4338ca;
+  --color-brand-text: #e0e7ff;
+
+  /* Dark Mode Feedback */
+  --color-feedback-success-bg: #064e3b;
+  --color-feedback-success-border: #059669;
+  --color-feedback-success-text: #a7f3d0;
+
+  --color-feedback-warning-bg: #451a03;
+  --color-feedback-warning-border: #d97706;
+  --color-feedback-warning-text: #fde68a;
+
+  --color-feedback-error-bg: #450a0a;
+  --color-feedback-error-border: #dc2626;
+  --color-feedback-error-text: #fecaca;
+
+  --color-feedback-info-bg: #082f49;
+  --color-feedback-info-border: #0284c7;
+  --color-feedback-info-text: #bae6fd;
+
+  /* Dark Mode Subject Surfaces */
+  --subject-portuguese-surface: #500724;
+  --subject-portuguese-border: #db2777;
+  --subject-portuguese-text: #fbcfe8;
+
+  --subject-math-surface: #172554;
+  --subject-math-border: #3b82f6;
+  --subject-math-text: #bfdbfe;
+
+  --subject-history-surface: #431407;
+  --subject-history-border: #f97316;
+  --subject-history-text: #fed7aa;
+
+  --subject-geography-surface: #052e16;
+  --subject-geography-border: #22c55e;
+  --subject-geography-text: #bbf7d0;
+
+  --subject-science-surface: #3b0764;
+  --subject-science-border: #a855f7;
+  --subject-science-text: #e9d5ff;
+
+  --subject-physics-surface: #082f49;
+  --subject-physics-border: #0ea5e9;
+  --subject-physics-text: #bae6fd;
+
+  --subject-arts-surface: #4a044e;
+  --subject-arts-border: #c026d3;
+  --subject-arts-text: #f5d0fe;
+
+  --subject-pe-surface: #042f2e;
+  --subject-pe-border: #14b8a6;
+  --subject-pe-text: #99f6e4;
+
+  --subject-languages-surface: #422006;
+  --subject-languages-border: #eab308;
+  --subject-languages-text: #fef08a;
+
+  --subject-humanities-surface: #292524;
+  --subject-humanities-border: #78716c;
+  --subject-humanities-text: #e7e5e4;
+
+  /* Dark Mode Hierarchy Surfaces */
+  --hierarchy-key-surface: #450a0a;
+  --hierarchy-key-border: #ef4444;
+  --hierarchy-key-text: #fecaca;
+
+  --hierarchy-def-surface: #082f49;
+  --hierarchy-def-border: #0ea5e9;
+  --hierarchy-def-text: #bae6fd;
+
+  --hierarchy-data-surface: #451a03;
+  --hierarchy-data-border: #f59e0b;
+  --hierarchy-data-text: #fde68a;
+
+  --hierarchy-example-surface: #064e3b;
+  --hierarchy-example-border: #10b981;
+  --hierarchy-example-text: #a7f3d0;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg-canvas: #0b0f19;
     --bg-surface: #1e293b;
     --bg-subtle: #334155;
@@ -274,8 +371,36 @@
   --subject-science-text: #312e81;
 }
 
+[data-theme="dark"] [data-cvd="deuteranopia"],
+[data-theme="dark"][data-cvd="deuteranopia"] {
+  --hierarchy-key-surface: #431407;
+  --hierarchy-key-border: #ea580c;
+  --hierarchy-key-text: #fed7aa;
+
+  --hierarchy-example-surface: #083344;
+  --hierarchy-example-border: #06b6d4;
+  --hierarchy-example-text: #a5f3fc;
+
+  --subject-portuguese-surface: #3b0764;
+  --subject-portuguese-border: #9333ea;
+  --subject-portuguese-text: #e9d5ff;
+
+  --subject-history-surface: #451a03;
+  --subject-history-border: #d97706;
+  --subject-history-text: #fde68a;
+
+  --subject-geography-surface: #083344;
+  --subject-geography-border: #0891b2;
+  --subject-geography-text: #a5f3fc;
+
+  --subject-science-surface: #1e1b4b;
+  --subject-science-border: #4f46e5;
+  --subject-science-text: #c7d2fe;
+}
+
 @media (prefers-color-scheme: dark) {
-  [data-cvd="deuteranopia"] {
+  :root:not([data-theme="light"]) [data-cvd="deuteranopia"],
+  :root:not([data-theme="light"])[data-cvd="deuteranopia"] {
     --hierarchy-key-surface: #431407;
     --hierarchy-key-border: #ea580c;
     --hierarchy-key-text: #fed7aa;
@@ -335,8 +460,36 @@
   --subject-science-text: #4c1d95;
 }
 
+[data-theme="dark"] [data-cvd="protanopia"],
+[data-theme="dark"][data-cvd="protanopia"] {
+  --hierarchy-key-surface: #500724;
+  --hierarchy-key-border: #ec4899;
+  --hierarchy-key-text: #fbcfe8;
+
+  --hierarchy-example-surface: #042f2e;
+  --hierarchy-example-border: #0d9488;
+  --hierarchy-example-text: #99f6e4;
+
+  --subject-portuguese-surface: #500724;
+  --subject-portuguese-border: #db2777;
+  --subject-portuguese-text: #fbcfe8;
+
+  --subject-history-surface: #451a03;
+  --subject-history-border: #b45309;
+  --subject-history-text: #fde68a;
+
+  --subject-geography-surface: #042f2e;
+  --subject-geography-border: #14b8a6;
+  --subject-geography-text: #99f6e4;
+
+  --subject-science-surface: #2e1065;
+  --subject-science-border: #7c3aed;
+  --subject-science-text: #ddd6fe;
+}
+
 @media (prefers-color-scheme: dark) {
-  [data-cvd="protanopia"] {
+  :root:not([data-theme="light"]) [data-cvd="protanopia"],
+  :root:not([data-theme="light"])[data-cvd="protanopia"] {
     --hierarchy-key-surface: #500724;
     --hierarchy-key-border: #ec4899;
     --hierarchy-key-text: #fbcfe8;
@@ -411,8 +564,48 @@
   --subject-science-text: #701a75;
 }
 
+[data-theme="dark"] [data-cvd="tritanopia"],
+[data-theme="dark"][data-cvd="tritanopia"] {
+  --hierarchy-key-surface: #450a0a;
+  --hierarchy-key-border: #ef4444;
+  --hierarchy-key-text: #fecaca;
+
+  --hierarchy-def-surface: #1e293b;
+  --hierarchy-def-border: #475569;
+  --hierarchy-def-text: #cbd5e1;
+
+  --hierarchy-data-surface: #3b0764;
+  --hierarchy-data-border: #a855f7;
+  --hierarchy-data-text: #e9d5ff;
+
+  --hierarchy-example-surface: #083344;
+  --hierarchy-example-border: #06b6d4;
+  --hierarchy-example-text: #a5f3fc;
+
+  --subject-portuguese-surface: #4c0519;
+  --subject-portuguese-border: #f43f5e;
+  --subject-portuguese-text: #fecdd3;
+
+  --subject-math-surface: #0f172a;
+  --subject-math-border: #475569;
+  --subject-math-text: #e2e8f0;
+
+  --subject-history-surface: #431407;
+  --subject-history-border: #ea580c;
+  --subject-history-text: #fed7aa;
+
+  --subject-geography-surface: #083344;
+  --subject-geography-border: #0891b2;
+  --subject-geography-text: #a5f3fc;
+
+  --subject-science-surface: #4a044e;
+  --subject-science-border: #c026d3;
+  --subject-science-text: #f5d0fe;
+}
+
 @media (prefers-color-scheme: dark) {
-  [data-cvd="tritanopia"] {
+  :root:not([data-theme="light"]) [data-cvd="tritanopia"],
+  :root:not([data-theme="light"])[data-cvd="tritanopia"] {
     --hierarchy-key-surface: #450a0a;
     --hierarchy-key-border: #ef4444;
     --hierarchy-key-text: #fecaca;
@@ -503,8 +696,58 @@
   --subject-science-text: #09090b;
 }
 
+[data-theme="dark"] [data-cvd="achromatopsia"],
+[data-theme="dark"][data-cvd="achromatopsia"] {
+  --bg-canvas: #18181b;
+  --bg-surface: #27272a;
+  --bg-subtle: #3f3f46;
+  --border-subtle: #3f3f46;
+  --border-strong: #71717a;
+  --text-primary: #fafafa;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+
+  --hierarchy-key-base: #fafafa;
+  --hierarchy-key-surface: #3f3f46;
+  --hierarchy-key-border: #f4f4f5;
+  --hierarchy-key-text: #fafafa;
+
+  --hierarchy-def-surface: #27272a;
+  --hierarchy-def-border: #a1a1aa;
+  --hierarchy-def-text: #f4f4f5;
+
+  --hierarchy-data-surface: #18181b;
+  --hierarchy-data-border: #71717a;
+  --hierarchy-data-text: #e4e4e7;
+
+  --hierarchy-example-surface: #27272a;
+  --hierarchy-example-border: #52525b;
+  --hierarchy-example-text: #d4d4d8;
+
+  --subject-portuguese-surface: #3f3f46;
+  --subject-portuguese-border: #d4d4d8;
+  --subject-portuguese-text: #fafafa;
+
+  --subject-math-surface: #18181b;
+  --subject-math-border: #a1a1aa;
+  --subject-math-text: #f4f4f5;
+
+  --subject-history-surface: #27272a;
+  --subject-history-border: #71717a;
+  --subject-history-text: #e4e4e7;
+
+  --subject-geography-surface: #3f3f46;
+  --subject-geography-border: #52525b;
+  --subject-geography-text: #fafafa;
+
+  --subject-science-surface: #27272a;
+  --subject-science-border: #e4e4e7;
+  --subject-science-text: #fafafa;
+}
+
 @media (prefers-color-scheme: dark) {
-  [data-cvd="achromatopsia"] {
+  :root:not([data-theme="light"]) [data-cvd="achromatopsia"],
+  :root:not([data-theme="light"])[data-cvd="achromatopsia"] {
     --bg-canvas: #18181b;
     --bg-surface: #27272a;
     --bg-subtle: #3f3f46;
@@ -633,8 +876,78 @@ a {
   text-decoration: none;
 }
 
+/* ==========================================================================
+   Accessibility Attributes Overrides (Font Size, Dyslexia, Contrast, Motion)
+   ========================================================================== */
+
+/* Font Sizing Scale */
+html[data-font-size="large"] {
+  font-size: 112.5%;
+}
+
+html[data-font-size="x-large"] {
+  font-size: 125%;
+}
+
+/* Dyslexia & ADHD Reading Accommodations (Increased spacing & line height) */
+html[data-dyslexia="true"] {
+  letter-spacing: 0.04em;
+  word-spacing: 0.1em;
+}
+
+html[data-dyslexia="true"] body {
+  line-height: 1.75;
+}
+
+html[data-dyslexia="true"] p,
+html[data-dyslexia="true"] span,
+html[data-dyslexia="true"] li,
+html[data-dyslexia="true"] a {
+  line-height: 1.7;
+}
+
+/* High Contrast Mode */
+html[data-high-contrast="true"] {
+  --border-subtle: #0f172a;
+  --border-strong: #000000;
+  --text-muted: #1e293b;
+}
+
+html[data-theme="dark"][data-high-contrast="true"] {
+  --border-subtle: #cbd5e1;
+  --border-strong: #ffffff;
+  --text-muted: #e2e8f0;
+}
+
 @media (prefers-color-scheme: dark) {
-  html {
+  :root:not([data-theme="light"])[data-high-contrast="true"],
+  html:not([data-theme="light"])[data-high-contrast="true"] {
+    --border-subtle: #cbd5e1;
+    --border-strong: #ffffff;
+    --text-muted: #e2e8f0;
+  }
+}
+
+/* Reduced Motion Mode */
+html[data-reduced-motion="true"] *,
+html[data-reduced-motion="true"] *::before,
+html[data-reduced-motion="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* Browser Color Scheme */
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
     color-scheme: dark;
   }
 }

@@ -11,4 +11,14 @@ describe("Components Barrel Export", () => {
     expect(components.GoogleSignInButton).toBeDefined();
     expect(typeof components.GoogleSignInButton).toBe("function");
   });
+
+  it("exports Footer component", () => {
+    expect(components.Footer).toBeDefined();
+    expect(typeof components.Footer).toBe("function");
+  });
+
+  it("exports Avatar component", () => {
+    expect(components.Avatar).toBeDefined();
+    expect(typeof components.Avatar).toBe("function");
+  });
 });

@@ -3,7 +3,7 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import { GoogleSignInButton } from "@/components";
-import styles from "./page.module.css";
+import styles from "../../page.module.css";
 
 export function LoginAuthCard() {
   const searchParams = useSearchParams();
@@ -65,4 +65,3 @@ export function LoginAuthCard() {
     </div>
   );
 }
-

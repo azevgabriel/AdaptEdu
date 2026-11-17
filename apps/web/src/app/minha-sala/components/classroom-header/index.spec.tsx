@@ -1,14 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MinhaSalaHeader } from "./minha-sala-header";
+import { ClassroomHeader } from "./index";
 import { AuthProvider } from "@/contexts/auth-context";
 
-describe("MinhaSalaHeader", () => {
+describe("ClassroomHeader", () => {
   it("renders with default teacher when unauthenticated", () => {
     render(
       <AuthProvider initialUser={null}>
-        <MinhaSalaHeader />
+        <ClassroomHeader />
       </AuthProvider>,
     );
 
@@ -27,7 +27,7 @@ describe("MinhaSalaHeader", () => {
 
     render(
       <AuthProvider initialUser={mockTeacher}>
-        <MinhaSalaHeader />
+        <ClassroomHeader />
       </AuthProvider>,
     );
 
@@ -57,7 +57,7 @@ describe("MinhaSalaHeader", () => {
           avatarUrl: "https://example.com/avatar.png",
         }}
       >
-        <MinhaSalaHeader />
+        <ClassroomHeader />
       </AuthProvider>,
     );
 

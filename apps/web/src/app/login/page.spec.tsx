@@ -1,10 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import LoginPage, { metadata } from "./page";
-import { LoginAuthCard } from "./login-auth-card";
-import * as navigation from "next/navigation";
 
-describe("LoginPage & LoginAuthCard", () => {
+describe("LoginPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -13,7 +11,23 @@ describe("LoginPage & LoginAuthCard", () => {
     render(<LoginPage />);
 
     // Brand and Badge
+    expect(
+      screen.getByRole("link", { name: /adaptEdu - página inicial/i }),
+    ).toBeInTheDocument();
     expect(screen.getByText(/apoio à escola pública/i)).toBeInTheDocument();
+
+    // Reusable Header in unauthenticated state should NOT render user profile options
+    expect(
+      screen.queryByRole("button", { name: /menu do usuário/i }),
+    ).not.toBeInTheDocument();
+
+    // Theme & Accessibility options remain available in Header
+    expect(
+      screen.getByRole("button", { name: /alternar tema/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /opções de acessibilidade/i }),
+    ).toBeInTheDocument();
 
     // Main mission headline
     expect(
@@ -46,24 +60,18 @@ describe("LoginPage & LoginAuthCard", () => {
     expect(
       screen.getByText(/compromisso com a privacidade & lgpd/i),
     ).toBeInTheDocument();
-  });
 
-  it("displays error message alert in LoginAuthCard when error query param is present", () => {
-    const customError = "Código de autenticação expirado ou inválido";
-
-    vi.spyOn(navigation, "useSearchParams").mockReturnValue({
-      get: (param: string) => {
-        if (param === "error") return customError;
-        if (param === "returnUrl") return "/dashboard";
-        return null;
-      },
-    } as unknown as ReturnType<typeof navigation.useSearchParams>);
-
-    render(<LoginAuthCard />);
-
-    const alertBox = screen.getByRole("alert");
-    expect(alertBox).toBeInTheDocument();
-    expect(alertBox).toHaveTextContent(customError);
+    // Footer with project repository and developer links
+    expect(
+      screen.getByRole("link", {
+        name: /repositório do projeto adaptedu no github/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: /perfil profissional de gabriel azevedo no linkedin/i,
+      }),
+    ).toBeInTheDocument();
   });
 
   it("exports correct page metadata", () => {

@@ -1,8 +1,7 @@
 import React, { Suspense } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { LoginAuthCard } from "./login-auth-card";
-import { GoogleSignInButton } from "@/components";
+import { Header, GoogleSignInButton, Footer } from "@/components";
+import { LoginAuthCard } from "./components";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -14,38 +13,8 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div className={styles.loginContainer}>
-      {/* Top Navbar */}
-      <header className={styles.loginNavbar}>
-        <Link
-          href="/"
-          className={styles.brandLink}
-          aria-label="AdaptEdu - Página Inicial"
-        >
-          <div className={styles.brandLogo} aria-hidden="true">
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className={styles.brandTitle}>
-            Adapt<span className={styles.brandTitleHighlight}>Edu</span>
-          </span>
-        </Link>
-
-        <span className={styles.publicBadge}>
-          <span aria-hidden="true">🏫</span> Apoio à Escola Pública
-        </span>
-      </header>
+      {/* Top Navbar using shared Header component */}
+      <Header showProfile={false} sectionName="Apoio à Escola Pública" />
 
       {/* Main Two-Column Layout */}
       <main className={styles.mainGrid}>
@@ -167,11 +136,7 @@ export default function LoginPage() {
       </main>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <p>
-          AdaptEdu — Plataforma de Código Aberto para Apoio ao Educador da Escola Pública.
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

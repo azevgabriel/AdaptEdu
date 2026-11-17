@@ -1,11 +1,18 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { fakerPT_BR as faker } from "@faker-js/faker";
 import { Header } from "./index";
 
 describe("Header Component", () => {
   beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.removeAttribute("data-theme");
+    document.documentElement.removeAttribute("data-cvd");
+    document.documentElement.removeAttribute("data-font-size");
+    document.documentElement.removeAttribute("data-dyslexia");
+    document.documentElement.removeAttribute("data-high-contrast");
+    document.documentElement.removeAttribute("data-reduced-motion");
     vi.clearAllMocks();
   });
 
@@ -181,5 +188,357 @@ describe("Header Component", () => {
 
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();
   });
-});
 
+  /* ========================================================================
+     Theme Mode (Dark / Light) & Accessibility Tests
+     ======================================================================== */
+
+  it("toggles light and dark theme using the quick action button", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    // Initially light mode
+    const themeButton = screen.getByRole("button", {
+      name: /alternar tema: mudar para modo escuro/i,
+    });
+    expect(themeButton).toBeInTheDocument();
+    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
+
+    // Click to switch to dark mode
+    await user.click(themeButton);
+    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
+    expect(
+      screen.getByRole("button", { name: /alternar tema: mudar para modo claro/i })
+    ).toBeInTheDocument();
+
+    // Click again to switch back to light mode
+    await user.click(
+      screen.getByRole("button", { name: /alternar tema: mudar para modo claro/i })
+    );
+    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
+  });
+
+  it("opens and closes accessibility settings popover via accessibility button", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    const a11yButton = screen.getByRole("button", {
+      name: /opções de acessibilidade/i,
+    });
+    expect(a11yButton).toHaveAttribute("aria-expanded", "false");
+
+    // Click to open
+    await user.click(a11yButton);
+    expect(a11yButton).toHaveAttribute("aria-expanded", "true");
+
+    const dialog = screen.getByRole("dialog", {
+      name: /opções de acessibilidade e tema/i,
+    });
+    expect(dialog).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /acessibilidade & exibição/i })
+    ).toBeInTheDocument();
+
+    // Click again to close
+    await user.click(a11yButton);
+    expect(a11yButton).toHaveAttribute("aria-expanded", "false");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("closes accessibility popover when clicking close button", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    const a11yButton = screen.getByRole("button", {
+      name: /opções de acessibilidade/i,
+    });
+    await user.click(a11yButton);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    const closeButton = screen.getByRole("button", {
+      name: /fechar painel de acessibilidade/i,
+    });
+    await user.click(closeButton);
+
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("closes accessibility popover when Escape key is pressed", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    const a11yButton = screen.getByRole("button", {
+      name: /opções de acessibilidade/i,
+    });
+    await user.click(a11yButton);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("closes accessibility popover when clicking outside", async () => {
+    const user = userEvent.setup();
+    render(
+      <div>
+        <div data-testid="outside-area">Outside</div>
+        <Header />
+      </div>
+    );
+
+    const a11yButton = screen.getByRole("button", {
+      name: /opções de acessibilidade/i,
+    });
+    await user.click(a11yButton);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    await user.click(screen.getByTestId("outside-area"));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("mutually closes teacher menu when accessibility is opened, and vice-versa", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    const menuButton = screen.getByRole("button", { name: /menu do usuário/i });
+    const a11yButton = screen.getByRole("button", {
+      name: /opções de acessibilidade/i,
+    });
+
+    // Open teacher menu
+    await user.click(menuButton);
+    expect(screen.getByRole("menu")).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    // Opening accessibility closes teacher menu
+    await user.click(a11yButton);
+    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    // Opening teacher menu closes accessibility
+    await user.click(menuButton);
+    expect(screen.getByRole("menu")).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("switches theme inside the accessibility popover", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    await user.click(
+      screen.getByRole("button", { name: /opções de acessibilidade/i })
+    );
+
+    const dialog = screen.getByRole("dialog", {
+      name: /opções de acessibilidade e tema/i,
+    });
+
+    const darkThemeButton = within(dialog).getByRole("button", {
+      name: /^modo escuro$/i,
+    });
+    await user.click(darkThemeButton);
+    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
+
+    const lightThemeButton = within(dialog).getByRole("button", {
+      name: /^modo claro$/i,
+    });
+    await user.click(lightThemeButton);
+    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
+  });
+
+  it("changes color vision deficiency (CVD) mode via select dropdown", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    await user.click(
+      screen.getByRole("button", { name: /opções de acessibilidade/i })
+    );
+
+    const select = screen.getByRole("combobox", {
+      name: /selecionar modo de visão cromática para daltonismo/i,
+    });
+
+    await user.selectOptions(select, "deuteranopia");
+    expect(document.documentElement.getAttribute("data-cvd")).toBe("deuteranopia");
+
+    await user.selectOptions(select, "achromatopsia");
+    expect(document.documentElement.getAttribute("data-cvd")).toBe("achromatopsia");
+
+    await user.selectOptions(select, "default");
+    expect(document.documentElement.getAttribute("data-cvd")).toBeNull();
+  });
+
+  it("changes font size via option buttons", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    await user.click(
+      screen.getByRole("button", { name: /opções de acessibilidade/i })
+    );
+
+    const largeFontButton = screen.getByRole("button", {
+      name: /grande \(\+15%\)/i,
+    });
+    await user.click(largeFontButton);
+    expect(document.documentElement.getAttribute("data-font-size")).toBe("large");
+
+    const xLargeFontButton = screen.getByRole("button", {
+      name: /muito grande \(\+30%\)/i,
+    });
+    await user.click(xLargeFontButton);
+    expect(document.documentElement.getAttribute("data-font-size")).toBe("x-large");
+
+    const normalFontButton = screen.getByRole("button", {
+      name: /normal \(100%\)/i,
+    });
+    await user.click(normalFontButton);
+    expect(document.documentElement.getAttribute("data-font-size")).toBeNull();
+  });
+
+  it("toggles visual and sensory accommodation checkboxes", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    await user.click(
+      screen.getByRole("button", { name: /opções de acessibilidade/i })
+    );
+
+    const dyslexiaCheckbox = screen.getByRole("checkbox", {
+      name: /espaçamento para leitura/i,
+    });
+    await user.click(dyslexiaCheckbox);
+    expect(document.documentElement.getAttribute("data-dyslexia")).toBe("true");
+
+    const contrastCheckbox = screen.getByRole("checkbox", {
+      name: /alto contraste/i,
+    });
+    await user.click(contrastCheckbox);
+    expect(document.documentElement.getAttribute("data-high-contrast")).toBe("true");
+
+    const motionCheckbox = screen.getByRole("checkbox", {
+      name: /reduzir animações/i,
+    });
+    await user.click(motionCheckbox);
+    expect(document.documentElement.getAttribute("data-reduced-motion")).toBe("true");
+  });
+
+  it("resets accessibility settings when clicking restaurar configurações padrão", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    await user.click(
+      screen.getByRole("button", { name: /opções de acessibilidade/i })
+    );
+
+    // Apply adjustments
+    const select = screen.getByRole("combobox", {
+      name: /selecionar modo de visão cromática para daltonismo/i,
+    });
+    await user.selectOptions(select, "tritanopia");
+
+    const largeButton = screen.getByRole("button", {
+      name: /grande \(\+15%\)/i,
+    });
+    await user.click(largeButton);
+
+    expect(document.documentElement.getAttribute("data-cvd")).toBe("tritanopia");
+    expect(document.documentElement.getAttribute("data-font-size")).toBe("large");
+
+    // Click reset
+    const resetButton = screen.getByRole("button", {
+      name: /restaurar configurações padrão/i,
+    });
+    await user.click(resetButton);
+
+    expect(document.documentElement.getAttribute("data-cvd")).toBeNull();
+    expect(document.documentElement.getAttribute("data-font-size")).toBeNull();
+  });
+
+  it("shows active indicator dot when accessibility accommodations are enabled", async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+
+    // Initially no active accommodations dot
+    expect(screen.queryByTitle("Acomodações ativas")).not.toBeInTheDocument();
+
+    // Open accessibility dialog and enable an accommodation
+    await user.click(
+      screen.getByRole("button", { name: /opções de acessibilidade/i })
+    );
+
+    const dyslexiaCheckbox = screen.getByRole("checkbox", {
+      name: /espaçamento para leitura/i,
+    });
+    await user.click(dyslexiaCheckbox);
+
+    // Now active accommodations dot is present
+    expect(screen.getByTitle("Acomodações ativas")).toBeInTheDocument();
+  });
+
+  /* ========================================================================
+     Unauthenticated / Public Header (showProfile={false}) Tests
+     ======================================================================== */
+
+  it("omits teacher profile button, avatar and dropdown when showProfile is false", () => {
+    render(<Header showProfile={false} />);
+
+    // Profile trigger button should not exist
+    expect(
+      screen.queryByRole("button", { name: /menu do usuário/i })
+    ).not.toBeInTheDocument();
+
+    // Initials should not exist
+    expect(screen.queryByText("AS")).not.toBeInTheDocument();
+
+    // Theme & Accessibility controls should still be present
+    expect(
+      screen.getByRole("button", { name: /alternar tema/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /opções de acessibilidade/i })
+    ).toBeInTheDocument();
+  });
+
+  it("applies public brand link destination and aria label when showProfile is false by default", () => {
+    render(<Header showProfile={false} />);
+
+    const brandLink = screen.getByRole("link", {
+      name: /adaptEdu - página inicial/i,
+    });
+    expect(brandLink).toBeInTheDocument();
+    expect(brandLink).toHaveAttribute("href", "/");
+
+    // Section badge should be omitted when not provided and showProfile is false
+    expect(screen.queryByText("Minha Sala")).not.toBeInTheDocument();
+  });
+
+  it("renders section badge when sectionName is explicitly provided and showProfile is false", () => {
+    render(
+      <Header
+        showProfile={false}
+        sectionName="Apoio à Escola Pública"
+      />
+    );
+
+    expect(screen.getByText("Apoio à Escola Pública")).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /menu do usuário/i })
+    ).not.toBeInTheDocument();
+  });
+
+  it("supports custom brandHref and brandAriaLabel", () => {
+    render(
+      <Header
+        showProfile={false}
+        brandHref="/custom-path"
+        brandAriaLabel="AdaptEdu - Link Customizado"
+      />
+    );
+
+    const brandLink = screen.getByRole("link", {
+      name: /adaptEdu - link customizado/i,
+    });
+    expect(brandLink).toBeInTheDocument();
+    expect(brandLink).toHaveAttribute("href", "/custom-path");
+  });
+});
