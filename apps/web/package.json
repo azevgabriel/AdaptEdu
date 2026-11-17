@@ -1,6 +1,6 @@
 {
   "name": "adapt-edu-web",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 5173",
@@ -8,7 +8,9 @@
     "start": "next start -p 5173",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:cov": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -23,6 +25,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^3.2.7",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "jsdom": "^31.0.1",

@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI
+
 from version import __version__
 
 load_dotenv()
