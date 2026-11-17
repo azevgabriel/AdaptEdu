@@ -12,8 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## Releases
 
-### Google OAuth 2.0 & Route Protection - 2026-11-17
-Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1).
+### Google OAuth 2.0, Route Protection & Security Baseline - 2026-11-17
+Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1) and [#6](https://github.com/azevgabriel/AdaptEdu/issues/6).
 
 #### `apps/web` (Frontend) — `v1.2.0`
 - Created `/login` presentation and login page (`src/app/login/page.tsx`, `login-auth-card.tsx`, `page.module.css`).
@@ -22,6 +22,7 @@ Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1).
 - Created Next.js Edge Middleware (`src/middleware.ts`) intercepting private routes (`/minha-sala`, `/dashboard`, `/turmas`, `/planejamento`) and redirecting unauthenticated users to `/login?returnUrl=...`.
 - Implemented client-side `AuthProvider` and `useAuth` hook (`src/contexts/auth-context.tsx`) managing user session, automatic profile sync, Google login redirection, and sign-out.
 - Integrated `MinhaSalaHeader` in `minha-sala/layout.tsx` to display real authenticated teacher profile and wire sign-out action.
+- Documented frontend security guidelines (client validation limits, XSS prevention, Next.js security headers) in `apps/web/docs/SECURITY.md`.
 - Added comprehensive unit and integration test suites reaching 99.51% statement coverage and 100% function coverage.
 
 #### `apps/api` (Backend) — `v1.2.0`
@@ -35,7 +36,16 @@ Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1).
   - `POST /auth/logout`: Clears session cookie and invalidates session.
 - Implemented `JwtAuthGuard`, `@Public()` decorator, and `@CurrentUser()` param decorator for route protection across NestJS controllers.
 - Configured CORS with credentials in `main.ts` for frontend communication.
+- Documented backend security guidelines (IDOR defenses, NestJS guards, rate limiting, CORS, data serialization) in `apps/api/docs/SECURITY.md`.
+- Configured Prisma Client auto-generation in `postinstall` script and GitHub Actions CI.
 - Added test suites for Prisma service, JWT guard, auth service, and auth controller with 99.07% statement coverage and 100% function coverage.
+
+#### `apps/engine` (AI & Reasoning Engine)
+- Documented AI engine security guidelines (safe deserialization, ban on `eval`/`exec`, constant-time comparisons, Pydantic validation) in `apps/engine/docs/SECURITY.md`.
+
+#### Repository Governance & CI/CD
+- Established mandatory AI PR code review security protocol in `docs/skills/code-review-security/SKILL.md` (covering IDOR, parameter tampering, data exposure, sanitization, and dependency audits).
+- Integrated automated vulnerability audits (`npm audit` for web/api and `pip-audit` for engine) in `.github/workflows/ci.yml`.
 
 ### Testing & CI Coverage Gate - 2026-11-17
 Resolves [#3](https://github.com/azevgabriel/AdaptEdu/issues/3).
