@@ -7,7 +7,7 @@ def get_version() -> str:
     """Reads the application version from pyproject.toml."""
     pyproject_path = Path(__file__).resolve().parent / "pyproject.toml"
     if not pyproject_path.exists():
-        return "1.0.0"
+        return "1.1.0"
 
     # In Python 3.11+, tomllib is available in the standard library
     if sys.version_info >= (3, 11):
@@ -31,7 +31,7 @@ def get_version() -> str:
     except Exception:
         pass
 
-    return "1.0.0"
+    return "1.1.0"
 
 
 __version__ = get_version()

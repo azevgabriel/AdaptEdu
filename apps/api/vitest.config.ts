@@ -8,5 +8,16 @@ export default defineConfig({
     globals: true,
     root: './',
     include: ['**/*.spec.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      include: ['src/**/*.ts'],
+      exclude: ['src/main.ts', '**/*.spec.ts'],
+      thresholds: {
+        lines: 90,
+        statements: 90,
+        functions: 90,
+      },
+    },
   },
 });

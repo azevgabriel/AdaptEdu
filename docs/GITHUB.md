@@ -31,14 +31,30 @@ All issues must be classified using the standardized repository labels:
 
 ---
 
+## 🌿 Branch Naming Conventions & Workflow
+
+Direct commits and development on the primary branch (`main`) are **strictly forbidden**.
+
+Whenever an issue is selected for implementation, a dedicated branch MUST be created from `main` using the following standardized pattern:
+
+| Issue Type | Branch Pattern | Example |
+| :--- | :--- | :--- |
+| **`feature`** | `feat/[issue_number]` | `feat/3` |
+| **`bug`** | `fix/[issue_number]` | `fix/14` |
+| **`refactor`** | `refactor/[issue_number]` | `refactor/21` |
+
+---
+
 ## 🔄 Issue Resolution & Pull Request Workflow
 
-When the user requests the resolution of an issue:
+When resolving an issue:
 
-1. **Implementation:** Develop the solution adhering strictly to the architecture guidelines in `apps/<domain>/docs/GLOBAL.md`.
-2. **Pull Request (PR):** Create a Pull Request that explicitly references and links the issue (e.g., `Resolves #<id>`).
-3. **Changelog Entry:** Document the new feature, bug fix, or refactor in [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
+1. **Branch Checkout:** Create and check out the dedicated branch following the table above (`feat/<id>`, `fix/<id>`, or `refactor/<id>`). Never implement directly on `main`.
+2. **Implementation:** Develop the solution adhering strictly to the architecture guidelines in `apps/<domain>/docs/GLOBAL.md`.
+3. **Testing & Coverage:** Ensure all automated test suites pass and satisfy the required coverage thresholds (>= 90%) across affected domains.
 4. **Version Bump:** Increment the version of the modified application(s) according to the Semantic Versioning rules below.
+5. **Changelog Entry:** Document the new feature, bug fix, or refactor in [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
+6. **User Confirmation & Pull Request (PR):** Upon explicit instruction and approval from the user, push the dedicated branch and create a Pull Request on GitHub (referencing `Resolves #<id>`). This triggers the continuous integration pipeline (GitHub Actions) and enables collaborative code review before merging into `main`.
 
 ---
 
