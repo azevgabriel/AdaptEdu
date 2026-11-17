@@ -54,7 +54,11 @@ When resolving an issue:
 3. **Testing & Coverage:** Ensure all automated test suites pass and satisfy the required coverage thresholds (>= 90%) across affected domains.
 4. **Version Bump:** Increment the version of the modified application(s) according to the Semantic Versioning rules below.
 5. **Changelog Entry:** Document the new feature, bug fix, or refactor in [`docs/CHANGELOG.md`](docs/CHANGELOG.md).
-6. **User Confirmation & Pull Request (PR):** Upon explicit instruction and approval from the user, push the dedicated branch and create a Pull Request on GitHub (referencing `Resolves #<id>`). This triggers the continuous integration pipeline (GitHub Actions) and enables collaborative code review before merging into `main`.
+6. **Checklist & Scope Verification:** Before creating or finalizing the PR, read the target issue description and ensure all requirements, deliverables, and checkboxes are 100% fulfilled.
+7. **User Confirmation & Pull Request (PR):** Upon explicit instruction and approval from the user, push the dedicated branch and create a Pull Request on GitHub. The PR description MUST reference the issue using auto-closing syntax (e.g., `Resolves #<id>`).
+8. **Automated Lifecycle on Merge:**
+   - **Automatic Issue Closing:** When the PR is merged into `main`, GitHub automatically transitions the linked issue to `Closed` via the `Resolves #<id>` keyword.
+   - **Automatic Branch Cleanup:** Upon merge, the head branch (`feat/<id>`, `fix/<id>`, `refactor/<id>`) is automatically deleted via the cleanup workflow (`.github/workflows/cleanup-branch.yml`) and repository settings.
 
 ---
 
