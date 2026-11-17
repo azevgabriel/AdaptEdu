@@ -1,97 +1,58 @@
-AdaptEdu 🧩
+# AdaptEdu 🧩
 
-Uma plataforma open-source desenvolvida para empoderar professores da rede pública brasileira na inclusão de alunos neurodivergentes (TDAH, Autismo, Dislexia, Deficiência Intelectual).
+O AdaptEdu é uma plataforma web de código aberto (open-source) projetada para apoiar professores da rede pública brasileira na inclusão de alunos neurodivergentes.
 
-Nossa visão de longo prazo é criar um ecossistema completo de inclusão (adaptação automática de materiais, geração de PEI e acompanhamento). Porém, nosso primeiro grande passo (Fase 1) resolve um problema logístico imediato e diário: o manejo espacial e comportamental da sala de aula.
+## O Desafio
 
-🎯 Objetivo Atual (Fase 1): Simulador Espacial Inclusivo
+O número de alunos identificados como neurodivergentes cresce a cada ano. Para além do Autismo, existe um espectro vasto e pouco discutido pela sociedade — englobando TDAH, Dislexia, Síndrome de Tourette, Discalculia, Disgrafia, entre outros. Essa falta de informação deságua diretamente na sala de aula.
 
-Na realidade das escolas públicas, o aluno com laudo acompanha a mesma grade curricular na mesma sala (frequentemente lotada) que os demais. Muitas vezes, a adaptação mais eficaz e rápida que o professor tem à disposição é espacial: onde o aluno senta, quais os estímulos visuais/auditivos ao redor e quem são seus colegas próximos.
+Ao mesmo tempo, sabemos que o ensino público brasileiro é frequentemente espremido pelo descaso. Exigir metodologias complexas de inclusão de um professor que lida com a falta de infraestrutura, escassez de materiais básicos e sobrecarga é irreal. Sem o apoio correto para o educador e para o aluno, o resultado é um só: a alta taxa de evasão escolar desses jovens.
 
-Este módulo é um Otimizador Espacial interativo. O professor desenha a sala, cadastra os perfis, e a Inteligência Artificial calcula a melhor distribuição para reduzir crises sensoriais e aumentar o foco.
+## A Solução para o Professor
 
-⚙️ Como Funciona o MVP
+O AdaptEdu foi construído sob uma premissa fundamental: a tecnologia deve facilitar a vida do educador, não criar mais uma camada de complexidade. A plataforma oferece soluções escaláveis para a realidade de cada escola: desde pequenas adaptações de rotina que não exigem recursos extras, até o auxílio na preparação de planejamentos didáticos completos.
 
-Mapeamento do Ambiente (Grid): O professor define o tamanho da sala (ex: 5x7 carteiras) e posiciona elementos de atenção/distração (Porta, Janelas, Lousa, Mesa do Professor).
+## Nossa Visão: Da Sala de Aula para o Mercado de Trabalho
 
-Classificação da Turma: Cadastro rápido do perfil comportamental geral (alunos "âncora/focados", alunos "agitados") e dos alunos neurodivergentes (ex: TDAH, Autismo).
+O objetivo final da plataforma vai além do período escolar. Queremos acolher e integrar o aluno no seu momento de maior vulnerabilidade — a infância e a adolescência — para evitar o abandono dos estudos. Ao garantir essa inclusão básica, preparamos esse jovem para que, na fase adulta, ele tenha consciência de suas próprias aptidões, saiba como se apresentar ao mundo e tenha perspectivas reais de ingresso no mercado de trabalho.
 
-Motor de Recomendação (IA): O sistema analisa as restrições espaciais e pedagógicas (ex: autistas longe da porta e perto de paredes; TDAH longe da janela e flanqueado por alunos âncora).
+---
 
-Visualização e Justificativa: A plataforma devolve o mapa da sala organizado e um relatório gerado por IA explicando o porquê pedagógico daquela configuração.
+## 🐳 Como Executar com Docker
 
-🛠️ Tecnologias e Arquitetura
+Para subir o ecossistema de serviços de desenvolvimento (Banco de Dados PostgreSQL, API NestJS e Engine de IA em FastAPI) de forma automatizada e com suporte a *hot-reload*:
 
-O projeto adota uma arquitetura distribuída para separar a interface interativa, as regras de negócio e o motor de Inteligência Artificial responsável pelo cálculo espacial complexo.
+### 1. Pré-requisitos
+- [Docker](https://www.docker.com/) e Docker Compose instalados na máquina.
 
-Front-end Interativo
+### 2. Configurar Variáveis de Ambiente
+Certifique-se de configurar os arquivos `.env` para cada serviço a partir de seus respectivos exemplos:
 
-Next.js (React, Tailwind CSS)
+```bash
+# Engine (FastAPI)
+cp apps/engine/.env.example apps/engine/.env
 
-Responsabilidade: Interface rica com drag-and-drop (arrastar e soltar) para montar a planta da sala e visualizar a disposição dos alunos.
+# API (NestJS)
+cp apps/api/.env.example apps/api/.env
+```
 
-Back-end Core
+> [!NOTE]
+> No arquivo `apps/engine/.env`, configure suas credenciais (ex: `OPENAI_API_KEY`) caso deseje utilizar os recursos de inteligência artificial.
 
-NestJS (Node.js, TypeScript)
+### 3. Construir e Subir os Serviços
 
-Responsabilidade: API principal, autenticação do professor, salvamento do "estado" das salas de aula e das turmas no banco de dados (PostgreSQL + Prisma). Atua como orquestrador, enviando o JSON da sala para o motor de IA.
+Na raiz do repositório, execute:
 
-Microsserviço de IA & Raciocínio Espacial
+```bash
+docker compose up --build -d
+```
 
-FastAPI (Python) + LangChain
+### 4. Serviços Disponíveis
 
-Responsabilidade: Recebe o JSON com o mapa e o perfil dos alunos. Usa chains do LangChain para injetar as diretrizes pedagógicas em um LLM (ex: OpenAI), tratando o problema como um Constraint Satisfaction Problem. Retorna a matriz preenchida em formato estruturado (JSON) e a justificativa pedagógica.
+Após a inicialização, os seguintes serviços estarão disponíveis:
 
-📁 Estrutura do Monorepo
-
-adapt-edu/
-├── apps/
-│ ├── web-app/ # Front-end (Next.js) - Simulador Drag & Drop
-│ ├── api-core/ # Back-end (NestJS) - Regras de negócio e BD
-│ └── ia-engine/ # Raciocínio (FastAPI) - LLM e LangChain
-├── packages/ # Configurações compartilhadas (ESLint, Prettier)
-├── docker-compose.yml # Orquestração do Banco de Dados (PostgreSQL)
-└── README.md
-
-🖥️ Como Iniciar o Projeto Localmente
-
-1. Clone e Infraestrutura Base
-
-git clone https://github.com/seu-usuario/adapt-edu.git
-cd adapt-edu
-docker-compose up -d # Inicia o PostgreSQL
-
-2. API Core (NestJS)
-
-cd apps/api-core
-npm install
-
-# Configure seu .env baseado no .env.example
-
-npm run start:dev
-
-3. Motor de IA (FastAPI)
-
-cd apps/ia-engine
-python -m venv venv
-source venv/bin/activate # ou venv\Scripts\activate no Windows
-pip install -r requirements.txt
-
-# Adicione sua chave da OpenAI no .env
-
-uvicorn main:app --reload --port 8000
-
-4. Front-end (Next.js)
-
-cd apps/web-app
-npm install
-npm run dev
-
-Acesse o simulador em http://localhost:3000.
-
-🤝 Próximos Passos do Roadmap
-
-[ ] Construção da interface interativa da matriz da sala (DnD).
-[ ] Integração do StructuredOutputParser no LangChain para garantir que a IA devolva coordenadas exatas.
-[ ] Banco de dados para salvar diferentes configurações de turmas para um mesmo professor.
-[ ] (Fase 2) Início do módulo de adaptação de material didático (OCR).
+| Serviço | Contêiner | Endereço | Descrição |
+| :--- | :--- | :--- | :--- |
+| **API Core (NestJS)** | `adapt-edu-api` | [http://localhost:3000](http://localhost:3000) | Regras de negócio, orquestração e persistência |
+| **AI Engine (FastAPI)** | `adapt-edu-engine` | [http://localhost:8000](http://localhost:8000) | Processamento de IA e raciocínio pedagógico (Docs em `/docs`) |
+| **PostgreSQL** | `adapt-edu-postgres` | `localhost:5432` | Banco de dados relacional |

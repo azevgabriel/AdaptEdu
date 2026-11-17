@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  # 1. Banco de Dados Relacional (PostgreSQL)
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: adapt-edu-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: adapt_edu
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # 2. NestJS (Core Backend)
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: adapt-edu-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://admin:secretpassword@postgres-db:5432/adapt_edu?schema=public
+      # O DNS interno do Docker agora usa o nome do serviço 'engine'
+      - ENGINE_URL=http://engine:8000 
+    depends_on:
+      - postgres-db
+    volumes:
+      - ./apps/api:/app
+      - /app/node_modules # Impede que o volume local sobrescreva a pasta do container
+
+  # 3. FastAPI + LangSmith (IA)
+  engine:
+    build:
+      context: ./apps/engine
+      dockerfile: Dockerfile
+    container_name: adapt-edu-engine
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./apps/engine/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./apps/engine:/app
+
+volumes:
+  pgdata:
