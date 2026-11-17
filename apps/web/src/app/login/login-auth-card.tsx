@@ -65,3 +65,4 @@ export function LoginAuthCard() {
     </div>
   );
 }
+

@@ -14,8 +14,8 @@ RUN npm install
 # Copia o restante do código
 COPY . .
 
-# Se você já tiver o schema do Prisma configurado, descomente a linha abaixo:
-# RUN npx prisma generate
+# Gera os artefatos do Prisma Client
+RUN npx prisma generate
 
 EXPOSE 3000
 

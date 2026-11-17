@@ -10,3 +10,4 @@ export interface GoogleUserProfile {
   name: string;
   avatarUrl?: string;
 }
+

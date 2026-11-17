@@ -17,3 +17,4 @@ describe("RootLayout", () => {
     expect(metadata.title).toBe("AdaptEdu — Plataforma de Inclusão Escolar");
   });
 });
+

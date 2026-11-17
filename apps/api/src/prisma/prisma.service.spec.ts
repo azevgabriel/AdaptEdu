@@ -24,3 +24,4 @@ describe('PrismaService', () => {
     expect(disconnectSpy).toHaveBeenCalledTimes(1);
   });
 });
+
