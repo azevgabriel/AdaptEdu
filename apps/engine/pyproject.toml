@@ -1,0 +1,10 @@
+[project]
+name = "adapt-edu-engine"
+version = "1.0.0"
+description = "AdaptEdu AI & Reasoning Engine (FastAPI + LangChain)"
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+
+[tool.fastapi]
+entrypoint = "main:app"

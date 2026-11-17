@@ -1,6 +1,6 @@
 # FastAPI — High-Level Architecture & Guidelines
 
-This document provides a concise architectural overview for **FastAPI** in `apps/engine/`. For detailed coding patterns, syntax rules, and reference implementations, consult the bundled official skill in [docs/skills/fastapi/SKILL.md](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/engine/docs/skills/fastapi/SKILL.md).
+This document provides a concise architectural overview for **FastAPI** in `apps/engine/`. For detailed coding patterns, syntax rules, and reference implementations, consult the bundled official skill in [apps/engine/docs/skills/fastapi/SKILL.md](apps/engine/docs/skills/fastapi/SKILL.md).
 
 ---
 
@@ -8,7 +8,7 @@ This document provides a concise architectural overview for **FastAPI** in `apps
 
 FastAPI provides official agent skills bundled with its package, as documented in [FastAPI - Develop with AI](https://fastapi.tiangolo.com/ai-development/).
 
-- **Full Skill & Reference Guides:** [docs/skills/fastapi/SKILL.md](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/engine/docs/skills/fastapi/SKILL.md)
+- **Full Skill & Reference Guides:** [apps/engine/docs/skills/fastapi/SKILL.md](apps/engine/docs/skills/fastapi/SKILL.md)
   - Parameter & dependency injection conventions (`Annotated[..., Depends(...)]`)
   - Pydantic v2 best practices (avoiding `...` and `RootModel`)
   - Server-Sent Events (SSE) and token streaming
@@ -16,13 +16,14 @@ FastAPI provides official agent skills bundled with its package, as documented i
 
 ---
 
-## 🚀 Execution & CLI
+## 🚀 Project Metadata & Execution
 
-The service uses the official FastAPI CLI and Uvicorn:
+The service uses standard PEP 621 metadata via `pyproject.toml` (acting as the Python equivalent of `package.json` for name, version, and entrypoints):
 
+- **Versioning Source of Truth:** `apps/engine/pyproject.toml` (`[project] version = "1.0.0"`). Resolved dynamically in `main.py` via `version.py`.
 - **Local Development:** `fastapi dev main.py` or `uvicorn main:app --reload --host 0.0.0.0 --port 8000`
 - **Production / Docker:** `uvicorn main:app --host 0.0.0.0 --port 8000`
-- **Entrypoint:** Configured via `[tool.fastapi] entrypoint = "main:app"` in `pyproject.toml` pointing to `app` in [main.py](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/engine/main.py).
+- **Entrypoint:** Configured via `[tool.fastapi] entrypoint = "main:app"` in `pyproject.toml` pointing to `app` in [main.py](apps/engine/main.py).
 - **Interactive Documentation:** Available locally at `http://localhost:8000/docs` (Swagger UI) and `http://localhost:8000/redoc`.
 
 ---
