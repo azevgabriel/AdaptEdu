@@ -8,6 +8,16 @@ export const mockBack = vi.fn();
 export const mockForward = vi.fn();
 export const mockRefresh = vi.fn();
 export const mockRedirect = vi.fn();
+export const mockAssign = vi.fn();
+
+// Mock window.location.assign
+Object.defineProperty(window, "location", {
+  writable: true,
+  value: {
+    ...window.location,
+    assign: mockAssign,
+  },
+});
 
 // Mock Next.js navigation hooks by default
 vi.mock("next/navigation", () => ({
@@ -24,5 +34,8 @@ vi.mock("next/navigation", () => ({
   redirect: vi.fn(),
 }));
 
-
-
+// Mock Next.js fonts
+vi.mock("next/font/google", () => ({
+  Nunito: () => ({ variable: "--font-nunito" }),
+  Inter: () => ({ variable: "--font-inter" }),
+}));

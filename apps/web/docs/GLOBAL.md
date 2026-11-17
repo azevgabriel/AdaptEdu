@@ -19,9 +19,11 @@ The AdaptEdu **Frontend** is the primary interactive user interface designed to 
 
 ## 📖 Architecture & Local Guidelines
 
-- [NAMING_CONVENTIONS.md](apps/web/docs/NAMING_CONVENTIONS.md): Code standards, strict `kebab-case` folder structure, standardized component anatomy (`index.tsx`, `index.spec.tsx`, `index.module.css`), and identifier conventions.
+- [NAMING_CONVENTIONS.md](apps/web/docs/NAMING_CONVENTIONS.md): Code standards, strict `kebab-case` folder structure, standardized component anatomy (global in `src/components/` and internal page components in `src/app/**/components/`), barrel exports, and identifier conventions.
+- [DESIGN_SYSTEM.md](apps/web/docs/DESIGN_SYSTEM.md): Component catalog, reusable UI patterns, props specifications, accessibility accommodations, and component directory anatomy.
 - [TESTING.md](apps/web/docs/TESTING.md): Vitest and React Testing Library architecture, co-located test specs (`index.spec.tsx`), and realistic synthetic mocking with `@faker-js/faker` under LGPD data protection compliance.
 - [NEXTJS.md](apps/web/docs/NEXTJS.md): Modern Next.js patterns (App Router, React 19, Server & Client Components, async request APIs, Cache Components, Partial Prefetching, and AI agent integration based on [How Next.js supports AI coding agents](https://nextjs.org/docs/app/guides/ai-agents)).
+- [SECURITY.md](apps/web/docs/SECURITY.md): Frontend security guidelines (client validation limits, XSS prevention, sensitive data exposure, and dependency auditing).
 - [COLORS.md](apps/web/docs/COLORS.md): Design tokens, accessibility contrast standards (WCAG 2.1 AA/AAA), neurodiversity visual accommodations (ADHD, ASD, dyslexia, dyscalculia), and pedagogical Color Code system (disciplines and content hierarchy).
 - [FONTS.md](apps/web/docs/FONTS.md): Typography system, dual-font architecture (Nunito for headings, Inter for body/interface), cognitive readability, neurodiversity accommodations, and WCAG typographic scales.
 
@@ -59,4 +61,9 @@ Next.js provides an integrated ecosystem for AI coding agents:
 All developers and agents must adhere strictly to the global invariants defined in root [AGENTS.md](AGENTS.md). In addition, `apps/web/` enforces:
 
 1. **Accessibility Standards (a11y):** Built for public school realities, respecting WCAG 2.1 AA standards. Ensure high color contrast, full keyboard navigation, screen reader accessibility, and resilience on low-bandwidth networks.
-2. **Client Environment Variables:** Client-exposed environment variables must strictly use the `NEXT_PUBLIC_` prefix and never contain secrets or private credentials.
+2. **Client Environment Variables & Secret Hygiene:** Client-exposed environment variables must strictly use the `NEXT_PUBLIC_` prefix and never contain secrets, private credentials, or API keys.
+3. **Frontend Security Model & Client Boundary:** Adhere strictly to [SECURITY.md](apps/web/docs/SECURITY.md). The browser is an untrusted environment; client-side validation is strictly for user experience and accessibility—never rely on HTML5 form attributes or client scripts as a security boundary.
+4. **Cross-Site Scripting (XSS) Prevention:** Rely on React's automatic JSX escaping. Avoid `dangerouslySetInnerHTML` unless explicitly sanitized via audited libraries (such as `DOMPurify`). Sanitize dynamic link protocols to allow only `http:`, `https:`, and `mailto:` schemes.
+5. **Sensitive Data Exposure & Privilege Tampering:** Never fetch sensitive attributes (e.g., internal tokens, administrative metadata) to conceal them visually in CSS/UI. Never submit user roles or permissions from client form inputs; authorization is determined server-side from verified sessions.
+6. **Session & Route Protection:** Store authentication tokens exclusively in secure, `HttpOnly` cookies. Enforce private route boundaries using Next.js Edge Middleware (`middleware.ts`).
+7. **Dependency Auditing:** Continuously monitor and audit npm dependencies against known CVEs using `npm audit`, integrated into the automated CI pipeline.
