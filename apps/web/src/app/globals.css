@@ -1,0 +1,640 @@
+:root {
+  /* ==========================================================================
+     AdaptEdu Typography Foundations
+     - Nunito: Headings / Titles (Primary font with soft rounded terminals)
+     - Inter: Body / Interface (Secondary font with tall x-height and clear legibility)
+     ========================================================================== */
+  --font-family-headings: var(--font-nunito), "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-body: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* ==========================================================================
+     AdaptEdu Core Interface Foundations (Light Mode)
+     ========================================================================== */
+  --bg-canvas: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  /* Backward Compatibility Defaults */
+  --background: var(--bg-canvas);
+  --foreground: var(--text-primary);
+
+  /* Brand Tokens */
+  --color-brand-primary: #4338ca;
+  --color-brand-hover: #3730a3;
+  --color-brand-surface: #eef2ff;
+  --color-brand-border: #a5b4fc;
+  --color-brand-text: #312e81;
+
+  /* Semantic Feedback Tokens */
+  --color-feedback-success-bg: #ecfdf5;
+  --color-feedback-success-border: #6ee7b7;
+  --color-feedback-success-text: #065f46;
+
+  --color-feedback-warning-bg: #fffbeb;
+  --color-feedback-warning-border: #fcd34d;
+  --color-feedback-warning-text: #92400e;
+
+  --color-feedback-error-bg: #fef2f2;
+  --color-feedback-error-border: #fca5a5;
+  --color-feedback-error-text: #991b1b;
+
+  --color-feedback-info-bg: #eff6ff;
+  --color-feedback-info-border: #93c5fd;
+  --color-feedback-info-text: #1e40af;
+
+  /* ==========================================================================
+     Pedagogical Color Code: By Subject (Por Matéria)
+     ========================================================================== */
+  /* Português: Rosa */
+  --subject-portuguese-base: #ec4899;
+  --subject-portuguese-surface: #fdf2f8;
+  --subject-portuguese-border: #f472b6;
+  --subject-portuguese-text: #9d174d;
+
+  /* Matemática: Azul */
+  --subject-math-base: #2563eb;
+  --subject-math-surface: #eff6ff;
+  --subject-math-border: #60a5fa;
+  --subject-math-text: #1e40af;
+
+  /* História: Laranja */
+  --subject-history-base: #ea580c;
+  --subject-history-surface: #fff7ed;
+  --subject-history-border: #fb923c;
+  --subject-history-text: #9a3412;
+
+  /* Geografia: Verde */
+  --subject-geography-base: #16a34a;
+  --subject-geography-surface: #f0fdf4;
+  --subject-geography-border: #4ade80;
+  --subject-geography-text: #166534;
+
+  /* Química / Biologia: Roxo / Lilás */
+  --subject-science-base: #9333ea;
+  --subject-science-surface: #faf5ff;
+  --subject-science-border: #c084fc;
+  --subject-science-text: #6b21a8;
+
+  /* Física: Ciano / Azul Céu */
+  --subject-physics-base: #0284c7;
+  --subject-physics-surface: #f0f9ff;
+  --subject-physics-border: #38bdf8;
+  --subject-physics-text: #075985;
+
+  /* Artes: Magenta */
+  --subject-arts-base: #d946ef;
+  --subject-arts-surface: #fdf4ff;
+  --subject-arts-border: #e879f9;
+  --subject-arts-text: #86198f;
+
+  /* Educação Física: Verde Azulado */
+  --subject-pe-base: #0d9488;
+  --subject-pe-surface: #f0fdfa;
+  --subject-pe-border: #2dd4bf;
+  --subject-pe-text: #115e59;
+
+  /* Língua Inglesa: Amarelo Ouro */
+  --subject-languages-base: #ca8a04;
+  --subject-languages-surface: #fefce8;
+  --subject-languages-border: #facc15;
+  --subject-languages-text: #854d0e;
+
+  /* Filosofia / Sociologia: Cinza Quente */
+  --subject-humanities-base: #78716c;
+  --subject-humanities-surface: #f5f5f4;
+  --subject-humanities-border: #a8a29e;
+  --subject-humanities-text: #44403c;
+
+  /* ==========================================================================
+     Pedagogical Color Code: By Content Hierarchy (Por Hierarquia de Conteúdo)
+     ========================================================================== */
+  /* Vermelho: Conceitos-chave / Urgência */
+  --hierarchy-key-base: #dc2626;
+  --hierarchy-key-surface: #fef2f2;
+  --hierarchy-key-border: #f87171;
+  --hierarchy-key-text: #991b1b;
+
+  /* Azul: Definições e Explicações */
+  --hierarchy-def-base: #0284c7;
+  --hierarchy-def-surface: #f0f9ff;
+  --hierarchy-def-border: #38bdf8;
+  --hierarchy-def-text: #075985;
+
+  /* Amarelo/Âmbar: Datas, Números, Fórmulas e Citações */
+  --hierarchy-data-base: #d97706;
+  --hierarchy-data-surface: #fffbeb;
+  --hierarchy-data-border: #fbbf24;
+  --hierarchy-data-text: #92400e;
+
+  /* Verde: Exemplos Práticos e Métodos */
+  --hierarchy-example-base: #059669;
+  --hierarchy-example-surface: #ecfdf5;
+  --hierarchy-example-border: #34d399;
+  --hierarchy-example-text: #065f46;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-canvas: #0b0f19;
+    --bg-surface: #1e293b;
+    --bg-subtle: #334155;
+    --border-subtle: #334155;
+    --border-strong: #475569;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    /* Backward Compatibility Defaults */
+    --background: var(--bg-canvas);
+    --foreground: var(--text-primary);
+
+    /* Dark Mode Brand */
+    --color-brand-primary: #6366f1;
+    --color-brand-hover: #818cf8;
+    --color-brand-surface: #1e1b4b;
+    --color-brand-border: #4338ca;
+    --color-brand-text: #e0e7ff;
+
+    /* Dark Mode Feedback */
+    --color-feedback-success-bg: #064e3b;
+    --color-feedback-success-border: #059669;
+    --color-feedback-success-text: #a7f3d0;
+
+    --color-feedback-warning-bg: #451a03;
+    --color-feedback-warning-border: #d97706;
+    --color-feedback-warning-text: #fde68a;
+
+    --color-feedback-error-bg: #450a0a;
+    --color-feedback-error-border: #dc2626;
+    --color-feedback-error-text: #fecaca;
+
+    --color-feedback-info-bg: #082f49;
+    --color-feedback-info-border: #0284c7;
+    --color-feedback-info-text: #bae6fd;
+
+    /* Dark Mode Subject Surfaces */
+    --subject-portuguese-surface: #500724;
+    --subject-portuguese-border: #db2777;
+    --subject-portuguese-text: #fbcfe8;
+
+    --subject-math-surface: #172554;
+    --subject-math-border: #3b82f6;
+    --subject-math-text: #bfdbfe;
+
+    --subject-history-surface: #431407;
+    --subject-history-border: #f97316;
+    --subject-history-text: #fed7aa;
+
+    --subject-geography-surface: #052e16;
+    --subject-geography-border: #22c55e;
+    --subject-geography-text: #bbf7d0;
+
+    --subject-science-surface: #3b0764;
+    --subject-science-border: #a855f7;
+    --subject-science-text: #e9d5ff;
+
+    --subject-physics-surface: #082f49;
+    --subject-physics-border: #0ea5e9;
+    --subject-physics-text: #bae6fd;
+
+    --subject-arts-surface: #4a044e;
+    --subject-arts-border: #c026d3;
+    --subject-arts-text: #f5d0fe;
+
+    --subject-pe-surface: #042f2e;
+    --subject-pe-border: #14b8a6;
+    --subject-pe-text: #99f6e4;
+
+    --subject-languages-surface: #422006;
+    --subject-languages-border: #eab308;
+    --subject-languages-text: #fef08a;
+
+    --subject-humanities-surface: #292524;
+    --subject-humanities-border: #78716c;
+    --subject-humanities-text: #e7e5e4;
+
+    /* Dark Mode Hierarchy Surfaces */
+    --hierarchy-key-surface: #450a0a;
+    --hierarchy-key-border: #ef4444;
+    --hierarchy-key-text: #fecaca;
+
+    --hierarchy-def-surface: #082f49;
+    --hierarchy-def-border: #0ea5e9;
+    --hierarchy-def-text: #bae6fd;
+
+    --hierarchy-data-surface: #451a03;
+    --hierarchy-data-border: #f59e0b;
+    --hierarchy-data-text: #fde68a;
+
+    --hierarchy-example-surface: #064e3b;
+    --hierarchy-example-border: #10b981;
+    --hierarchy-example-text: #a7f3d0;
+  }
+}
+
+/* ==========================================================================
+   Color Vision Deficiency (CVD) System Overrides
+   ========================================================================== */
+
+/* 1. Deuteranopia / Deuteranomalia Mode (Green-Cone Defect) */
+[data-cvd="deuteranopia"] {
+  --hierarchy-key-base: #c2410c;
+  --hierarchy-key-surface: #fff7ed;
+  --hierarchy-key-border: #fb923c;
+  --hierarchy-key-text: #7c2d12;
+
+  --hierarchy-example-base: #0891b2;
+  --hierarchy-example-surface: #ecfeff;
+  --hierarchy-example-border: #22d3ee;
+  --hierarchy-example-text: #155e75;
+
+  --subject-portuguese-base: #7c3aed;
+  --subject-portuguese-surface: #faf5ff;
+  --subject-portuguese-border: #c084fc;
+  --subject-portuguese-text: #581c87;
+
+  --subject-history-base: #d97706;
+  --subject-history-surface: #fffbeb;
+  --subject-history-border: #fbbf24;
+  --subject-history-text: #92400e;
+
+  --subject-geography-base: #0891b2;
+  --subject-geography-surface: #ecfeff;
+  --subject-geography-border: #22d3ee;
+  --subject-geography-text: #155e75;
+
+  --subject-science-base: #4338ca;
+  --subject-science-surface: #eef2ff;
+  --subject-science-border: #818cf8;
+  --subject-science-text: #312e81;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-cvd="deuteranopia"] {
+    --hierarchy-key-surface: #431407;
+    --hierarchy-key-border: #ea580c;
+    --hierarchy-key-text: #fed7aa;
+
+    --hierarchy-example-surface: #083344;
+    --hierarchy-example-border: #06b6d4;
+    --hierarchy-example-text: #a5f3fc;
+
+    --subject-portuguese-surface: #3b0764;
+    --subject-portuguese-border: #9333ea;
+    --subject-portuguese-text: #e9d5ff;
+
+    --subject-history-surface: #451a03;
+    --subject-history-border: #d97706;
+    --subject-history-text: #fde68a;
+
+    --subject-geography-surface: #083344;
+    --subject-geography-border: #0891b2;
+    --subject-geography-text: #a5f3fc;
+
+    --subject-science-surface: #1e1b4b;
+    --subject-science-border: #4f46e5;
+    --subject-science-text: #c7d2fe;
+  }
+}
+
+/* 2. Protanopia / Protanomalia Mode (Red-Cone Defect) */
+[data-cvd="protanopia"] {
+  --hierarchy-key-base: #be185d;
+  --hierarchy-key-surface: #fdf2f8;
+  --hierarchy-key-border: #f472b6;
+  --hierarchy-key-text: #831843;
+
+  --hierarchy-example-base: #0d9488;
+  --hierarchy-example-surface: #f0fdfa;
+  --hierarchy-example-border: #2dd4bf;
+  --hierarchy-example-text: #115e59;
+
+  --subject-portuguese-base: #db2777;
+  --subject-portuguese-surface: #fdf2f8;
+  --subject-portuguese-border: #f472b6;
+  --subject-portuguese-text: #9d174d;
+
+  --subject-history-base: #b45309;
+  --subject-history-surface: #fffbeb;
+  --subject-history-border: #f59e0b;
+  --subject-history-text: #78350f;
+
+  --subject-geography-base: #0d9488;
+  --subject-geography-surface: #f0fdfa;
+  --subject-geography-border: #2dd4bf;
+  --subject-geography-text: #115e59;
+
+  --subject-science-base: #6d28d9;
+  --subject-science-surface: #f5f3ff;
+  --subject-science-border: #a78bfa;
+  --subject-science-text: #4c1d95;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-cvd="protanopia"] {
+    --hierarchy-key-surface: #500724;
+    --hierarchy-key-border: #ec4899;
+    --hierarchy-key-text: #fbcfe8;
+
+    --hierarchy-example-surface: #042f2e;
+    --hierarchy-example-border: #0d9488;
+    --hierarchy-example-text: #99f6e4;
+
+    --subject-portuguese-surface: #500724;
+    --subject-portuguese-border: #db2777;
+    --subject-portuguese-text: #fbcfe8;
+
+    --subject-history-surface: #451a03;
+    --subject-history-border: #b45309;
+    --subject-history-text: #fde68a;
+
+    --subject-geography-surface: #042f2e;
+    --subject-geography-border: #14b8a6;
+    --subject-geography-text: #99f6e4;
+
+    --subject-science-surface: #2e1065;
+    --subject-science-border: #7c3aed;
+    --subject-science-text: #ddd6fe;
+  }
+}
+
+/* 3. Tritanopia / Tritanomalia Mode (Blue-Cone Defect) */
+[data-cvd="tritanopia"] {
+  --hierarchy-key-base: #dc2626;
+  --hierarchy-key-surface: #fef2f2;
+  --hierarchy-key-border: #f87171;
+  --hierarchy-key-text: #991b1b;
+
+  --hierarchy-def-base: #334155;
+  --hierarchy-def-surface: #f1f5f9;
+  --hierarchy-def-border: #64748b;
+  --hierarchy-def-text: #0f172a;
+
+  --hierarchy-data-base: #7c3aed;
+  --hierarchy-data-surface: #faf5ff;
+  --hierarchy-data-border: #c084fc;
+  --hierarchy-data-text: #581c87;
+
+  --hierarchy-example-base: #06b6d4;
+  --hierarchy-example-surface: #ecfeff;
+  --hierarchy-example-border: #22d3ee;
+  --hierarchy-example-text: #0e7490;
+
+  --subject-portuguese-base: #e11d48;
+  --subject-portuguese-surface: #fff1f2;
+  --subject-portuguese-border: #fb7185;
+  --subject-portuguese-text: #9f1239;
+
+  --subject-math-base: #1e293b;
+  --subject-math-surface: #f1f5f9;
+  --subject-math-border: #475569;
+  --subject-math-text: #0f172a;
+
+  --subject-history-base: #c2410c;
+  --subject-history-surface: #fff7ed;
+  --subject-history-border: #fb923c;
+  --subject-history-text: #7c2d12;
+
+  --subject-geography-base: #06b6d4;
+  --subject-geography-surface: #ecfeff;
+  --subject-geography-border: #22d3ee;
+  --subject-geography-text: #0e7490;
+
+  --subject-science-base: #c026d3;
+  --subject-science-surface: #fdf4ff;
+  --subject-science-border: #e879f9;
+  --subject-science-text: #701a75;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-cvd="tritanopia"] {
+    --hierarchy-key-surface: #450a0a;
+    --hierarchy-key-border: #ef4444;
+    --hierarchy-key-text: #fecaca;
+
+    --hierarchy-def-surface: #1e293b;
+    --hierarchy-def-border: #475569;
+    --hierarchy-def-text: #cbd5e1;
+
+    --hierarchy-data-surface: #3b0764;
+    --hierarchy-data-border: #a855f7;
+    --hierarchy-data-text: #e9d5ff;
+
+    --hierarchy-example-surface: #083344;
+    --hierarchy-example-border: #06b6d4;
+    --hierarchy-example-text: #a5f3fc;
+
+    --subject-portuguese-surface: #4c0519;
+    --subject-portuguese-border: #f43f5e;
+    --subject-portuguese-text: #fecdd3;
+
+    --subject-math-surface: #0f172a;
+    --subject-math-border: #475569;
+    --subject-math-text: #e2e8f0;
+
+    --subject-history-surface: #431407;
+    --subject-history-border: #ea580c;
+    --subject-history-text: #fed7aa;
+
+    --subject-geography-surface: #083344;
+    --subject-geography-border: #0891b2;
+    --subject-geography-text: #a5f3fc;
+
+    --subject-science-surface: #4a044e;
+    --subject-science-border: #c026d3;
+    --subject-science-text: #f5d0fe;
+  }
+}
+
+/* 4. Achromatopsia / Monocromia Mode (Complete Cone Absence & Photophobia Protection) */
+[data-cvd="achromatopsia"] {
+  --bg-canvas: #f4f4f5;
+  --bg-surface: #ffffff;
+  --bg-subtle: #e4e4e7;
+  --border-subtle: #d4d4d8;
+  --border-strong: #71717a;
+  --text-primary: #18181b;
+  --text-secondary: #3f3f46;
+  --text-muted: #71717a;
+
+  --hierarchy-key-base: #18181b;
+  --hierarchy-key-surface: #27272a;
+  --hierarchy-key-border: #09090b;
+  --hierarchy-key-text: #fafafa;
+
+  --hierarchy-def-base: #3f3f46;
+  --hierarchy-def-surface: #e4e4e7;
+  --hierarchy-def-border: #52525b;
+  --hierarchy-def-text: #18181b;
+
+  --hierarchy-data-base: #52525b;
+  --hierarchy-data-surface: #f4f4f5;
+  --hierarchy-data-border: #71717a;
+  --hierarchy-data-text: #27272a;
+
+  --hierarchy-example-base: #71717a;
+  --hierarchy-example-surface: #fafafa;
+  --hierarchy-example-border: #a1a1aa;
+  --hierarchy-example-text: #3f3f46;
+
+  --subject-portuguese-surface: #e4e4e7;
+  --subject-portuguese-border: #27272a;
+  --subject-portuguese-text: #09090b;
+
+  --subject-math-surface: #27272a;
+  --subject-math-border: #18181b;
+  --subject-math-text: #fafafa;
+
+  --subject-history-surface: #f4f4f5;
+  --subject-history-border: #52525b;
+  --subject-history-text: #18181b;
+
+  --subject-geography-surface: #e4e4e7;
+  --subject-geography-border: #71717a;
+  --subject-geography-text: #18181b;
+
+  --subject-science-surface: #d4d4d8;
+  --subject-science-border: #3f3f46;
+  --subject-science-text: #09090b;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-cvd="achromatopsia"] {
+    --bg-canvas: #18181b;
+    --bg-surface: #27272a;
+    --bg-subtle: #3f3f46;
+    --border-subtle: #3f3f46;
+    --border-strong: #71717a;
+    --text-primary: #fafafa;
+    --text-secondary: #d4d4d8;
+    --text-muted: #a1a1aa;
+
+    --hierarchy-key-base: #fafafa;
+    --hierarchy-key-surface: #3f3f46;
+    --hierarchy-key-border: #f4f4f5;
+    --hierarchy-key-text: #fafafa;
+
+    --hierarchy-def-surface: #27272a;
+    --hierarchy-def-border: #a1a1aa;
+    --hierarchy-def-text: #f4f4f5;
+
+    --hierarchy-data-surface: #18181b;
+    --hierarchy-data-border: #71717a;
+    --hierarchy-data-text: #e4e4e7;
+
+    --hierarchy-example-surface: #27272a;
+    --hierarchy-example-border: #52525b;
+    --hierarchy-example-text: #d4d4d8;
+
+    --subject-portuguese-surface: #3f3f46;
+    --subject-portuguese-border: #d4d4d8;
+    --subject-portuguese-text: #fafafa;
+
+    --subject-math-surface: #18181b;
+    --subject-math-border: #a1a1aa;
+    --subject-math-text: #f4f4f5;
+
+    --subject-history-surface: #27272a;
+    --subject-history-border: #71717a;
+    --subject-history-text: #e4e4e7;
+
+    --subject-geography-surface: #3f3f46;
+    --subject-geography-border: #52525b;
+    --subject-geography-text: #fafafa;
+
+    --subject-science-surface: #27272a;
+    --subject-science-border: #e4e4e7;
+    --subject-science-text: #fafafa;
+  }
+}
+
+/* Structural Non-Color Reinforcement for Achromatopsia */
+[data-cvd="achromatopsia"] mark[class*="key-concept"] {
+  border-left: 4px solid #18181b !important;
+  font-weight: 700;
+}
+
+[data-cvd="achromatopsia"] mark[class*="definition"] {
+  border-left: 4px double #52525b !important;
+}
+
+[data-cvd="achromatopsia"] mark[class*="data"] {
+  border-left: 4px dotted #71717a !important;
+}
+
+[data-cvd="achromatopsia"] mark[class*="example"] {
+  border-left: 4px dashed #a1a1aa !important;
+  font-style: italic;
+}
+
+html {
+  height: 100%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-family-body);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-headings);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.font-heading {
+  font-family: var(--font-family-headings);
+}
+
+.font-body {
+  font-family: var(--font-family-body);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

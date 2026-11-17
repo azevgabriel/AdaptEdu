@@ -51,8 +51,28 @@ docker compose up --build -d
 
 Após a inicialização, os seguintes serviços estarão disponíveis:
 
-| Serviço | Contêiner | Endereço | Descrição |
+| Serviço | Contêiner / Origem | Endereço | Descrição |
 | :--- | :--- | :--- | :--- |
+| **Frontend Web (Next.js)** | Local (`apps/web`) | [http://localhost:5173](http://localhost:5173) | Interface do professor (painel da sala, adaptações e rotinas) |
 | **API Core (NestJS)** | `adapt-edu-api` | [http://localhost:3000](http://localhost:3000) | Regras de negócio, orquestração e persistência |
 | **AI Engine (FastAPI)** | `adapt-edu-engine` | [http://localhost:8000](http://localhost:8000) | Processamento de IA e raciocínio pedagógico (Docs em `/docs`) |
 | **PostgreSQL** | `adapt-edu-postgres` | `localhost:5432` | Banco de dados relacional |
+
+---
+
+## 💻 Como Executar o Frontend (Next.js)
+
+Para executar a interface web do professor localmente em modo de desenvolvimento:
+
+```bash
+# 1. Acessar o diretório do frontend
+cd apps/web
+
+# 2. Instalar as dependências
+npm install
+
+# 3. Iniciar o servidor na porta 5173
+npm run dev
+```
+
+Acesse **[http://localhost:5173](http://localhost:5173)** no navegador para visualizar a plataforma. O redirecionamento inicial abrirá a tela [http://localhost:5173/minha_sala](http://localhost:5173/minha_sala).
