@@ -1,6 +1,12 @@
 # FastAPI — High-Level Architecture & Guidelines
 
-This document provides a concise architectural overview for **FastAPI** in `apps/engine/`. For detailed coding patterns, syntax rules, and reference implementations, consult the bundled official skill in [apps/engine/docs/skills/fastapi/SKILL.md](apps/engine/docs/skills/fastapi/SKILL.md).
+This document provides a concise architectural overview for **FastAPI** in `apps/engine/`. For comprehensive production conventions and modular patterns, read [BEST_PRACTICES.md](apps/engine/docs/BEST_PRACTICES.md). For detailed coding patterns, syntax rules, and reference implementations, consult the bundled official skill in [apps/engine/docs/skills/fastapi/SKILL.md](apps/engine/docs/skills/fastapi/SKILL.md).
+
+---
+
+## 📚 Community Standards & Best Practices
+
+- **[BEST_PRACTICES.md](apps/engine/docs/BEST_PRACTICES.md):** Complete architectural conventions inspired by [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices) and [The FastAPI Tutorial Never Told You to Add a Linter](https://medium.com/@patrickduch93/the-fastapi-tutorial-never-told-you-to-add-a-linter-dec76ca65a3f) (project layout, async/sync, Pydantic v2, Ruff linter, and testing).
 
 ---
 
@@ -20,7 +26,7 @@ FastAPI provides official agent skills bundled with its package, as documented i
 
 The service uses standard PEP 621 metadata via `pyproject.toml` (acting as the Python equivalent of `package.json` for name, version, and entrypoints):
 
-- **Versioning Source of Truth:** `apps/engine/pyproject.toml` (`[project] version = "1.0.0"`). Resolved dynamically in `main.py` via `version.py`.
+- **Versioning Source of Truth:** `apps/engine/pyproject.toml` (`[project] version = "1.1.0"`). Resolved dynamically in `main.py` via `version.py`.
 - **Local Development:** `fastapi dev main.py` or `uvicorn main:app --reload --host 0.0.0.0 --port 8000`
 - **Production / Docker:** `uvicorn main:app --host 0.0.0.0 --port 8000`
 - **Entrypoint:** Configured via `[tool.fastapi] entrypoint = "main:app"` in `pyproject.toml` pointing to `app` in [main.py](apps/engine/main.py).

@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+
 from main import app
 from version import __version__
 
@@ -17,4 +18,3 @@ def test_home_endpoint_returns_status_and_metadata():
 def test_app_metadata():
     assert app.title == "AdaptEdu AI Engine"
     assert app.version == "1.1.0"
-

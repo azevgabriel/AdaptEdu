@@ -19,6 +19,7 @@ The AdaptEdu **AI Engine** is responsible for centralizing all intelligent proce
 ## 📖 Architecture & Local Guidelines
 
 - [FASTAPI.md](apps/engine/docs/FASTAPI.md): Modern FastAPI patterns (FastAPI CLI, `lifespan`, strict typing with `Annotated`, Pydantic v2, token streaming, and the official [Develop with AI](https://fastapi.tiangolo.com/ai-development/) guide).
+- [BEST_PRACTICES.md](apps/engine/docs/BEST_PRACTICES.md): Production design patterns, modular architecture, async/sync rules, Ruff linter guidelines, and testing standards based on [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
 
 ---
 
