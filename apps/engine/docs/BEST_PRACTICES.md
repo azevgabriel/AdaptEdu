@@ -148,3 +148,4 @@ Follow official FastAPI testing practices ([FastAPI Testing Tutorial](https://fa
 4. **Execution Scripts:**
    - `./scripts/test.sh`: Runs the full pytest suite.
    - `./scripts/test_cov.sh`: Runs tests with coverage calculation and fails if under 90%.
+

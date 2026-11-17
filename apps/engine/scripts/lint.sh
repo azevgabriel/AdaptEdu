@@ -15,3 +15,4 @@ echo "Running Ruff linter on apps/engine..."
 
 echo "Running Ruff format check on apps/engine..."
 "$RUFF" format --check .
+
