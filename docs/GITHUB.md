@@ -72,10 +72,11 @@ Each application in the monorepo maintains independent versioning with a base st
 | **`bug`** | Patch | `v1.0.0` ➔ `v1.0.1` |
 | **`refactor`** | Major | `v1.0.0` ➔ `v2.0.0` |
 
-### Application Context Scope:
-- **Frontend changes:** Update version in `apps/web/package.json`.
-- **API changes:** Update version in `apps/api/package.json`.
-- **AI Engine changes:** Update version in `apps/engine/pyproject.toml`.
+### Application Context Scope & Version Synchronization:
+Whenever a version is incremented, update its configuration file **AND** update the corresponding version badge in the root [`README.md`](README.md):
+- **Frontend changes:** Update version in `apps/web/package.json` and update the `web-v*` badge in `README.md`.
+- **API changes:** Update version in `apps/api/package.json` and update the `api-v*` badge in `README.md`.
+- **AI Engine changes:** Update version in `apps/engine/pyproject.toml` (and `apps/engine/version.py`) and update the `engine-v*` badge in `README.md`.
 
 ---
 
