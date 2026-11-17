@@ -6,5 +6,9 @@ describe("Components Barrel Export", () => {
     expect(components.Header).toBeDefined();
     expect(typeof components.Header).toBe("function");
   });
-});
 
+  it("exports GoogleSignInButton component", () => {
+    expect(components.GoogleSignInButton).toBeDefined();
+    expect(typeof components.GoogleSignInButton).toBe("function");
+  });
+});

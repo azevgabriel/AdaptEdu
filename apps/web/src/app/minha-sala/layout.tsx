@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/header";
+import { MinhaSalaHeader } from "./minha-sala-header";
 import styles from "./layout.module.css";
 
 export const metadata: Metadata = {
@@ -15,9 +15,8 @@ export default function MinhaSalaLayout({
 }>) {
   return (
     <div className={styles.layoutContainer}>
-      <Header sectionName="Minha Sala" />
+      <MinhaSalaHeader />
       <main className={styles.mainContent}>{children}</main>
     </div>
   );
 }
-

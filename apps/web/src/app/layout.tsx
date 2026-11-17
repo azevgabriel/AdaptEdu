@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito, Inter } from "next/font/google";
+import { AuthProvider } from "@/contexts/auth-context";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -29,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${nunito.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

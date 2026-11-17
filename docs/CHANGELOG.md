@@ -12,6 +12,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## Releases
 
+### Google OAuth 2.0 & Route Protection - 2026-11-17
+Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1).
+
+#### `apps/web` (Frontend) — `v1.2.0`
+- Created `/login` presentation and login page (`src/app/login/page.tsx`, `login-auth-card.tsx`, `page.module.css`).
+- Presented AdaptEdu's core mission: accessible pedagogical adaptations for neurodivergent students (autism, ADHD, dyslexia, dyscalculia, Tourette syndrome) to reduce teacher overload and prevent school dropout.
+- Implemented accessible, WCAG 2.1 AA compliant `GoogleSignInButton` component with Google vector branding and neurodiversity-friendly focus states.
+- Created Next.js Edge Middleware (`src/middleware.ts`) intercepting private routes (`/minha-sala`, `/dashboard`, `/turmas`, `/planejamento`) and redirecting unauthenticated users to `/login?returnUrl=...`.
+- Implemented client-side `AuthProvider` and `useAuth` hook (`src/contexts/auth-context.tsx`) managing user session, automatic profile sync, Google login redirection, and sign-out.
+- Integrated `MinhaSalaHeader` in `minha-sala/layout.tsx` to display real authenticated teacher profile and wire sign-out action.
+- Added comprehensive unit and integration test suites reaching 99.51% statement coverage and 100% function coverage.
+
+#### `apps/api` (Backend) — `v1.2.0`
+- Added `User` model and `Role` enum to Prisma schema (`prisma/schema.prisma`) with `id`, `email`, `name`, `avatarUrl`, `googleId`, `role`, `createdAt`, and `updatedAt`.
+- Authored and applied initial database migration (`20261117000000_init_user_model`).
+- Created `PrismaModule` and `PrismaService` extending PrismaClient for PostgreSQL connection lifecycle management.
+- Implemented `AuthModule`, `AuthService`, and `AuthController` delivering:
+  - `GET /auth/google`: Initiates Google OAuth consent screen.
+  - `GET /auth/google/callback`: Verifies Google profile, upserts user in Prisma, generates JWT session, sets HTTP-only cookie, and redirects to frontend.
+  - `GET /auth/me`: Returns current authenticated teacher profile.
+  - `POST /auth/logout`: Clears session cookie and invalidates session.
+- Implemented `JwtAuthGuard`, `@Public()` decorator, and `@CurrentUser()` param decorator for route protection across NestJS controllers.
+- Configured CORS with credentials in `main.ts` for frontend communication.
+- Added test suites for Prisma service, JWT guard, auth service, and auth controller with 99.07% statement coverage and 100% function coverage.
+
 ### Testing & CI Coverage Gate - 2026-11-17
 Resolves [#3](https://github.com/azevgabriel/AdaptEdu/issues/3).
 

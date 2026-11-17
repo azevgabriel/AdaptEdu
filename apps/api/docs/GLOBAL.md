@@ -5,6 +5,7 @@ Este documento é o ponto de entrada de contexto (`Local Context Entry Point`) p
 ## 📖 Arquitetura e Diretrizes
 
 - [NESTJS.md](apps/api/docs/NESTJS.md): Padrões do NestJS (ESM, NodeAdapter, Vitest, Standard Schema) e observabilidade via NestJS Observe.
+- [SECURITY.md](apps/api/docs/SECURITY.md): Diretrizes de segurança backend (defesas contra IDOR, sanitização, CORS, rate limiting e auditoria de dependências).
 
 ## 🤖 Skills e Conceitos dos Agentes
 

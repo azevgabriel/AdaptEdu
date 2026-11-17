@@ -1,7 +1,7 @@
 # AdaptEdu 🧩
 
-[![Web Version](https://img.shields.io/badge/web-v1.1.0-0284c7?style=flat-square&logo=next.js&logoColor=white)](apps/web)
-[![API Version](https://img.shields.io/badge/api-v1.1.0-e0234e?style=flat-square&logo=nestjs&logoColor=white)](apps/api)
+[![Web Version](https://img.shields.io/badge/web-v1.2.0-0284c7?style=flat-square&logo=next.js&logoColor=white)](apps/web)
+[![API Version](https://img.shields.io/badge/api-v1.2.0-e0234e?style=flat-square&logo=nestjs&logoColor=white)](apps/api)
 [![Engine Version](https://img.shields.io/badge/engine-v1.1.0-059669?style=flat-square&logo=fastapi&logoColor=white)](apps/engine)
 [![Open Issues](https://img.shields.io/github/issues/azevgabriel/AdaptEdu?style=flat-square&color=blue)](https://github.com/azevgabriel/AdaptEdu/issues)
 

@@ -36,3 +36,4 @@ The root `docs/` directory maintains global tracking and repository standards:
 
 - **[CHANGELOG.md](./docs/CHANGELOG.md):** Central record for all project update contexts, version progressions, and release history across all monorepo applications.
 - **[GITHUB.md](./docs/GITHUB.md):** Rules and constraints for GitHub MCP agent permissions (strictly user-requested issue creation), label classification (`feature`, `bug`, `refactor`, domain scopes), pull request linkage, and per-app semantic version increments (`v1.0.0` base).
+- **[CODE_REVIEW_SECURITY.md](./docs/CODE_REVIEW_SECURITY.md):** Mandatory security review protocol, vulnerability checklist (IDOR, parameter tampering, data exposure, sanitization, and dependency audits), and PR feedback template for AI coding agents and reviewers.

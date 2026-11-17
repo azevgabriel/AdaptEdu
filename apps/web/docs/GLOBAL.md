@@ -22,6 +22,7 @@ The AdaptEdu **Frontend** is the primary interactive user interface designed to 
 - [NAMING_CONVENTIONS.md](apps/web/docs/NAMING_CONVENTIONS.md): Code standards, strict `kebab-case` folder structure, standardized component anatomy (`index.tsx`, `index.spec.tsx`, `index.module.css`), and identifier conventions.
 - [TESTING.md](apps/web/docs/TESTING.md): Vitest and React Testing Library architecture, co-located test specs (`index.spec.tsx`), and realistic synthetic mocking with `@faker-js/faker` under LGPD data protection compliance.
 - [NEXTJS.md](apps/web/docs/NEXTJS.md): Modern Next.js patterns (App Router, React 19, Server & Client Components, async request APIs, Cache Components, Partial Prefetching, and AI agent integration based on [How Next.js supports AI coding agents](https://nextjs.org/docs/app/guides/ai-agents)).
+- [SECURITY.md](apps/web/docs/SECURITY.md): Frontend security guidelines (client validation limits, XSS prevention, sensitive data exposure, and dependency auditing).
 - [COLORS.md](apps/web/docs/COLORS.md): Design tokens, accessibility contrast standards (WCAG 2.1 AA/AAA), neurodiversity visual accommodations (ADHD, ASD, dyslexia, dyscalculia), and pedagogical Color Code system (disciplines and content hierarchy).
 - [FONTS.md](apps/web/docs/FONTS.md): Typography system, dual-font architecture (Nunito for headings, Inter for body/interface), cognitive readability, neurodiversity accommodations, and WCAG typographic scales.
 
