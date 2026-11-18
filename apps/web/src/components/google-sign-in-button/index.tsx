@@ -60,7 +60,7 @@ export function GoogleSignInButton({
   return (
     <button
       type="button"
-      className={`${styles.googleButton} ${className || ""}`}
+      className={`${styles.googleButton} ${className || ""}`.trim()}
       onClick={handleClick}
       disabled={disabled}
       aria-label="Entrar com a conta institucional Google"
