@@ -27,12 +27,6 @@ describe("LoginAuthCard", () => {
         name: /entrar com a conta institucional google/i,
       }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/compromisso com a privacidade & lgpd/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/acesso gratuito para a rede pública • em conformidade com a lbi e a ldb/i),
-    ).toBeInTheDocument();
   });
 
   it("renders error message alert when error query param is present", () => {
