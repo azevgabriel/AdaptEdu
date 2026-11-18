@@ -22,15 +22,14 @@ describe("RadioCard Primitive", () => {
     );
   }
 
-  it("renders prop-driven card with title, badge, description, extra, and indicator", () => {
-    renderWithGroup(
+  it("renders prop-driven card with indicator by default when showIndicator is omitted", () => {
+    const { container } = renderWithGroup(
       <RadioCard
         value="card-1"
         title="Modo Protanopia"
         badge="Cones L"
         description="Dificuldade na detecção de comprimentos longos"
         extra="Remapeia eixos vermelho-magenta"
-        showIndicator
         ariaLabel="Modo Protanopia"
       />
     );
@@ -48,6 +47,26 @@ describe("RadioCard Primitive", () => {
     expect(
       screen.getByText("Remapeia eixos vermelho-magenta")
     ).toBeInTheDocument();
+
+    // Verifies that the indicator wrapper is rendered by default
+    expect(
+      container.querySelector('[class*="cardIndicatorWrapper"]')
+    ).toBeInTheDocument();
+  });
+
+  it("omits indicator when showIndicator={false} is explicitly provided", () => {
+    const { container } = renderWithGroup(
+      <RadioCard
+        value="card-1"
+        title="Sem Indicador"
+        showIndicator={false}
+        ariaLabel="Sem Indicador"
+      />
+    );
+
+    expect(
+      container.querySelector('[class*="cardIndicatorWrapper"]')
+    ).not.toBeInTheDocument();
   });
 
   it("calls onChange callback when clicked", async () => {

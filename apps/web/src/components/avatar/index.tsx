@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { UserIcon } from "@/assets/icons";
 import styles from "./index.module.css";
 
 export type AvatarSize = "sm" | "md" | "lg" | "xl";
@@ -121,20 +122,10 @@ export function Avatar({
           {resolvedInitials}
         </span>
       ) : (
-        <svg
+        <UserIcon
           className={styles.fallbackIcon}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
           data-testid="avatar-fallback-icon"
-        >
-          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
+        />
       )}
 
       {resolvedStatus && (

@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { ReadingAccommodations } from "./index";
 
 describe("ReadingAccommodations", () => {
-  it("renders all font size options, accommodation switches, and reset button", () => {
+  it("renders all font size options and accommodation switches", () => {
     render(
       <ReadingAccommodations
         fontSize="normal"
@@ -15,7 +15,6 @@ describe("ReadingAccommodations", () => {
         onHighContrastChange={vi.fn()}
         reducedMotion={false}
         onReducedMotionChange={vi.fn()}
-        onReset={vi.fn()}
       />
     );
 
@@ -42,10 +41,6 @@ describe("ReadingAccommodations", () => {
     expect(
       screen.getByLabelText(/redução de movimento e animações/i)
     ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("button", { name: /restaurar configurações padrão/i })
-    ).toBeInTheDocument();
   });
 
   it("handles font size selection changes", async () => {
@@ -62,7 +57,6 @@ describe("ReadingAccommodations", () => {
         onHighContrastChange={vi.fn()}
         reducedMotion={false}
         onReducedMotionChange={vi.fn()}
-        onReset={vi.fn()}
       />
     );
 
@@ -88,7 +82,6 @@ describe("ReadingAccommodations", () => {
         onHighContrastChange={handleHighContrastChange}
         reducedMotion={false}
         onReducedMotionChange={handleReducedMotionChange}
-        onReset={vi.fn()}
       />
     );
 
@@ -103,31 +96,5 @@ describe("ReadingAccommodations", () => {
     const motionCheck = screen.getByLabelText(/redução de movimento/i);
     await user.click(motionCheck);
     expect(handleReducedMotionChange).toHaveBeenCalledWith(true);
-  });
-
-  it("triggers onReset callback when reset button is clicked", async () => {
-    const user = userEvent.setup();
-    const handleReset = vi.fn();
-
-    render(
-      <ReadingAccommodations
-        fontSize="large"
-        onFontSizeChange={vi.fn()}
-        dyslexiaFont={true}
-        onDyslexiaFontChange={vi.fn()}
-        highContrast={true}
-        onHighContrastChange={vi.fn()}
-        reducedMotion={true}
-        onReducedMotionChange={vi.fn()}
-        onReset={handleReset}
-      />
-    );
-
-    const resetBtn = screen.getByRole("button", {
-      name: /restaurar configurações padrão/i,
-    });
-    await user.click(resetBtn);
-
-    expect(handleReset).toHaveBeenCalledTimes(1);
   });
 });

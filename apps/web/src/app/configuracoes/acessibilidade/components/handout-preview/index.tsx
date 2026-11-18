@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Switch } from "@/components";
+import { Switch, Badge } from "@/components";
+import { DocumentIcon } from "@/assets/icons";
 import type { ColorVisionMode } from "@/hooks/use-accessibility";
 import styles from "./index.module.css";
 
@@ -63,23 +64,7 @@ export function HandoutPreview({ cvdMode }: HandoutPreviewProps) {
         <div className={styles.headingWrapper}>
           <h2 id="handout-preview-heading" className={styles.title}>
             <span className={styles.titleIcon} aria-hidden="true">
-              {/* Document / Handout Preview Icon */}
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <polyline points="10 9 9 9 8 9" />
-              </svg>
+              <DocumentIcon size={22} />
             </span>
             Prévia em Tempo Real: Roteiro Pedagógico Adaptado
           </h2>
@@ -132,9 +117,9 @@ export function HandoutPreview({ cvdMode }: HandoutPreviewProps) {
         <div className={styles.blocksList}>
           {/* Conceito-Chave Block */}
           <div className={`${styles.highlightBlock} ${styles.keyConcept}`}>
-            <span className={styles.blockLabel}>
-              <span aria-hidden="true">⚠️</span> Conceito-Chave & Atenção
-            </span>
+            <Badge variant="key-concept" size="md" icon="⚠️">
+              Conceito-Chave & Atenção
+            </Badge>
             <p className={styles.blockText}>
               A preservação da vegetação nativa do Cerrado (&quot;berço das águas&quot;) é
               indispensável para o abastecimento de 8 das 12 principais bacias
@@ -144,9 +129,9 @@ export function HandoutPreview({ cvdMode }: HandoutPreviewProps) {
 
           {/* Definição Block */}
           <div className={`${styles.highlightBlock} ${styles.definition}`}>
-            <span className={styles.blockLabel}>
-              <span aria-hidden="true">📖</span> Definição & Estrutura
-            </span>
+            <Badge variant="definition" size="md" icon="📖">
+              Definição & Estrutura
+            </Badge>
             <p className={styles.blockText}>
               Bacia hidrográfica é uma área delimitada pelo relevo onde toda a água
               da chuva escoa para um rio principal e seus afluentes.
@@ -155,9 +140,9 @@ export function HandoutPreview({ cvdMode }: HandoutPreviewProps) {
 
           {/* Dados & Fórmulas Block */}
           <div className={`${styles.highlightBlock} ${styles.dataFormula}`}>
-            <span className={styles.blockLabel}>
-              <span aria-hidden="true">📊</span> Dados Numéricos & Metas
-            </span>
+            <Badge variant="data" size="md" icon="📊">
+              Dados Numéricos & Metas
+            </Badge>
             <p className={styles.blockText}>
               Extensão total mapeada: 2.036.448 km² | Precipitação média anual: 1.200 a
               1.800 mm | Meta de conservação escolar: 100% de conscientização comunitária.
@@ -166,9 +151,9 @@ export function HandoutPreview({ cvdMode }: HandoutPreviewProps) {
 
           {/* Exemplos Práticos Block */}
           <div className={`${styles.highlightBlock} ${styles.example}`}>
-            <span className={styles.blockLabel}>
-              <span aria-hidden="true">💡</span> Exemplo Prático & Exercício
-            </span>
+            <Badge variant="example" size="md" icon="💡">
+              Exemplo Prático & Exercício
+            </Badge>
             <p className={styles.blockText}>
               Exercício inclusivo em duplas: Identifique no mapa hidrográfico as
               nascentes mais próximas da sua escola e liste 3 ações práticas de

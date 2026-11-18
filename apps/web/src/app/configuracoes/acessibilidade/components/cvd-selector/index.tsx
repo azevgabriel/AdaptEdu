@@ -84,7 +84,6 @@ export function CvdSelector({ cvdMode, onCvdChange }: CvdSelectorProps) {
             badge={option.badge}
             description={option.description}
             extra={option.opticalDetails}
-            showIndicator
           />
         ))}
       </RadioGroup>

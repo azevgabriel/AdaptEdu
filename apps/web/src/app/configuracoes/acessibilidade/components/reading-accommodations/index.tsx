@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Switch, RadioGroup } from "@/components";
+import { Switch, RadioGroup, RadioCard } from "@/components";
 import type { FontSizeMode } from "@/hooks/use-accessibility";
 import styles from "./index.module.css";
 
@@ -14,7 +14,6 @@ export interface ReadingAccommodationsProps {
   onHighContrastChange: (val: boolean) => void;
   reducedMotion: boolean;
   onReducedMotionChange: (val: boolean) => void;
-  onReset: () => void;
 }
 
 const FONT_SIZE_OPTIONS: { id: FontSizeMode; name: string; previewSize: string }[] = [
@@ -32,7 +31,6 @@ export function ReadingAccommodations({
   onHighContrastChange,
   reducedMotion,
   onReducedMotionChange,
-  onReset,
 }: ReadingAccommodationsProps) {
   return (
     <section
@@ -61,7 +59,7 @@ export function ReadingAccommodations({
           className={styles.fontSizeGrid}
         >
           {FONT_SIZE_OPTIONS.map((opt) => (
-            <RadioGroup.Item
+            <RadioCard
               key={opt.id}
               value={opt.id}
               ariaLabel={`Fonte ${opt.name}`}
@@ -76,7 +74,7 @@ export function ReadingAccommodations({
                 Aa
               </span>
               <span className={styles.fontSizeName}>{opt.name}</span>
-            </RadioGroup.Item>
+            </RadioCard>
           ))}
         </RadioGroup>
       </div>
@@ -142,33 +140,6 @@ export function ReadingAccommodations({
             ariaLabelledBy="reduced-motion-label"
           />
         </div>
-      </div>
-
-      {/* Reset Footer */}
-      <div className={styles.footer}>
-        <button
-          type="button"
-          className={styles.resetButton}
-          onClick={onReset}
-          aria-label="Restaurar configurações padrão"
-        >
-          {/* Rotate/Reset Icon */}
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-            <path d="M3 3v5h5" />
-          </svg>
-          Restaurar Configurações Padrão
-        </button>
       </div>
     </section>
   );

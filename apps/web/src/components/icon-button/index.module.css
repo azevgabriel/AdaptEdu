@@ -1,0 +1,162 @@
+/* ==========================================================================
+   AdaptEdu Design System — IconButton Component
+   Adheres to: COLORS.md (tokens), ACCESSIBILITY.md, DESIGN_GUIDELINES.md
+   ========================================================================== */
+
+.iconButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  outline: none;
+  user-select: none;
+}
+
+/* Touch target expansion (ensures >= 44x44px clickable area per WCAG 2.2) */
+.iconButton::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Focus Ring */
+.iconButton:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Sizes */
+.sizeSm {
+  width: 32px;
+  height: 32px;
+}
+
+.sizeMd {
+  width: 38px;
+  height: 38px;
+}
+
+.sizeLg {
+  width: 44px;
+  height: 44px;
+}
+
+/* Variants */
+.variantGhost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.variantGhost:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.variantSubtle {
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+}
+
+.variantSubtle:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--border-subtle);
+}
+
+.variantOutline {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.variantOutline:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--bg-subtle);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
+}
+
+.variantPrimary {
+  background-color: var(--color-brand-primary);
+  color: #ffffff;
+}
+
+.variantPrimary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--color-brand-hover, #3730a3);
+}
+
+/* Active State */
+.active {
+  background-color: var(--color-brand-surface);
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-border);
+}
+
+/* Disabled State */
+.iconButton:disabled,
+.iconButton[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Indicator Dot (Active state badge/marker) */
+.indicatorDot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 2px var(--bg-surface);
+}
+
+/* Accessibility: High Contrast Mode */
+:global([data-high-contrast="true"]) .iconButton {
+  border-width: 2px;
+}
+
+:global([data-high-contrast="true"]) .active {
+  border-width: 2px;
+  border-color: var(--color-brand-primary);
+}
+
+/* Windows High Contrast Mode */
+@media (forced-colors: active) {
+  .iconButton {
+    border: 1px solid ButtonBorder;
+  }
+
+  .iconButton:hover:not(:disabled):not([aria-disabled="true"]),
+  .active {
+    border-color: Highlight;
+  }
+
+  .indicatorDot {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .iconButton {
+    transition: none;
+  }
+}
+
+:global([data-reduced-motion="true"]) .iconButton {
+  transition: none;
+}

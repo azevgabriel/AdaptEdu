@@ -26,6 +26,9 @@ export interface RadioCardProps<T = string>
   icon?: React.ReactNode;
   badge?: React.ReactNode;
   extra?: React.ReactNode;
+  /**
+   * Whether to display the circular radio indicator. Defaults to true.
+   */
   showIndicator?: boolean;
   indicatorSize?: "sm" | "md" | "lg";
   activeClassName?: string;
@@ -130,7 +133,7 @@ function RadioCardRoot<T = string>({
   icon,
   badge,
   extra,
-  showIndicator = false,
+  showIndicator = true,
   indicatorSize = "md",
   disabled = false,
   activeClassName,

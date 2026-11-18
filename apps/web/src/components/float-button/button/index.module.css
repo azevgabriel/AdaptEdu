@@ -1,0 +1,260 @@
+.floatButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  font-family: var(--font-family-body);
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  outline: none;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.floatButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Sizes                                    */
+/* -------------------------------------------------------------------------- */
+
+.size-sm {
+  min-height: 40px;
+  font-size: 0.8125rem;
+  padding: 0.5rem 0.875rem;
+}
+
+.size-sm.shape-circle {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.size-md {
+  min-height: 48px;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.size-md.shape-circle {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}
+
+.size-lg {
+  min-height: 54px;
+  font-size: 1rem;
+  padding: 0.875rem 1.5rem;
+}
+
+.size-lg.shape-circle {
+  width: 54px;
+  height: 54px;
+  padding: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Shapes                                   */
+/* -------------------------------------------------------------------------- */
+
+.shape-circle {
+  border-radius: 9999px;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.shape-pill {
+  border-radius: 9999px;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.shape-square {
+  border-radius: var(--radius-md, 8px);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Variants                                  */
+/* -------------------------------------------------------------------------- */
+
+/* Primary */
+.variant-primary {
+  background-color: var(--color-brand-primary, #2563eb);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+}
+
+.variant-primary:hover:not(:disabled) {
+  background-color: var(--color-brand-hover, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+}
+
+.variant-primary.isActive {
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-brand-primary, #2563eb);
+  border-color: var(--color-brand-border, #bfdbfe);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Secondary */
+.variant-secondary {
+  background-color: var(--color-surface, #ffffff);
+  color: var(--text-primary, #0f172a);
+  border-color: var(--border-subtle, #e2e8f0);
+}
+
+.variant-secondary:hover:not(:disabled) {
+  background-color: var(--bg-subtle, #f8fafc);
+  border-color: var(--border-strong, #cbd5e1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
+}
+
+.variant-secondary.isActive {
+  background-color: var(--color-brand-surface, #eff6ff);
+  color: var(--color-brand-primary, #2563eb);
+  border-color: var(--color-brand-primary, #2563eb);
+}
+
+/* Default */
+.variant-default {
+  background-color: var(--color-surface, #ffffff);
+  color: var(--text-primary, #0f172a);
+  border-color: var(--border-subtle, #e2e8f0);
+}
+
+.variant-default:hover:not(:disabled) {
+  background-color: var(--bg-subtle, #f8fafc);
+  border-color: var(--border-strong, #cbd5e1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
+}
+
+.variant-default.isActive {
+  background-color: var(--color-brand-surface, #eff6ff);
+  color: var(--color-brand-primary, #2563eb);
+  border-color: var(--color-brand-primary, #2563eb);
+}
+
+/* Subtle */
+.variant-subtle {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--text-secondary, #475569);
+  border-color: var(--border-subtle, #e2e8f0);
+}
+
+.variant-subtle:hover:not(:disabled) {
+  background-color: #ffffff;
+  color: var(--text-primary, #0f172a);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+}
+
+.variant-subtle.isActive {
+  background-color: var(--color-brand-surface, #eff6ff);
+  color: var(--color-brand-primary, #2563eb);
+  border-color: var(--color-brand-primary, #2563eb);
+}
+
+/* Danger */
+.variant-danger {
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-feedback-error-text, #dc2626);
+  border-color: var(--color-feedback-error-border, #fca5a5);
+}
+
+.variant-danger:hover:not(:disabled) {
+  background-color: var(--color-feedback-error-bg, #fef2f2);
+  border-color: var(--color-feedback-error-text, #dc2626);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.18);
+}
+
+.variant-danger.isActive {
+  background-color: var(--color-feedback-error-bg, #fef2f2);
+  border-color: var(--color-feedback-error-text, #dc2626);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            Focus & Accessibility                           */
+/* -------------------------------------------------------------------------- */
+
+.floatButton:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                Internal Slots                              */
+/* -------------------------------------------------------------------------- */
+
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.labelSlot {
+  white-space: nowrap;
+}
+
+.badgeSlot {
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.25);
+  text-transform: capitalize;
+  line-height: 1.2;
+}
+
+.variant-secondary .badgeSlot,
+.variant-default .badgeSlot,
+.variant-subtle .badgeSlot {
+  background-color: var(--color-brand-surface, #eff6ff);
+  color: var(--color-brand-primary, #2563eb);
+}
+
+.variant-primary.isActive .badgeSlot {
+  background-color: var(--color-brand-surface, #eff6ff);
+  color: var(--color-brand-primary, #2563eb);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                           Sensory Modes Accommodations                     */
+/* -------------------------------------------------------------------------- */
+
+/* High Contrast Mode */
+:global(body[data-high-contrast="true"]) .floatButton {
+  border: 2px solid #000000 !important;
+}
+
+:global([data-theme="dark"]) :global(body[data-high-contrast="true"]) .floatButton {
+  border: 2px solid #ffffff !important;
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+  .floatButton {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+:global(body[data-reduced-motion="true"]) .floatButton {
+  transition: none !important;
+  transform: none !important;
+}

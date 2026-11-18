@@ -1,0 +1,59 @@
+.menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  width: 290px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.12),
+    0 4px 10px -2px rgba(15, 23, 42, 0.06);
+  padding: 0.5rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  animation: menuFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.alignRight {
+  right: 0;
+}
+
+.alignLeft {
+  left: 0;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* High Contrast Mode */
+:global([data-high-contrast="true"]) .menu {
+  border-width: 2px;
+  border-color: var(--border-strong);
+}
+
+/* Windows High Contrast Mode */
+@media (forced-colors: active) {
+  .menu {
+    border: 2px solid ButtonBorder;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .menu {
+    animation: none;
+  }
+}
+
+:global([data-reduced-motion="true"]) .menu {
+  animation: none;
+}

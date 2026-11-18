@@ -52,10 +52,39 @@ describe("Components Barrel Export", () => {
     expect(typeof components.RadioCard).toBe("function");
   });
 
-  it("exports RadioLabel and RadioDescription components", () => {
-    expect(components.RadioLabel).toBeDefined();
-    expect(typeof components.RadioLabel).toBe("function");
-    expect(components.RadioDescription).toBeDefined();
-    expect(typeof components.RadioDescription).toBe("function");
+  it("exports Card component and subcomponents", () => {
+    expect(components.Card).toBeDefined();
+    expect(typeof components.Card).toBe("function");
+    expect(components.CardHeader).toBeDefined();
+    expect(components.CardTitle).toBeDefined();
+    expect(components.CardDescription).toBeDefined();
+    expect(components.CardBody).toBeDefined();
+    expect(components.CardBadge).toBeDefined();
+    expect(components.CardIcon).toBeDefined();
+    expect(components.CardFooter).toBeDefined();
+  });
+
+  it("exports IconButton component", () => {
+    expect(components.IconButton).toBeDefined();
+    expect(typeof components.IconButton).toBe("object"); // forwardRef creates an object or function
+  });
+
+  it("exports Menu and Dropdown components and subcomponents", () => {
+    expect(components.Menu).toBeDefined();
+    expect(components.Dropdown).toBeDefined();
+    expect(components.MenuItem).toBeDefined();
+    expect(components.MenuSeparator).toBeDefined();
+    expect(components.MenuHeader).toBeDefined();
+  });
+
+  it("exports Badge component", () => {
+    expect(components.Badge).toBeDefined();
+    expect(typeof components.Badge).toBe("function");
+  });
+
+  it("exports FloatButton and FloatGroup components", () => {
+    expect(components.FloatButton).toBeDefined();
+    expect(components.FloatGroup).toBeDefined();
+    expect(components.FloatButtonGroup).toBeDefined();
   });
 });

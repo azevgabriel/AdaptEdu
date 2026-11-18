@@ -5,3 +5,8 @@ export * from "./avatar";
 export * from "./switch";
 export * from "./drawer";
 export * from "./radio";
+export * from "./card";
+export * from "./icon-button";
+export * from "./menu";
+export * from "./badge";
+export * from "./float-button";
