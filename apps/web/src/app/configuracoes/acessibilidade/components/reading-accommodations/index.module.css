@@ -67,8 +67,8 @@
 
 .fontSizeIndicator {
   position: absolute;
-  top: 0.625rem;
-  right: 0.625rem;
+  top: 1.125rem;
+  right: 1.125rem;
   pointer-events: none;
 }
 
@@ -118,11 +118,29 @@
   border: 1px solid var(--border-subtle);
   background-color: var(--bg-canvas);
   transition: all 0.15s ease;
+  cursor: pointer;
+  user-select: none;
 }
 
 .toggleCard:hover {
   border-color: var(--border-strong);
   background-color: var(--bg-subtle);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.toggleCard:active {
+  transform: translateY(0);
+}
+
+.toggleCardActive {
+  border-color: var(--color-brand-border);
+  background-color: var(--color-brand-surface);
+}
+
+.toggleCardActive:hover {
+  border-color: var(--color-brand-primary);
+  background-color: var(--color-brand-surface);
 }
 
 .toggleInfo {

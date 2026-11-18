@@ -101,4 +101,37 @@ describe("ReadingAccommodations", () => {
     await user.click(motionCheck);
     expect(handleReducedMotionChange).toHaveBeenCalledWith(true);
   });
+
+  it("toggles accommodation switches when clicking anywhere on the card surface", async () => {
+    const user = userEvent.setup();
+    const handleHighContrastChange = vi.fn();
+    const handleDyslexiaChange = vi.fn();
+    const handleReducedMotionChange = vi.fn();
+
+    render(
+      <ReadingAccommodations
+        fontSize="normal"
+        onFontSizeChange={vi.fn()}
+        dyslexiaFont={false}
+        onDyslexiaFontChange={handleDyslexiaChange}
+        highContrast={false}
+        onHighContrastChange={handleHighContrastChange}
+        reducedMotion={false}
+        onReducedMotionChange={handleReducedMotionChange}
+      />
+    );
+
+    // Click on the text label / description inside the card rather than the switch button
+    const titleText = screen.getByText("Alto Contraste Estrutural (Anti-Ofuscamento)");
+    await user.click(titleText);
+    expect(handleHighContrastChange).toHaveBeenCalledWith(true);
+
+    const dyslexiaDesc = screen.getByText(/amplia o espaçamento entre caracteres/i);
+    await user.click(dyslexiaDesc);
+    expect(handleDyslexiaChange).toHaveBeenCalledWith(true);
+
+    const motionTitle = screen.getByText("Redução de Movimento e Animações");
+    await user.click(motionTitle);
+    expect(handleReducedMotionChange).toHaveBeenCalledWith(true);
+  });
 });

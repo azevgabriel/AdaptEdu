@@ -16,7 +16,11 @@ export interface ReadingAccommodationsProps {
   onReducedMotionChange: (val: boolean) => void;
 }
 
-const FONT_SIZE_OPTIONS: { id: FontSizeMode; name: string; previewSize: string }[] = [
+const FONT_SIZE_OPTIONS: {
+  id: FontSizeMode;
+  name: string;
+  previewSize: string;
+}[] = [
   { id: "normal", name: "Normal (100%)", previewSize: "1.1rem" },
   { id: "large", name: "Grande (115%)", previewSize: "1.35rem" },
   { id: "x-large", name: "Muito Grande (130%)", previewSize: "1.65rem" },
@@ -32,6 +36,16 @@ export function ReadingAccommodations({
   reducedMotion,
   onReducedMotionChange,
 }: ReadingAccommodationsProps) {
+  const handleToggleCardClick =
+    (checked: boolean, onChange: (value: boolean) => void) =>
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      // Prevent double trigger if user clicked directly on the switch button
+      if ((event.target as HTMLElement).closest('button[role="switch"]')) {
+        return;
+      }
+      onChange(!checked);
+    };
+
   return (
     <section
       className={styles.container}
@@ -67,7 +81,7 @@ export function ReadingAccommodations({
               activeClassName={styles.fontSizeButtonActive}
             >
               <div className={styles.fontSizeIndicator}>
-                <RadioCard.Indicator size="sm" />
+                <RadioCard.Indicator />
               </div>
               <span
                 className={styles.sampleLetter}
@@ -85,7 +99,12 @@ export function ReadingAccommodations({
       {/* Toggles */}
       <div className={styles.togglesList}>
         {/* Adaptive High Contrast */}
-        <div className={styles.toggleCard}>
+        <div
+          className={`${styles.toggleCard} ${
+            highContrast ? styles.toggleCardActive : ""
+          }`.trim()}
+          onClick={handleToggleCardClick(highContrast, onHighContrastChange)}
+        >
           <div className={styles.toggleInfo}>
             <span className={styles.toggleTitle} id="high-contrast-label">
               Alto Contraste Estrutural (Anti-Ofuscamento)
@@ -105,14 +124,20 @@ export function ReadingAccommodations({
         </div>
 
         {/* Dyslexia & ADHD Spacing */}
-        <div className={styles.toggleCard}>
+        <div
+          className={`${styles.toggleCard} ${
+            dyslexiaFont ? styles.toggleCardActive : ""
+          }`.trim()}
+          onClick={handleToggleCardClick(dyslexiaFont, onDyslexiaFontChange)}
+        >
           <div className={styles.toggleInfo}>
             <span className={styles.toggleTitle} id="dyslexia-font-label">
               Espaçamento de Leitura para Dislexia & TDAH
             </span>
             <p className={styles.toggleDescription}>
-              Amplia o espaçamento entre caracteres (+0.04em), palavras (+0.1em) e
-              linhas (1.75) para mitigar aglomerações e linhas flutuantes (&quot;rivering&quot;).
+              Amplia o espaçamento entre caracteres (+0.04em), palavras (+0.1em)
+              e linhas (1.75) para mitigar aglomerações e linhas flutuantes
+              (&quot;rivering&quot;).
             </p>
           </div>
           <Switch
@@ -125,7 +150,12 @@ export function ReadingAccommodations({
         </div>
 
         {/* Reduced Motion */}
-        <div className={styles.toggleCard}>
+        <div
+          className={`${styles.toggleCard} ${
+            reducedMotion ? styles.toggleCardActive : ""
+          }`.trim()}
+          onClick={handleToggleCardClick(reducedMotion, onReducedMotionChange)}
+        >
           <div className={styles.toggleInfo}>
             <span className={styles.toggleTitle} id="reduced-motion-label">
               Redução de Movimento e Animações
