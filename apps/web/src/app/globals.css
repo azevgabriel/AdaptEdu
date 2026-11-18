@@ -518,6 +518,13 @@
 
 /* 3. Tritanopia / Tritanomalia Mode (Blue-Cone Defect) */
 [data-cvd="tritanopia"] {
+  /* Brand Tokens remapped to Teal/Cyan for Tritanopia on the preserved Red-Cyan optical axis */
+  --color-brand-primary: #0891b2;
+  --color-brand-hover: #0e7490;
+  --color-brand-surface: #ecfeff;
+  --color-brand-border: #67e8f9;
+  --color-brand-text: #155e75;
+
   --hierarchy-key-base: #dc2626;
   --hierarchy-key-surface: #fef2f2;
   --hierarchy-key-border: #f87171;
@@ -528,10 +535,11 @@
   --hierarchy-def-border: #64748b;
   --hierarchy-def-text: #0f172a;
 
-  --hierarchy-data-base: #7c3aed;
-  --hierarchy-data-surface: #faf5ff;
-  --hierarchy-data-border: #c084fc;
-  --hierarchy-data-text: #581c87;
+  /* Dados & Fórmulas: Remapped to Warm Terracotta / Rust (eradicating purple/violet) */
+  --hierarchy-data-base: #c2410c;
+  --hierarchy-data-surface: #fff7ed;
+  --hierarchy-data-border: #fb923c;
+  --hierarchy-data-text: #7c2d12;
 
   --hierarchy-example-base: #06b6d4;
   --hierarchy-example-surface: #ecfeff;
@@ -558,25 +566,46 @@
   --subject-geography-border: #22d3ee;
   --subject-geography-text: #0e7490;
 
-  --subject-science-base: #c026d3;
-  --subject-science-surface: #fdf4ff;
-  --subject-science-border: #e879f9;
-  --subject-science-text: #701a75;
+  /* Ciências: Remapped to Deep Teal (eradicating purple/violet) */
+  --subject-science-base: #0e7490;
+  --subject-science-surface: #ecfeff;
+  --subject-science-border: #22d3ee;
+  --subject-science-text: #155e75;
 }
 
 [data-theme="dark"] [data-cvd="tritanopia"],
 [data-theme="dark"][data-cvd="tritanopia"] {
+  /* Neutral Zinc darks (eradicating blue-tinted slate) */
+  --bg-canvas: #121212;
+  --bg-surface: #1c1c1c;
+  --bg-subtle: #262626;
+  --border-subtle: #2e2e2e;
+  --border-strong: #404040;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-muted: #737373;
+
+  --background: var(--bg-canvas);
+  --foreground: var(--text-primary);
+
+  /* Brand Remapping in Dark Mode Tritanopia */
+  --color-brand-primary: #06b6d4;
+  --color-brand-hover: #22d3ee;
+  --color-brand-surface: #164e63;
+  --color-brand-border: #0891b2;
+  --color-brand-text: #cffafe;
+
   --hierarchy-key-surface: #450a0a;
   --hierarchy-key-border: #ef4444;
   --hierarchy-key-text: #fecaca;
 
-  --hierarchy-def-surface: #1e293b;
-  --hierarchy-def-border: #475569;
-  --hierarchy-def-text: #cbd5e1;
+  --hierarchy-def-surface: #262626;
+  --hierarchy-def-border: #52525b;
+  --hierarchy-def-text: #e4e4e7;
 
-  --hierarchy-data-surface: #3b0764;
-  --hierarchy-data-border: #a855f7;
-  --hierarchy-data-text: #e9d5ff;
+  --hierarchy-data-surface: #431407;
+  --hierarchy-data-border: #ea580c;
+  --hierarchy-data-text: #fed7aa;
 
   --hierarchy-example-surface: #083344;
   --hierarchy-example-border: #06b6d4;
@@ -586,9 +615,9 @@
   --subject-portuguese-border: #f43f5e;
   --subject-portuguese-text: #fecdd3;
 
-  --subject-math-surface: #0f172a;
-  --subject-math-border: #475569;
-  --subject-math-text: #e2e8f0;
+  --subject-math-surface: #1c1c1c;
+  --subject-math-border: #52525b;
+  --subject-math-text: #e4e4e7;
 
   --subject-history-surface: #431407;
   --subject-history-border: #ea580c;
@@ -598,25 +627,43 @@
   --subject-geography-border: #0891b2;
   --subject-geography-text: #a5f3fc;
 
-  --subject-science-surface: #4a044e;
-  --subject-science-border: #c026d3;
-  --subject-science-text: #f5d0fe;
+  --subject-science-surface: #083344;
+  --subject-science-border: #0891b2;
+  --subject-science-text: #cffafe;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) [data-cvd="tritanopia"],
   :root:not([data-theme="light"])[data-cvd="tritanopia"] {
+    --bg-canvas: #121212;
+    --bg-surface: #1c1c1c;
+    --bg-subtle: #262626;
+    --border-subtle: #2e2e2e;
+    --border-strong: #404040;
+    --text-primary: #f5f5f5;
+    --text-secondary: #a3a3a3;
+    --text-muted: #737373;
+
+    --background: var(--bg-canvas);
+    --foreground: var(--text-primary);
+
+    --color-brand-primary: #06b6d4;
+    --color-brand-hover: #22d3ee;
+    --color-brand-surface: #164e63;
+    --color-brand-border: #0891b2;
+    --color-brand-text: #cffafe;
+
     --hierarchy-key-surface: #450a0a;
     --hierarchy-key-border: #ef4444;
     --hierarchy-key-text: #fecaca;
 
-    --hierarchy-def-surface: #1e293b;
-    --hierarchy-def-border: #475569;
-    --hierarchy-def-text: #cbd5e1;
+    --hierarchy-def-surface: #262626;
+    --hierarchy-def-border: #52525b;
+    --hierarchy-def-text: #e4e4e7;
 
-    --hierarchy-data-surface: #3b0764;
-    --hierarchy-data-border: #a855f7;
-    --hierarchy-data-text: #e9d5ff;
+    --hierarchy-data-surface: #431407;
+    --hierarchy-data-border: #ea580c;
+    --hierarchy-data-text: #fed7aa;
 
     --hierarchy-example-surface: #083344;
     --hierarchy-example-border: #06b6d4;
@@ -626,9 +673,9 @@
     --subject-portuguese-border: #f43f5e;
     --subject-portuguese-text: #fecdd3;
 
-    --subject-math-surface: #0f172a;
-    --subject-math-border: #475569;
-    --subject-math-text: #e2e8f0;
+    --subject-math-surface: #1c1c1c;
+    --subject-math-border: #52525b;
+    --subject-math-text: #e4e4e7;
 
     --subject-history-surface: #431407;
     --subject-history-border: #ea580c;
@@ -638,22 +685,26 @@
     --subject-geography-border: #0891b2;
     --subject-geography-text: #a5f3fc;
 
-    --subject-science-surface: #4a044e;
-    --subject-science-border: #c026d3;
-    --subject-science-text: #f5d0fe;
+    --subject-science-surface: #083344;
+    --subject-science-border: #0891b2;
+    --subject-science-text: #cffafe;
   }
 }
 
 /* 4. Achromatopsia / Monocromia Mode (Complete Cone Absence & Photophobia Protection) */
 [data-cvd="achromatopsia"] {
-  --bg-canvas: #f4f4f5;
-  --bg-surface: #ffffff;
-  --bg-subtle: #e4e4e7;
-  --border-subtle: #d4d4d8;
-  --border-strong: #71717a;
+  /* Soft matte anti-glare neutrals (eradicating pure white glare) */
+  --bg-canvas: #e4e4e7;
+  --bg-surface: #d4d4d8;
+  --bg-subtle: #cbd5e1;
+  --border-subtle: #a1a1aa;
+  --border-strong: #52525b;
   --text-primary: #18181b;
-  --text-secondary: #3f3f46;
-  --text-muted: #71717a;
+  --text-secondary: #27272a;
+  --text-muted: #52525b;
+
+  --background: var(--bg-canvas);
+  --foreground: var(--text-primary);
 
   --hierarchy-key-base: #18181b;
   --hierarchy-key-surface: #27272a;
@@ -661,12 +712,12 @@
   --hierarchy-key-text: #fafafa;
 
   --hierarchy-def-base: #3f3f46;
-  --hierarchy-def-surface: #e4e4e7;
+  --hierarchy-def-surface: #cbd5e1;
   --hierarchy-def-border: #52525b;
   --hierarchy-def-text: #18181b;
 
   --hierarchy-data-base: #52525b;
-  --hierarchy-data-surface: #f4f4f5;
+  --hierarchy-data-surface: #e4e4e7;
   --hierarchy-data-border: #71717a;
   --hierarchy-data-text: #27272a;
 
@@ -675,7 +726,7 @@
   --hierarchy-example-border: #a1a1aa;
   --hierarchy-example-text: #3f3f46;
 
-  --subject-portuguese-surface: #e4e4e7;
+  --subject-portuguese-surface: #cbd5e1;
   --subject-portuguese-border: #27272a;
   --subject-portuguese-text: #09090b;
 
@@ -683,17 +734,123 @@
   --subject-math-border: #18181b;
   --subject-math-text: #fafafa;
 
-  --subject-history-surface: #f4f4f5;
+  --subject-history-surface: #e4e4e7;
   --subject-history-border: #52525b;
   --subject-history-text: #18181b;
 
-  --subject-geography-surface: #e4e4e7;
+  --subject-geography-surface: #cbd5e1;
   --subject-geography-border: #71717a;
   --subject-geography-text: #18181b;
 
   --subject-science-surface: #d4d4d8;
   --subject-science-border: #3f3f46;
   --subject-science-text: #09090b;
+}
+
+[data-theme="dark"] [data-cvd="achromatopsia"],
+[data-theme="dark"][data-cvd="achromatopsia"] {
+  --bg-canvas: #18181b;
+  --bg-surface: #27272a;
+  --bg-subtle: #3f3f46;
+  --border-subtle: #3f3f46;
+  --border-strong: #71717a;
+  --text-primary: #fafafa;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+
+  --background: var(--bg-canvas);
+  --foreground: var(--text-primary);
+
+  --hierarchy-key-base: #fafafa;
+  --hierarchy-key-surface: #3f3f46;
+  --hierarchy-key-border: #f4f4f5;
+  --hierarchy-key-text: #fafafa;
+
+  --hierarchy-def-surface: #27272a;
+  --hierarchy-def-border: #a1a1aa;
+  --hierarchy-def-text: #f4f4f5;
+
+  --hierarchy-data-surface: #18181b;
+  --hierarchy-data-border: #71717a;
+  --hierarchy-data-text: #e4e4e7;
+
+  --hierarchy-example-surface: #27272a;
+  --hierarchy-example-border: #52525b;
+  --hierarchy-example-text: #d4d4d8;
+
+  --subject-portuguese-surface: #3f3f46;
+  --subject-portuguese-border: #d4d4d8;
+  --subject-portuguese-text: #fafafa;
+
+  --subject-math-surface: #18181b;
+  --subject-math-border: #a1a1aa;
+  --subject-math-text: #f4f4f5;
+
+  --subject-history-surface: #27272a;
+  --subject-history-border: #71717a;
+  --subject-history-text: #e4e4e7;
+
+  --subject-geography-surface: #3f3f46;
+  --subject-geography-border: #52525b;
+  --subject-geography-text: #fafafa;
+
+  --subject-science-surface: #27272a;
+  --subject-science-border: #e4e4e7;
+  --subject-science-text: #fafafa;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-cvd="achromatopsia"],
+  :root:not([data-theme="light"])[data-cvd="achromatopsia"] {
+    --bg-canvas: #18181b;
+    --bg-surface: #27272a;
+    --bg-subtle: #3f3f46;
+    --border-subtle: #3f3f46;
+    --border-strong: #71717a;
+    --text-primary: #fafafa;
+    --text-secondary: #d4d4d8;
+    --text-muted: #a1a1aa;
+
+    --background: var(--bg-canvas);
+    --foreground: var(--text-primary);
+
+    --hierarchy-key-base: #fafafa;
+    --hierarchy-key-surface: #3f3f46;
+    --hierarchy-key-border: #f4f4f5;
+    --hierarchy-key-text: #fafafa;
+
+    --hierarchy-def-surface: #27272a;
+    --hierarchy-def-border: #a1a1aa;
+    --hierarchy-def-text: #f4f4f5;
+
+    --hierarchy-data-surface: #18181b;
+    --hierarchy-data-border: #71717a;
+    --hierarchy-data-text: #e4e4e7;
+
+    --hierarchy-example-surface: #27272a;
+    --hierarchy-example-border: #52525b;
+    --hierarchy-example-text: #d4d4d8;
+
+    --subject-portuguese-surface: #3f3f46;
+    --subject-portuguese-border: #d4d4d8;
+    --subject-portuguese-text: #fafafa;
+
+    --subject-math-surface: #18181b;
+    --subject-math-border: #a1a1aa;
+    --subject-math-text: #f4f4f5;
+
+    --subject-history-surface: #27272a;
+    --subject-history-border: #71717a;
+    --subject-history-text: #e4e4e7;
+
+    --subject-geography-surface: #3f3f46;
+    --subject-geography-border: #52525b;
+    --subject-geography-text: #fafafa;
+
+    --subject-science-surface: #27272a;
+    --subject-science-border: #e4e4e7;
+    --subject-science-text: #fafafa;
+  }
 }
 
 [data-theme="dark"] [data-cvd="achromatopsia"],
@@ -926,6 +1083,39 @@ html[data-theme="dark"][data-high-contrast="true"] {
     --border-strong: #ffffff;
     --text-muted: #e2e8f0;
   }
+}
+
+/* High Contrast Mode for Achromatopsia (Anti-Glare Structural Contrast without Photophobia) */
+html[data-cvd="achromatopsia"][data-high-contrast="true"],
+[data-cvd="achromatopsia"][data-high-contrast="true"] {
+  --bg-canvas: #e4e4e7;
+  --bg-surface: #d4d4d8;
+  --bg-subtle: #cbd5e1;
+  --border-subtle: #52525b;
+  --border-strong: #18181b;
+  --text-primary: #09090b;
+  --text-secondary: #18181b;
+  --text-muted: #27272a;
+}
+
+html[data-theme="dark"][data-cvd="achromatopsia"][data-high-contrast="true"],
+[data-theme="dark"][data-cvd="achromatopsia"][data-high-contrast="true"] {
+  --bg-canvas: #18181b;
+  --bg-surface: #27272a;
+  --bg-subtle: #3f3f46;
+  --border-subtle: #71717a;
+  --border-strong: #f4f4f5;
+  --text-primary: #fafafa;
+  --text-secondary: #f4f4f5;
+  --text-muted: #d4d4d8;
+}
+
+html[data-cvd="achromatopsia"][data-high-contrast="true"] button,
+html[data-cvd="achromatopsia"][data-high-contrast="true"] input,
+html[data-cvd="achromatopsia"][data-high-contrast="true"] select,
+html[data-cvd="achromatopsia"][data-high-contrast="true"] textarea,
+html[data-cvd="achromatopsia"][data-high-contrast="true"] [class*="card"] {
+  border-width: 2px !important;
 }
 
 /* Reduced Motion Mode */

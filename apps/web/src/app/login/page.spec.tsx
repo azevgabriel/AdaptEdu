@@ -21,12 +21,11 @@ describe("LoginPage", () => {
       screen.queryByRole("button", { name: /menu do usuário/i }),
     ).not.toBeInTheDocument();
 
-    // Theme & Accessibility options remain available in Header
+    // Accessibility option remains available in Header
     expect(
-      screen.getByRole("button", { name: /alternar tema/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /opções de acessibilidade/i }),
+      screen.getByRole("link", {
+        name: /configurações de acessibilidade e visualização/i,
+      }),
     ).toBeInTheDocument();
 
     // Main mission headline

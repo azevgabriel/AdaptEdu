@@ -12,6 +12,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## Releases
 
+### Visual Accessibility Settings, Chromatic Deficiency Matrix & Color System Corrections - 2026-11-17
+Resolves [#7](https://github.com/azevgabriel/AdaptEdu/issues/7).
+
+#### `apps/web` (Frontend) — `v1.3.0`
+- Created dedicated visual accessibility settings route at `/configuracoes/acessibilidade` (`src/app/configuracoes/acessibilidade/page.tsx`, `page.module.css`, `page.spec.tsx`).
+- Created `/configuracoes` entry point redirecting directly to `/configuracoes/acessibilidade` (`src/app/configuracoes/page.tsx`, `page.spec.tsx`).
+- Implemented generic `Drawer` component (`src/components/drawer/`) providing an accessible lateral slide-out panel with focus management, Escape key dismiss, backdrop click dismiss, body scroll lock, size options (`sm`, `md`, `lg`, `xl`, `full`), positions (`right`, `left`), and modal/non-modal integration.
+- Implemented generic `Switch` component (`src/components/switch/`) with full keyboard and WAI-ARIA switch semantics (`role="switch"`, `aria-checked`), supporting multiple sizes (`sm`, `md`, `lg`), label, description, and high-contrast/reduced-motion styles.
+- Componentized `ChromaticSwatchCard` (`src/app/configuracoes/acessibilidade/components/chromatic-swatch-card/`) eliminating duplicate card markup across hierarchy and discipline lists in `ChromaticMatrix`.
+- Refactored `ReadingAccommodations` and `HandoutPreview` to utilize the reusable `Switch` component.
+- Integrated interactive lateral validation `Drawer` on `/configuracoes/acessibilidade`: allows teachers to validate color matrix swatches and test pedagogical handout adaptations in real time via a tabbed interface ("Prévia: Roteiro Pedagógico" & "Matriz de Comparação Cromática") as options are toggled, accessible via a launcher card and sticky floating action button (`Validar Cores & Prévia`).
+- Implemented `ThemeSelector` component (`components/theme-selector/`) featuring selectable visual option cards for Light Mode and Dark Mode.
+- Implemented `CvdSelector` component (`components/cvd-selector/`) supporting Padrão (Tricromático Universal), Deuteranopia (Verde/M), Protanopia (Vermelho/L), Tritanopia (Azul/Amarelo/S), and Acromatopsia (Monocromia Total + Escudo Anti-Ofuscamento).
+- Implemented `ChromaticMatrix` component (`components/chromatic-matrix/`) providing side-by-side color perception comparisons across all content hierarchy tiers and school disciplines with ophthalmological axis tooltips.
+- Implemented `ReadingAccommodations` component (`components/reading-accommodations/`) providing Font Size Scaling (Normal 100%, Grande 115%, Muito Grande 130%), Adaptive High Contrast (structural outlines without painful glare), Dyslexia & ADHD Reading Spacing, Reduced Motion, and Settings Reset.
+- Implemented `HandoutPreview` component (`components/handout-preview/`) offering a realistic classroom handout preview with live token reflection and an interactive Educator Optical Simulation Lens applying SVG deficiency filters (`#sim-deuteranopia`, `#sim-protanopia`, `#sim-tritanopia`, `#sim-achromatopsia`).
+- Refactored `Header` component (`src/components/header/`):
+  - Removed standalone quick theme toggle button from action bar.
+  - Refactored Accessibility button into a direct Next.js `Link` navigating to `/configuracoes/acessibilidade` with active indicator badge when non-default accommodations are active.
+  - Retired the legacy inline popover dialog from Header in favor of the dedicated settings page.
+- Fixed severe chromatic and sensory contradictions in design tokens (`apps/web/docs/COLORS.md` and `apps/web/src/app/globals.css`):
+  - **Tritanopia Dark Mode Fix:** Overrode `--bg-canvas`, `--bg-surface`, and `--bg-subtle` in `[data-cvd="tritanopia"]` with neutral Zinc darks (`#121212`, `#1c1c1c`, `#262626`) instead of short-wavelength blue-tinted slate; remapped brand tokens to Teal/Cyan (`#0891b2`); eradicated all purple/violet reliance from "Dados & Fórmulas" (remapped to Terracotta `#c2410c`) and "Ciências" (remapped to Deep Teal `#0e7490`).
+  - **Achromatopsia Anti-Glare & High-Contrast Photophobia Fix:** Eradicated pure white `#ffffff` surfaces in light-mode Achromatopsia, replacing them with soft matte anti-glare neutrals (`--bg-canvas: #e4e4e7`, `--bg-surface: #d4d4d8`); enforced structural contrast (thick 2px/3px borders, dashed/dotted patterns, distinct geometric icons) under High Contrast without photophobic luminance glare.
+- Maintained 99.60% statement coverage, 95.51% branch coverage, and 100% function coverage with 127 automated tests passing.
+
+
 ### Google OAuth 2.0, Route Protection & Security Baseline - 2026-11-17
 Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1) and [#6](https://github.com/azevgabriel/AdaptEdu/issues/6).
 

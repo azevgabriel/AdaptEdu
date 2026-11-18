@@ -21,4 +21,14 @@ describe("Components Barrel Export", () => {
     expect(components.Avatar).toBeDefined();
     expect(typeof components.Avatar).toBe("function");
   });
+
+  it("exports Switch component", () => {
+    expect(components.Switch).toBeDefined();
+    expect(typeof components.Switch).toBe("function");
+  });
+
+  it("exports Drawer component", () => {
+    expect(components.Drawer).toBeDefined();
+    expect(typeof components.Drawer).toBe("function");
+  });
 });
