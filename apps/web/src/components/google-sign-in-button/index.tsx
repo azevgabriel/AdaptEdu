@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 export interface GoogleSignInButtonProps {
   /**
    * The destination relative path to redirect after successful login.
-   * Defaults to "/minha-sala".
+   * Defaults to "/configuracoes/acessibilidade".
    */
   returnUrl?: string;
   /**
@@ -29,7 +29,7 @@ export interface GoogleSignInButtonProps {
 }
 
 export function GoogleSignInButton({
-  returnUrl = "/minha-sala",
+  returnUrl = "/configuracoes/acessibilidade",
   apiUrl,
   onSignIn,
   disabled = false,

@@ -9,8 +9,8 @@ export interface FooterProps {
    */
   githubUrl?: string;
   /**
-   * Optional custom URL for the developer's LinkedIn profile.
-   * Defaults to "https://www.linkedin.com/in/azevgabriel/".
+   * Optional custom URL for the developer's LinkedIn newsletter subscription.
+   * Defaults to "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7528476481568739328".
    */
   linkedinUrl?: string;
   /**
@@ -20,7 +20,8 @@ export interface FooterProps {
 }
 
 const DEFAULT_GITHUB_URL = "https://github.com/azevgabriel/AdaptEdu";
-const DEFAULT_LINKEDIN_URL = "https://www.linkedin.com/in/azevgabriel/";
+const DEFAULT_LINKEDIN_URL =
+  "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7528476481568739328";
 
 export function Footer({
   githubUrl = DEFAULT_GITHUB_URL,
@@ -60,12 +61,12 @@ export function Footer({
             target="_blank"
             rel="noopener noreferrer"
             className={styles.footerLink}
-            aria-label="Perfil profissional de Gabriel Azevedo no LinkedIn (abre em nova aba)"
+            aria-label="Assinar newsletter no LinkedIn (abre em nova aba)"
           >
             <span className={styles.linkIcon} aria-hidden="true">
               <LinkedInIcon size={16} />
             </span>
-            <span>LinkedIn</span>
+            <span>Assinar no LinkedIn</span>
           </a>
         </nav>
       </div>

@@ -217,12 +217,13 @@ Dark Mode:
 
 ### 2. Brand Tokens
 
-AdaptEdu adopts an accessible **Deep Indigo / Educational Sapphire** as its core brand signature, symbolizing trust, focus, and clarity:
+AdaptEdu adopts an accessible **Educational Blue / Educational Sapphire** (`#2563EB`) as its core brand signature, symbolizing trust, focus, and clarity:
 
-- `--color-brand-primary`: `#4338CA` (Indigo 700 - Light mode button & active link fill)
-- `--color-brand-hover`: `#3730A3` (Indigo 800)
-- `--color-brand-surface`: `#EEF2FF` (Indigo 50)
-- `--color-brand-text`: `#312E81` (Indigo 900)
+- `--color-brand-primary`: `#2563EB` (Blue 600 - Light mode button & active link fill)
+- `--color-brand-hover`: `#1D4ED8` (Blue 700)
+- `--color-brand-surface`: `#EFF6FF` (Blue 50)
+- `--color-brand-border`: `#93C5FD` (Blue 300)
+- `--color-brand-text`: `#1E40AF` (Blue 800)
 
 ### 3. Feedback & Status Tokens
 
@@ -257,11 +258,11 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
   --foreground: var(--text-primary);
 
   /* Brand Tokens */
-  --color-brand-primary: #4338ca;
-  --color-brand-hover: #3730a3;
-  --color-brand-surface: #eef2ff;
-  --color-brand-border: #a5b4fc;
-  --color-brand-text: #312e81;
+  --color-brand-primary: #2563eb;
+  --color-brand-hover: #1d4ed8;
+  --color-brand-surface: #eff6ff;
+  --color-brand-border: #93c5fd;
+  --color-brand-text: #1e40af;
 
   /* Semantic Feedback Tokens */
   --color-feedback-success-bg: #ecfdf5;

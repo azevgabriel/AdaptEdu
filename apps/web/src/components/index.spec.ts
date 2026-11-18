@@ -27,9 +27,18 @@ describe("Components Barrel Export", () => {
     expect(typeof components.Switch).toBe("function");
   });
 
-  it("exports Drawer component", () => {
+  it("exports Drawer component and compound subcomponents", () => {
     expect(components.Drawer).toBeDefined();
     expect(typeof components.Drawer).toBe("function");
+    expect(components.Drawer.Root).toBeDefined();
+    expect(components.Drawer.Overlay).toBeDefined();
+    expect(components.Drawer.Content).toBeDefined();
+    expect(components.Drawer.Header).toBeDefined();
+    expect(components.Drawer.Title).toBeDefined();
+    expect(components.Drawer.Description).toBeDefined();
+    expect(components.Drawer.Close).toBeDefined();
+    expect(components.Drawer.Body).toBeDefined();
+    expect(components.Drawer.Footer).toBeDefined();
   });
 
   it("exports RadioGroup component", () => {
@@ -86,5 +95,27 @@ describe("Components Barrel Export", () => {
     expect(components.FloatButton).toBeDefined();
     expect(components.FloatGroup).toBeDefined();
     expect(components.FloatButtonGroup).toBeDefined();
+  });
+
+  it("exports Tabs component and subcomponents", () => {
+    expect(components.Tabs).toBeDefined();
+    expect(typeof components.Tabs).toBe("object");
+    expect(components.Tabs.Root).toBeDefined();
+    expect(components.Tabs.List).toBeDefined();
+    expect(components.Tabs.Tab).toBeDefined();
+    expect(components.Tabs.Panel).toBeDefined();
+  });
+
+  it("exports Breadcrumb and Breadcrumbs components and subcomponents", () => {
+    expect(components.Breadcrumb).toBeDefined();
+    expect(components.Breadcrumbs).toBeDefined();
+    expect(typeof components.Breadcrumb).toBe("object");
+    expect(components.Breadcrumb.Root).toBeDefined();
+    expect(components.Breadcrumb.List).toBeDefined();
+    expect(components.Breadcrumb.Item).toBeDefined();
+    expect(components.Breadcrumb.Link).toBeDefined();
+    expect(components.Breadcrumb.Page).toBeDefined();
+    expect(components.Breadcrumb.Current).toBeDefined();
+    expect(components.Breadcrumb.Separator).toBeDefined();
   });
 });

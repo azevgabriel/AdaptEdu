@@ -8,7 +8,7 @@ import styles from "../../page.module.css";
 
 export function LoginAuthCard() {
   const searchParams = useSearchParams();
-  const returnUrl = searchParams.get("returnUrl") || "/minha-sala";
+  const returnUrl = searchParams.get("returnUrl") || "/configuracoes/acessibilidade";
   const errorMessage = searchParams.get("error");
 
   return (

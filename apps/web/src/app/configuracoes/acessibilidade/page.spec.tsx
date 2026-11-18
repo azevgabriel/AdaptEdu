@@ -38,12 +38,13 @@ describe("AccessibilitySettingsPage", () => {
       })
     ).toBeInTheDocument();
 
+    const breadcrumbNav = screen.getByRole("navigation", {
+      name: /navegação estrutural/i,
+    });
+    expect(breadcrumbNav).toBeInTheDocument();
     expect(
-      screen.getByRole("navigation", { name: /navegação estrutural/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /minha sala/i })
-    ).toBeInTheDocument();
+      within(breadcrumbNav).getByRole("link", { name: /^configurações$/i })
+    ).toHaveAttribute("href", "/configuracoes");
 
     expect(
       screen.getByRole("heading", { name: /tema da interface/i })

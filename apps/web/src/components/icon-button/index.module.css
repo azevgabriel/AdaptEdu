@@ -94,7 +94,7 @@
 }
 
 .variantPrimary:hover:not(:disabled):not([aria-disabled="true"]) {
-  background-color: var(--color-brand-hover, #3730a3);
+  background-color: var(--color-brand-hover, #1d4ed8);
 }
 
 /* Active State */

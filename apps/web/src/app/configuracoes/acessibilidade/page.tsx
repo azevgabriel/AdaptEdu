@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import {
   Header,
   Footer,
@@ -9,8 +8,15 @@ import {
   Badge,
   FloatGroup,
   FloatButton,
+  Tabs,
+  Breadcrumb,
 } from "@/components";
-import { DocumentIcon, HomeIcon, PrismIcon, ResetIcon } from "@/assets/icons";
+import {
+  DocumentIcon,
+  PrismIcon,
+  ResetIcon,
+  SettingsIcon,
+} from "@/assets/icons";
 import { useAuth } from "@/contexts/auth-context";
 import { useAccessibility } from "@/hooks/use-accessibility";
 import {
@@ -57,7 +63,7 @@ export default function AccessibilitySettingsPage() {
     <div className={styles.pageWrapper}>
       {/* Global Application Header */}
       <Header
-        sectionName="Acessibilidade"
+        sectionName="Acessibilidade & Visualização"
         teacher={teacherProfile}
         showProfile={Boolean(user)}
         onLogout={signOut}
@@ -65,18 +71,24 @@ export default function AccessibilitySettingsPage() {
 
       <main className={styles.mainContent}>
         {/* Breadcrumb Navigation */}
-        <nav aria-label="Navegação estrutural" className={styles.breadcrumbNav}>
-          <Link href="/minha-sala" className={styles.breadcrumbLink}>
-            <HomeIcon size={14} />
-            Minha Sala
-          </Link>
-          <span className={styles.breadcrumbSeparator} aria-hidden="true">
-            /
-          </span>
-          <span className={styles.breadcrumbCurrent} aria-current="page">
-            Acessibilidade & Visualização
-          </span>
-        </nav>
+        <Breadcrumb aria-label="Navegação estrutural">
+          <Breadcrumb.List>
+            <Breadcrumb.Item>
+              <Breadcrumb.Link
+                href="/configuracoes"
+                icon={<SettingsIcon size={14} />}
+              >
+                Configurações
+              </Breadcrumb.Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.Item>
+              <Breadcrumb.Page>
+                Acessibilidade & Visualização
+              </Breadcrumb.Page>
+            </Breadcrumb.Item>
+          </Breadcrumb.List>
+        </Breadcrumb>
 
         {/* Hero Page Header */}
         <header className={styles.pageHeader}>
@@ -159,46 +171,55 @@ export default function AccessibilitySettingsPage() {
       <Drawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        title="Validação Cromática & Prévia em Tempo Real"
-        description="Acompanhe as mudanças visuais em tempo real conforme você personaliza as opções na tela."
         size="xl"
         position="right"
       >
-        <div
-          className={styles.drawerTabNav}
-          role="tablist"
-          aria-label="Abas de validação visual"
-        >
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeDrawerTab === "handout"}
-            className={`${styles.drawerTabButton} ${activeDrawerTab === "handout" ? styles.drawerTabActive : ""}`}
-            onClick={() => setActiveDrawerTab("handout")}
-          >
-            <DocumentIcon size={16} />
-            Prévia: Roteiro Pedagógico
-          </button>
+        <Drawer.Overlay />
+        <Drawer.Content>
+          <Drawer.Header>
+            <div>
+              <Drawer.Title>
+                Validação Cromática & Prévia em Tempo Real
+              </Drawer.Title>
+              <Drawer.Description>
+                Acompanhe as mudanças visuais em tempo real conforme você personaliza as opções na tela.
+              </Drawer.Description>
+            </div>
+            <Drawer.Close />
+          </Drawer.Header>
 
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeDrawerTab === "matrix"}
-            className={`${styles.drawerTabButton} ${activeDrawerTab === "matrix" ? styles.drawerTabActive : ""}`}
-            onClick={() => setActiveDrawerTab("matrix")}
-          >
-            <PrismIcon size={16} />
-            Matriz de Comparação Cromática
-          </button>
-        </div>
+          <Drawer.Body>
+            <Tabs
+              value={activeDrawerTab}
+              onChange={setActiveDrawerTab}
+              fitted
+            >
+              <Tabs.List aria-label="Abas de validação visual">
+                <Tabs.Tab
+                  value="handout"
+                  icon={<DocumentIcon size={16} />}
+                >
+                  Prévia: Roteiro Pedagógico
+                </Tabs.Tab>
 
-        <div className={styles.drawerTabBody}>
-          {activeDrawerTab === "handout" ? (
-            <HandoutPreview cvdMode={cvdMode} />
-          ) : (
-            <ChromaticMatrix cvdMode={cvdMode} />
-          )}
-        </div>
+                <Tabs.Tab
+                  value="matrix"
+                  icon={<PrismIcon size={16} />}
+                >
+                  Matriz de Comparação Cromática
+                </Tabs.Tab>
+              </Tabs.List>
+
+              <Tabs.Panel value="handout">
+                <HandoutPreview cvdMode={cvdMode} />
+              </Tabs.Panel>
+
+              <Tabs.Panel value="matrix">
+                <ChromaticMatrix cvdMode={cvdMode} />
+              </Tabs.Panel>
+            </Tabs>
+          </Drawer.Body>
+        </Drawer.Content>
       </Drawer>
 
       {/* Global Application Footer */}

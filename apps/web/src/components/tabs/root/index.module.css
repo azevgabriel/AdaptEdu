@@ -1,0 +1,10 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.orientation-vertical {
+  flex-direction: row;
+  gap: 1.5rem;
+}

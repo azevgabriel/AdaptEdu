@@ -68,7 +68,7 @@ describe("LoginPage", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: /perfil profissional de gabriel azevedo no linkedin/i,
+        name: /assinar newsletter no linkedin/i,
       }),
     ).toBeInTheDocument();
   });

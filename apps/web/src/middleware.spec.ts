@@ -4,18 +4,18 @@ import { middleware, SESSION_COOKIE_NAME } from "./middleware";
 
 describe("Next.js Auth Middleware", () => {
   it("redirects unauthenticated user accessing private route to /login with returnUrl", () => {
-    const request = new NextRequest("http://localhost:5173/minha-sala/carteiras");
+    const request = new NextRequest("http://localhost:5173/turmas/matematica");
     const response = middleware(request);
 
     expect(response).toBeDefined();
     expect(response?.status).toBe(307);
     expect(response?.headers.get("location")).toBe(
-      "http://localhost:5173/login?returnUrl=%2Fminha-sala%2Fcarteiras",
+      "http://localhost:5173/login?returnUrl=%2Fturmas%2Fmatematica",
     );
   });
 
   it("allows authenticated user with session cookie to proceed to private route", () => {
-    const request = new NextRequest("http://localhost:5173/minha-sala", {
+    const request = new NextRequest("http://localhost:5173/turmas", {
       headers: {
         cookie: `${SESSION_COOKIE_NAME}=valid_jwt_token`,
       },
@@ -26,7 +26,7 @@ describe("Next.js Auth Middleware", () => {
     expect(response?.status).toBe(200);
   });
 
-  it("redirects authenticated user visiting /login to /minha-sala", () => {
+  it("redirects authenticated user visiting /login to /configuracoes/acessibilidade", () => {
     const request = new NextRequest("http://localhost:5173/login", {
       headers: {
         cookie: `${SESSION_COOKIE_NAME}=valid_jwt_token`,
@@ -35,7 +35,7 @@ describe("Next.js Auth Middleware", () => {
     const response = middleware(request);
 
     expect(response?.status).toBe(307);
-    expect(response?.headers.get("location")).toBe("http://localhost:5173/minha-sala");
+    expect(response?.headers.get("location")).toBe("http://localhost:5173/configuracoes/acessibilidade");
   });
 
   it("redirects authenticated user visiting /login with returnUrl to specified returnUrl", () => {

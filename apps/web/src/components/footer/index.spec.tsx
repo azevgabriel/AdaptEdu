@@ -27,12 +27,12 @@ describe("Footer", () => {
     expect(githubLink).toHaveAttribute("rel", "noopener noreferrer");
 
     const linkedinLink = screen.getByRole("link", {
-      name: /perfil profissional de gabriel azevedo no linkedin/i,
+      name: /assinar newsletter no linkedin/i,
     });
     expect(linkedinLink).toBeInTheDocument();
     expect(linkedinLink).toHaveAttribute(
       "href",
-      "https://www.linkedin.com/in/azevgabriel/"
+      "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7528476481568739328"
     );
     expect(linkedinLink).toHaveAttribute("target", "_blank");
     expect(linkedinLink).toHaveAttribute("rel", "noopener noreferrer");
@@ -52,7 +52,7 @@ describe("Footer", () => {
     expect(githubLink).toHaveAttribute("href", "https://github.com/custom/repo");
 
     const linkedinLink = screen.getByRole("link", {
-      name: /perfil profissional de gabriel azevedo no linkedin/i,
+      name: /assinar newsletter no linkedin/i,
     });
     expect(linkedinLink).toHaveAttribute(
       "href",

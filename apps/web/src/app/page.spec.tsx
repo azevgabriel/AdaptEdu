@@ -3,8 +3,8 @@ import Home from "./page";
 import { redirect } from "next/navigation";
 
 describe("Home Page", () => {
-  it("redirects user to '/minha-sala'", () => {
+  it("redirects user to '/configuracoes/acessibilidade'", () => {
     Home();
-    expect(redirect).toHaveBeenCalledWith("/minha-sala");
+    expect(redirect).toHaveBeenCalledWith("/configuracoes/acessibilidade");
   });
 });

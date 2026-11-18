@@ -10,19 +10,16 @@ import { Menu } from "../menu";
 import {
   AccessibilityIcon,
   AdaptEduIcon,
-  ChalkboardIcon,
   ChevronDownIcon,
-  DocumentIcon,
   LogoutIcon,
   SettingsIcon,
-  UsersIcon,
 } from "@/assets/icons";
 import styles from "./index.module.css";
 
 export interface HeaderProps {
   /**
    * The name of the current active section to display next to the logo.
-   * Defaults to "Minha Sala" when showProfile is true.
+   * Defaults to "Configurações" when showProfile is true.
    */
   sectionName?: string;
   /**
@@ -43,7 +40,7 @@ export interface HeaderProps {
   showProfile?: boolean;
   /**
    * Optional custom URL destination for the brand link.
-   * Defaults to "/minha-sala" when showProfile is true, or "/" when showProfile is false.
+   * Defaults to "/configuracoes/acessibilidade" when showProfile is true, or "/" when showProfile is false.
    */
   brandHref?: string;
   /**
@@ -141,16 +138,16 @@ export function Header({
     sectionName !== undefined
       ? sectionName
       : showProfile
-      ? "Minha Sala"
+      ? "Configurações"
       : undefined;
 
   const resolvedBrandHref =
-    brandHref || (showProfile ? "/minha-sala" : "/");
+    brandHref || (showProfile ? "/configuracoes/acessibilidade" : "/");
 
   const resolvedBrandAriaLabel =
     brandAriaLabel ||
     (showProfile
-      ? "AdaptEdu - Início da Minha Sala"
+      ? "AdaptEdu - Configurações"
       : "AdaptEdu - Página Inicial");
 
   return (
@@ -227,8 +224,12 @@ export function Header({
                 size="sm"
               />
               <div className={styles.profileTextWrapper}>
-                <span className={styles.teacherName}>{teacher.name}</span>
-                <span className={styles.teacherRole}>{teacher.role}</span>
+                <span className={styles.teacherName} title={teacher.name}>
+                  {teacher.name}
+                </span>
+                <span className={styles.teacherRole} title={teacher.role}>
+                  {teacher.role}
+                </span>
               </div>
               <span
                 className={`${styles.chevronIcon} ${
@@ -257,13 +258,22 @@ export function Header({
                   size="md"
                 />
                 <div className={styles.menuUserInfo}>
-                  <strong className={styles.menuUserName}>
+                  <strong
+                    className={styles.menuUserName}
+                    title={teacher.name}
+                  >
                     {teacher.name}
                   </strong>
-                  <span className={styles.menuUserEmail}>
+                  <span
+                    className={styles.menuUserEmail}
+                    title={teacher.email}
+                  >
                     {teacher.email}
                   </span>
-                  <span className={styles.menuUserSchool}>
+                  <span
+                    className={styles.menuUserSchool}
+                    title={teacher.school}
+                  >
                     {teacher.school}
                   </span>
                 </div>
@@ -276,54 +286,18 @@ export function Header({
               <ul className={styles.menuList} role="none">
                 <li role="none">
                   <Menu.Item
-                    href="/minha-sala"
-                    className={`${styles.menuItemLink} ${
-                      resolvedSectionName === "Minha Sala"
-                        ? styles.menuItemActive
-                        : ""
-                    }`}
-                    isActive={resolvedSectionName === "Minha Sala"}
-                    onClick={closeMenu}
-                    icon={<ChalkboardIcon size={18} />}
-                  >
-                    Minha Sala
-                  </Menu.Item>
-                </li>
-
-                <li role="none">
-                  <Menu.Item
-                    href="/planejamento"
-                    className={styles.menuItemLink}
-                    onClick={closeMenu}
-                    icon={<DocumentIcon size={18} />}
-                  >
-                    Planos de Aula Adaptados
-                  </Menu.Item>
-                </li>
-
-                <li role="none">
-                  <Menu.Item
-                    href="/turmas"
-                    className={styles.menuItemLink}
-                    onClick={closeMenu}
-                    icon={<UsersIcon size={18} />}
-                  >
-                    Estudantes & Adaptações
-                  </Menu.Item>
-                </li>
-
-                <li role="none">
-                  <Menu.Item
                     href="/configuracoes/acessibilidade"
                     className={`${styles.menuItemLink} ${
                       resolvedSectionName === "Acessibilidade" ||
-                      resolvedSectionName === "Configurações"
+                      resolvedSectionName === "Configurações" ||
+                      resolvedSectionName === "Acessibilidade & Visualização"
                         ? styles.menuItemActive
                         : ""
                     }`}
                     isActive={
                       resolvedSectionName === "Acessibilidade" ||
-                      resolvedSectionName === "Configurações"
+                      resolvedSectionName === "Configurações" ||
+                      resolvedSectionName === "Acessibilidade & Visualização"
                     }
                     onClick={closeMenu}
                     icon={<SettingsIcon size={18} />}

@@ -89,7 +89,7 @@ export default function LoginPage() {
             fallback={
               <div className={styles.authCard}>
                 <div className={styles.authActions}>
-                  <GoogleSignInButton returnUrl="/minha-sala" />
+                  <GoogleSignInButton returnUrl="/configuracoes/acessibilidade" />
                 </div>
               </div>
             }

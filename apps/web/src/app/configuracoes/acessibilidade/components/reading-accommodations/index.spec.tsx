@@ -5,7 +5,7 @@ import { ReadingAccommodations } from "./index";
 
 describe("ReadingAccommodations", () => {
   it("renders all font size options and accommodation switches", () => {
-    render(
+    const { container } = render(
       <ReadingAccommodations
         fontSize="normal"
         onFontSizeChange={vi.fn()}
@@ -31,6 +31,10 @@ describe("ReadingAccommodations", () => {
     expect(
       screen.getByRole("radio", { name: /fonte muito grande \(130%\)/i })
     ).toBeInTheDocument();
+
+    // Verifies that radio indicators are rendered in each font size card
+    const indicators = container.querySelectorAll('[class*="fontSizeIndicator"]');
+    expect(indicators.length).toBe(3);
 
     expect(
       screen.getByLabelText(/alto contraste estrutural/i)

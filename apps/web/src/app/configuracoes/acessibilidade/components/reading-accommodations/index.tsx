@@ -66,6 +66,9 @@ export function ReadingAccommodations({
               className={styles.fontSizeButton}
               activeClassName={styles.fontSizeButtonActive}
             >
+              <div className={styles.fontSizeIndicator}>
+                <RadioCard.Indicator size="sm" />
+              </div>
               <span
                 className={styles.sampleLetter}
                 style={{ fontSize: opt.previewSize }}

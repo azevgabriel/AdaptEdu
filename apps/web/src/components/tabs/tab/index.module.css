@@ -1,0 +1,130 @@
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  background-color: transparent;
+  color: var(--text-muted, #71717a);
+  font-family: var(--font-family-body);
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+  user-select: none;
+  white-space: nowrap;
+  outline: none;
+}
+
+.tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fitted {
+  flex: 1;
+}
+
+/* Sizes */
+.size-sm {
+  font-size: 0.8125rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.size-md {
+  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+}
+
+.size-lg {
+  font-size: 1rem;
+  padding: 0.875rem 1.25rem;
+}
+
+/* Variant: Line */
+.variant-line {
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+
+.variant-line:hover:not(:disabled) {
+  color: var(--text-primary, #0f172a);
+  background-color: var(--bg-subtle, #f1f5f9);
+  border-radius: var(--radius-sm, 6px) var(--radius-sm, 6px) 0 0;
+}
+
+.variant-line.isSelected {
+  color: var(--color-brand-primary, #2563eb);
+  border-bottom-color: var(--color-brand-primary, #2563eb);
+}
+
+/* Variant: Enclosed */
+.variant-enclosed {
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: var(--radius-sm, 6px) var(--radius-sm, 6px) 0 0;
+}
+
+.variant-enclosed:hover:not(:disabled) {
+  color: var(--text-primary, #0f172a);
+  background-color: var(--bg-subtle, #f1f5f9);
+}
+
+.variant-enclosed.isSelected {
+  background-color: var(--bg-surface, #ffffff);
+  color: var(--color-brand-primary, #2563eb);
+  border-color: var(--border-subtle, #e2e8f0);
+  border-bottom: 1px solid var(--bg-surface, #ffffff);
+  margin-bottom: -1px;
+}
+
+/* Variant: Pills */
+.variant-pills {
+  border-radius: var(--radius-md, 6px);
+}
+
+.variant-pills:hover:not(:disabled) {
+  color: var(--text-primary, #0f172a);
+}
+
+.variant-pills.isSelected {
+  background-color: var(--bg-surface, #ffffff);
+  color: var(--color-brand-primary, #2563eb);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+/* Focus Ring */
+.tab:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #2563eb);
+  outline-offset: 2px;
+}
+
+/* Slots */
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badgeSlot {
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+  background-color: var(--bg-subtle, #f1f5f9);
+  color: var(--text-secondary, #475569);
+  line-height: 1.2;
+}
+
+.isSelected .badgeSlot {
+  background-color: var(--color-brand-surface, #eff6ff);
+  color: var(--color-brand-primary, #2563eb);
+}
+
+/* High Contrast Mode */
+:global(body[data-high-contrast="true"]) .tab.isSelected,
+:global([data-high-contrast="true"]) .tab.isSelected {
+  border-color: var(--border-strong, #000000) !important;
+  color: var(--text-primary, #000000) !important;
+}

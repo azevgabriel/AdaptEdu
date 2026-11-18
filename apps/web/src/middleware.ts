@@ -4,7 +4,6 @@ import type { NextRequest } from "next/server";
 export const SESSION_COOKIE_NAME = "adaptedu_session";
 
 export const PRIVATE_ROUTES = [
-  "/minha-sala",
   "/dashboard",
   "/turmas",
   "/planejamento",
@@ -25,10 +24,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // If authenticated user visits /login, redirect to destination or /minha-sala
+  // If authenticated user visits /login, redirect to destination or /configuracoes/acessibilidade
   if (pathname === "/login" && sessionToken) {
     const returnUrl =
-      request.nextUrl.searchParams.get("returnUrl") || "/minha-sala";
+      request.nextUrl.searchParams.get("returnUrl") || "/configuracoes/acessibilidade";
     const targetPath = returnUrl.startsWith("/") ? returnUrl : `/${returnUrl}`;
     const targetUrl = new URL(targetPath, request.url);
     return NextResponse.redirect(targetUrl);
@@ -39,7 +38,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/minha-sala/:path*",
     "/dashboard/:path*",
     "/turmas/:path*",
     "/planejamento/:path*",

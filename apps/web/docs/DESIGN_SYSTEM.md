@@ -71,18 +71,18 @@ The `Header` houses the platform's central accessibility trigger button. Clickin
 
 #### Usage Examples
 
-##### A. Authenticated Classroom Layout (`showProfile={true}`)
+##### A. Authenticated Layout (`showProfile={true}`)
 
 ```tsx
 import { Header } from "@/components";
 import { useAuth } from "@/contexts/auth-context";
 
-export function ClassroomHeader() {
+export function AuthenticatedHeader() {
   const { user, signOut } = useAuth();
 
   return (
     <Header
-      sectionName="Minha Sala"
+      sectionName="Configurações"
       teacher={
         user
           ? {
@@ -135,7 +135,7 @@ The `Footer` provides an accessible, standardized footer for the application. It
 | Prop          | Type     | Default                                      | Description                                           |
 | :------------ | :------- | :------------------------------------------- | :---------------------------------------------------- |
 | `githubUrl`   | `string` | `"https://github.com/azevgabriel/AdaptEdu"`  | URL for the open-source GitHub repository.            |
-| `linkedinUrl` | `string` | `"https://www.linkedin.com/in/azevgabriel/"` | URL for the developer's LinkedIn profile.             |
+| `linkedinUrl` | `string` | `"https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7528476481568739328"` | URL for the developer's LinkedIn newsletter subscription. |
 | `className`   | `string` | `undefined`                                  | Optional additional CSS class for layout positioning. |
 
 #### Usage Example
@@ -175,7 +175,7 @@ The `GoogleSignInButton` is the standardized authentication trigger component fo
 
 | Prop        | Type         | Default                                                        | Description                                                                       |
 | :---------- | :----------- | :------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
-| `returnUrl` | `string`     | `"/minha-sala"`                                                | The destination path to redirect to after successful authentication.              |
+| `returnUrl` | `string`     | `"/configuracoes/acessibilidade"`                              | The destination path to redirect to after successful authentication.              |
 | `apiUrl`    | `string`     | `process.env.NEXT_PUBLIC_API_URL` or `"http://localhost:3000"` | Base URL of the NestJS backend API.                                               |
 | `onSignIn`  | `() => void` | `undefined`                                                    | Custom click override handler (primarily for tests or custom flow orchestration). |
 | `disabled`  | `boolean`    | `false`                                                        | Disables the button and prevents click actions.                                   |
@@ -190,7 +190,7 @@ export function AuthCard() {
   return (
     <div className="authCard">
       <h2>Acesso do Educador</h2>
-      <GoogleSignInButton returnUrl="/minha-sala" />
+      <GoogleSignInButton returnUrl="/configuracoes/acessibilidade" />
     </div>
   );
 }
@@ -271,15 +271,43 @@ The `Switch` component provides an accessible toggle switch (`role="switch"`) fo
 
 ### 6. `Drawer`
 
-- **Directory:** `src/components/drawer/`
-- **Component File:** `src/components/drawer/index.tsx`
-- **Style File:** `src/components/drawer/index.module.css`
-- **Test File:** `src/components/drawer/index.spec.tsx`
+- **Directory:** `src/components/drawer/` (with modular sub-packages `root/`, `overlay/`, `content/`, `header/`, `title/`, `description/`, `close/`, `body/`, `footer/`; re-exported through `src/components/index.ts`)
+- **Component Files:** `src/components/drawer/root/index.tsx`, `overlay/index.tsx`, `content/index.tsx`, `header/index.tsx`, `title/index.tsx`, `description/index.tsx`, `close/index.tsx`, `body/index.tsx`, `footer/index.tsx`
 - **Barrel Export:** `export * from "./drawer";` in `src/components/index.ts`
+- **Compound Access:** `Drawer.Root`, `Drawer.Overlay`, `Drawer.Content` (alias `Drawer.Panel`), `Drawer.Header`, `Drawer.Title`, `Drawer.Description`, `Drawer.Close` (alias `Drawer.CloseButton`), `Drawer.Body`, `Drawer.Footer`
 
 #### Overview
 
 The `Drawer` component implements an accessible sliding side panel rendered via a React Portal directly to `document.body`. It incorporates scroll locking, backdrop overlay click dismissals, `Escape` key listeners, and a robust focus trap cycling focus between interactive elements with focus return upon closing.
+
+It supports both a **compound component composition API** (`Drawer.Overlay`, `Drawer.Content`, `Drawer.Header`, `Drawer.Body`, `Drawer.Footer`) for custom layouts, and a **shorthand prop-driven API** (`title`, `description`, `footer`, `position`, `size`) for rapid declarative usage.
+
+#### Compound Usage Example
+
+```tsx
+import { Drawer } from "@/components";
+
+<Drawer isOpen={isOpen} onClose={handleClose} position="right" size="lg">
+  <Drawer.Overlay />
+  <Drawer.Content>
+    <Drawer.Header>
+      <div>
+        <Drawer.Title>Título do Painel</Drawer.Title>
+        <Drawer.Description>Descrição contextual do painel</Drawer.Description>
+      </div>
+      <Drawer.Close />
+    </Drawer.Header>
+
+    <Drawer.Body>
+      <p>Conteúdo interativo ou formulário aqui.</p>
+    </Drawer.Body>
+
+    <Drawer.Footer>
+      <button type="button" onClick={handleSave}>Salvar Alterações</button>
+    </Drawer.Footer>
+  </Drawer.Content>
+</Drawer>;
+```
 
 ---
 
@@ -561,9 +589,6 @@ import { Menu, MenuItem, MenuSeparator } from "@/components";
     <strong>Profª Ana Silva</strong>
   </Menu.Header>
   <Menu.Separator />
-  <MenuItem href="/minha-sala" icon={<ClassroomIcon />}>
-    Minha Sala
-  </MenuItem>
   <MenuItem href="/configuracoes" icon={<SettingsIcon />}>
     Configurações
   </MenuItem>
@@ -663,22 +688,39 @@ import { PrismIcon, ResetIcon } from "@/assets/icons";
 
 #### Overview
 
-The `Badge` component displays concise categorical tags, pedagogical tiers, or status indicators. It automatically incorporates Daltonism (CVD) accommodations and complies with the "Never Color Alone" principle by coupling visual color tones with semantic hierarchy and text labels.
+The `Badge` component is the standard, universal visual indicator for short labels, status tags, neurodiversity pills, and pedagogical hierarchy chips. It automatically incorporates Daltonism (CVD) accommodations and complies with the "Never Color Alone" principle by coupling visual color tones with semantic hierarchy and text labels.
 
-#### Variants & Pedagogical Tiers
+#### Component Props (`BadgeProps`)
 
-- **Pedagogical Tiers (`pedagogicalTier`):**
-  - `"key-concept"`: Core instructional concepts (e.g. "Conceito-Chave").
-  - `"definition"`: Educational explanations and definitions.
-  - `"data"`: Empirical or factual figures.
-  - `"example"`: Classroom examples and practical demonstrations.
-- **Status Variants (`variant`):**
-  - `"brand"`: System primary theme.
-  - `"neutral"`: Subtle surface tag.
-  - `"success"`: Completed state.
-  - `"warning"`: Cautionary notice.
-  - `"error"`: Alert or blocker.
-  - `"info"`: Informational context.
+| Prop       | Type              | Default     | Description                                                                                                                                                  |
+| :--------- | :---------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`  | `BadgeVariant`    | `"neutral"` | Visual variant: `"neutral"`, `"brand"`, `"success"`, `"warning"`, `"danger"`, `"info"`, `"outline"`, `"key-concept"`, `"definition"`, `"data"`, `"example"`. |
+| `size`     | `BadgeSize`       | `"md"`      | Dimension scale: `"sm"` (0.7rem), `"md"` (0.75rem), `"lg"` (0.875rem).                                                                                       |
+| `pill`     | `boolean`         | `false`     | When `true`, applies full pill border-radius (`9999px`).                                                                                                     |
+| `icon`     | `React.ReactNode` | `undefined` | Optional leading icon or glyph automatically wrapped in `aria-hidden="true"`. Fulfills the "Never Color Alone" invariant.                                    |
+| `children` | `React.ReactNode` | `undefined` | Badge content label in PT-BR.                                                                                                                                |
+
+#### Usage Examples
+
+```tsx
+import { Badge } from "@/components";
+import { CheckIcon } from "@/assets/icons";
+
+// Standard brand pill
+<Badge variant="brand" pill size="sm">WCAG 2.1 AA / AAA</Badge>
+
+// Neurodiversity condition tag
+<Badge variant="outline" pill size="md">Autismo (TEA)</Badge>
+
+// Status badge with icon ("Never Color Alone")
+<Badge variant="success" icon={<CheckIcon size={14} />}>Concluído</Badge>
+
+// Pedagogical hierarchy badges (supports CVD remapping)
+<Badge variant="key-concept" icon="⚠️">Conceito-Chave & Atenção</Badge>
+<Badge variant="definition" icon="📖">Definição & Estrutura</Badge>
+<Badge variant="data" icon="📊">Dados Numéricos & Metas</Badge>
+<Badge variant="example" icon="💡">Exemplo Prático & Exercício</Badge>
+```
 
 ---
 
@@ -730,48 +772,84 @@ import { PrismIcon, ResetIcon } from "@/assets/icons";
 
 ---
 
-### 11. `Badge`
+### 13. `Tabs`
 
-- **Directory:** `src/components/badge/`
-- **Component File:** `src/components/badge/index.tsx`
-- **Style File:** `src/components/badge/index.module.css`
-- **Test File:** `src/components/badge/index.spec.tsx`
-- **Barrel Export:** `export * from "./badge";` in `src/components/index.ts`
+- **Directory:** `src/components/tabs/` (with modular sub-packages `root/`, `list/`, `tab/`, `panel/`; re-exported through `src/components/index.ts`)
+- **Component Files:** `src/components/tabs/root/index.tsx`, `list/index.tsx`, `tab/index.tsx`, `panel/index.tsx`
+- **Barrel Export:** `export * from "./tabs";` in `src/components/index.ts`
+- **Compound Access:** `Tabs.Root`, `Tabs.List`, `Tabs.Tab` (alias `Tabs.Trigger`), `Tabs.Panel` (alias `Tabs.Content`)
 
 #### Overview
 
-The `Badge` component is the standard, universal visual indicator for short labels, status tags, neurodiversity pills, and pedagogical hierarchy chips. It supports standard status and brand variants as well as the 4 pedagogical content hierarchy tiers with full Daltonism (CVD) dynamic remapping support.
+`Tabs` provides a fully accessible tabbed navigation and content container complying with the **W3C WAI-ARIA Tabs APG Pattern**. It supports horizontal and vertical orientations, cyclic arrow key navigation, automatic and manual activation modes, multiple visual styling variants (`line`, `enclosed`, `pills`), and lazy panel rendering.
 
-#### Component Props (`BadgeProps`)
+#### Features & Invariants
 
-| Prop       | Type              | Default     | Description                                                                                                                                                  |
-| :--------- | :---------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`  | `BadgeVariant`    | `"neutral"` | Visual variant: `"neutral"`, `"brand"`, `"success"`, `"warning"`, `"danger"`, `"info"`, `"outline"`, `"key-concept"`, `"definition"`, `"data"`, `"example"`. |
-| `size`     | `BadgeSize`       | `"md"`      | Dimension scale: `"sm"` (0.7rem), `"md"` (0.75rem), `"lg"` (0.875rem).                                                                                       |
-| `pill`     | `boolean`         | `false`     | When `true`, applies full pill border-radius (`9999px`).                                                                                                     |
-| `icon`     | `React.ReactNode` | `undefined` | Optional leading icon or glyph automatically wrapped in `aria-hidden="true"`. Fulfills the "Never Color Alone" invariant.                                    |
-| `children` | `React.ReactNode` | `undefined` | Badge content label in PT-BR.                                                                                                                                |
+- **Full Keyboard APG Navigation:**
+  - `ArrowRight` & `ArrowLeft` (or `ArrowDown` & `ArrowUp` if vertical) with cyclic wrap-around.
+  - `Home` & `End` jump focus directly to the first and last tabs.
+- **WAI-ARIA Attributes:** Correct bindings for `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, `aria-controls`, and `aria-labelledby`.
+- **Variants:** `"line"` (accent underline indicator), `"enclosed"` (card-style borders), `"pills"` (contained capsule style).
 
-#### Usage Examples
+#### Usage Example
 
 ```tsx
-import { Badge } from "@/components";
-import { CheckIcon } from "@/assets/icons";
+import { Tabs } from "@/components";
+import { DocumentIcon, PrismIcon } from "@/assets/icons";
 
-// Standard brand pill
-<Badge variant="brand" pill size="sm">WCAG 2.1 AA / AAA</Badge>
+<Tabs defaultValue="handout" fitted>
+  <Tabs.List aria-label="Abas de validação visual">
+    <Tabs.Tab value="handout" icon={<DocumentIcon size={16} />}>
+      Prévia: Roteiro Pedagógico
+    </Tabs.Tab>
+    <Tabs.Tab value="matrix" icon={<PrismIcon size={16} />}>
+      Matriz Cromática
+    </Tabs.Tab>
+  </Tabs.List>
 
-// Neurodiversity condition tag
-<Badge variant="outline" pill size="md">Autismo (TEA)</Badge>
+  <Tabs.Panel value="handout">
+    <HandoutPreview />
+  </Tabs.Panel>
+  <Tabs.Panel value="matrix">
+    <ChromaticMatrix />
+  </Tabs.Panel>
+</Tabs>;
+```
 
-// Status badge with icon ("Never Color Alone")
-<Badge variant="success" icon={<CheckIcon size={14} />}>Concluído</Badge>
+---
 
-// Pedagogical hierarchy badges (supports CVD remapping)
-<Badge variant="key-concept" icon="⚠️">Conceito-Chave & Atenção</Badge>
-<Badge variant="definition" icon="📖">Definição & Estrutura</Badge>
-<Badge variant="data" icon="📊">Dados Numéricos & Metas</Badge>
-<Badge variant="example" icon="💡">Exemplo Prático & Exercício</Badge>
+### 13. `Breadcrumb` / `Breadcrumbs`
+
+Accessible navigational breadcrumb trail strictly adhering to the **W3C WAI-ARIA Breadcrumb Pattern** (`<nav aria-label="...">` landmark containing an `<ol>` ordered list of `<li>` items with `aria-current="page"` and `aria-hidden` decorative separators).
+
+#### Compound Architecture
+
+- `<Breadcrumb>` (or `<Breadcrumb.Root>`): Nav landmark provider managing context and custom separator tokens.
+- `<Breadcrumb.List>`: Semantic `<ol>` container with responsive wrapping (`flex-wrap: wrap;`).
+- `<Breadcrumb.Item>`: Semantic `<li>` element.
+- `<Breadcrumb.Link>`: Next.js Link wrapper with optional `icon` slot and focus indicator.
+- `<Breadcrumb.Page>` (or `<Breadcrumb.Current>`): Terminal non-interactive item marked with `aria-current="page"`.
+- `<Breadcrumb.Separator>`: Decorative divider (`role="presentation"`, `aria-hidden="true"`) defaulting to `"/"` or context-supplied separator.
+
+#### Usage Example
+
+```tsx
+import { Breadcrumb } from "@/components";
+import { SettingsIcon } from "@/assets/icons";
+
+<Breadcrumb aria-label="Navegação estrutural">
+  <Breadcrumb.List>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href="/configuracoes" icon={<SettingsIcon size={14} />}>
+        Configurações
+      </Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item>
+      <Breadcrumb.Page>Acessibilidade & Visualização</Breadcrumb.Page>
+    </Breadcrumb.Item>
+  </Breadcrumb.List>
+</Breadcrumb>;
 ```
 
 ---
@@ -786,11 +864,6 @@ Components that are specific to a single route segment are organized in sub-dire
 - **Barrel Export:** `src/app/login/components/index.ts`
 - **Role:** Presents the authentication form card on `/login`. Reads query parameters (such as `?error=` or `?returnUrl=`), displays contextual alerts for educators in PT-BR, and embeds `GoogleSignInButton`.
 
-### 2. `ClassroomHeader`
-
-- **Location:** `src/app/minha-sala/components/classroom-header/`
-- **Barrel Export:** `src/app/minha-sala/components/index.ts`
-- **Role:** Connects the global `Header` component with the client-side `useAuth()` hook, translating the authenticated `user` session into the `teacher` profile structure and routing `signOut` to `onLogout`.
 
 ---
 
@@ -801,7 +874,7 @@ The Design System is built upon a cohesive set of CSS custom properties defined 
 ### 1. Color Palette & Accessibility (`COLORS.md`)
 
 - **System Surfaces & Text:** `--bg-canvas`, `--bg-surface`, `--bg-subtle`, `--text-primary`, `--text-secondary`, `--text-muted`.
-- **Brand Tokens:** `--color-brand-primary` (`#4338CA`), `--color-brand-surface` (`#EEF2FF`), `--color-brand-border` (`#A5B4FC`), `--color-brand-text` (`#312E81`).
+- **Brand Tokens:** `--color-brand-primary` (`#2563EB`), `--color-brand-surface` (`#EFF6FF`), `--color-brand-border` (`#93C5FD`), `--color-brand-text` (`#1E40AF`).
 - **Pedagogical Color Code:** Dedicated subject tokens (Portuguese, Math, History, Geography, Sciences, Arts, Physical Education, English) fulfilling the "Never Color Alone" rule with fixed chromatic associations.
 - **Specification:** [COLORS.md](apps/web/docs/COLORS.md).
 

@@ -31,9 +31,8 @@ apps/web/src/
 │   │   ├── page.module.css
 │   │   ├── page.spec.tsx
 │   │   └── page.tsx
-│   ├── minha-sala/                 # ✅ kebab-case route segment
-│   │   ├── planos-aula/            # ✅ kebab-case nested route segment
-│   │   └── estudantes/             # ✅ kebab-case nested route segment
+│   ├── configuracoes/              # ✅ kebab-case route segment
+│   │   ├── acessibilidade/         # ✅ kebab-case nested route segment
 ├── components/
 │   ├── header/                     # ✅ kebab-case component directory
 │   ├── student-card/               # ✅ kebab-case component directory
@@ -47,7 +46,7 @@ apps/web/src/
 ### Prohibited Directory Patterns:
 - ❌ `src/components/Header/` (PascalCase is forbidden for directories)
 - ❌ `src/components/studentCard/` (camelCase is forbidden for directories)
-- ❌ `src/app/minha_sala/` (snake_case is forbidden for directories; use `minha-sala`)
+- ❌ `src/app/minha_sala/` (snake_case is forbidden for directories; use `minha-sala` or `configuracoes`)
 
 ---
 
@@ -193,7 +192,7 @@ import styles from "../../page.module.css";
 
 export function LoginAuthCard() {
   const searchParams = useSearchParams();
-  const returnUrl = searchParams.get("returnUrl") || "/minha-sala";
+  const returnUrl = searchParams.get("returnUrl") || "/configuracoes/acessibilidade";
   const errorMessage = searchParams.get("error");
 
   return (
@@ -280,7 +279,7 @@ export default function LoginPage() {
 | **Helper Functions** | `camelCase` | `formatInitials`, `calculateRatio` | Pure functions, stored in `src/utils/`. |
 | **Constants** | `UPPER_SNAKE_CASE` | `DEFAULT_TEACHER`, `MAX_ATTEMPTS` | Stored near usage or in `src/constants/`. |
 | **CSS Module Classes** | `camelCase` | `.headerContainer`, `.brandLogo` | Avoid hyphens in CSS modules for clean JS property access. |
-| **App Router Folders** | `kebab-case` | `app/minha-sala/`, `app/plano-aula/` | URL slugs match the folder name directly. |
+| **App Router Folders** | `kebab-case` | `app/configuracoes/`, `app/plano-aula/` | URL slugs match the folder name directly. |
 | **App Router Special Files** | Next.js standard | `page.tsx`, `layout.tsx`, `loading.tsx` | Standard Next.js file conventions. |
 
 ---
@@ -315,7 +314,7 @@ src/components/header/index.spec.tsx
 src/app/minha_sala/page.tsx
 
 // CORRECT:
-src/app/minha-sala/page.tsx
+src/app/configuracoes/acessibilidade/page.tsx
 ```
 
 ### 4. ❌ Mixing Portuguese into Code Identifiers

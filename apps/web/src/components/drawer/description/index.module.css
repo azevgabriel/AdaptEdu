@@ -1,0 +1,6 @@
+.description {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #475569);
+  margin: 0;
+  line-height: 1.45;
+}

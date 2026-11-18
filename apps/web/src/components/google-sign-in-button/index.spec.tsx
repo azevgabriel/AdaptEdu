@@ -53,7 +53,7 @@ describe("GoogleSignInButton", () => {
     render(
       <GoogleSignInButton
         apiUrl="http://localhost:3000"
-        returnUrl="/minha-sala/carteiras"
+        returnUrl="/configuracoes/carteiras"
       />
     );
 
@@ -63,11 +63,26 @@ describe("GoogleSignInButton", () => {
     await user.click(button);
 
     expect(window.location.assign).toHaveBeenCalledWith(
-      "http://localhost:3000/auth/google?returnUrl=%2Fminha-sala%2Fcarteiras"
+      "http://localhost:3000/auth/google?returnUrl=%2Fconfiguracoes%2Fcarteiras"
     );
   });
 
-  it("uses default /minha-sala returnUrl and fallback apiUrl when omitted", async () => {
+  it("uses default /configuracoes/acessibilidade returnUrl when omitted", async () => {
+    const user = userEvent.setup();
+
+    render(<GoogleSignInButton />);
+
+    const button = screen.getByRole("button", {
+      name: /entrar com a conta institucional google/i,
+    });
+    await user.click(button);
+
+    expect(window.location.assign).toHaveBeenCalledWith(
+      "http://localhost:3000/auth/google?returnUrl=%2Fconfiguracoes%2Facessibilidade"
+    );
+  });
+
+  it("omits returnUrl param when explicitly passed empty string", async () => {
     const user = userEvent.setup();
 
     render(<GoogleSignInButton returnUrl="" />);
