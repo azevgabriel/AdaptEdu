@@ -96,4 +96,23 @@ describe("Avatar Component", () => {
     render(<Avatar name="Mariana" status="online" statusLabel="Disponível para atendimento" />);
     expect(screen.getByTitle("Disponível para atendimento")).toBeInTheDocument();
   });
+
+  it("marks initials span with aria-hidden='true' while exposing accessible container label", () => {
+    const { container } = render(<Avatar name="Profª Cláudia Silva" />);
+    const avatarRoot = container.firstChild as HTMLElement;
+
+    expect(avatarRoot).toHaveAttribute("role", "img");
+    expect(avatarRoot).toHaveAttribute("aria-label", "Foto de perfil de Profª Cláudia Silva");
+
+    const initialsSpan = container.querySelector('[class*="avatarInitials"]');
+    expect(initialsSpan).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("fulfills Never Color Alone with aria-label on status indicator", () => {
+    const { container } = render(<Avatar name="Bruno Santos" status="busy" />);
+    const statusDot = container.querySelector('[class*="statusIndicator"]');
+
+    expect(statusDot).toHaveAttribute("title", "Ocupado");
+    expect(statusDot).toHaveAttribute("aria-label", "Ocupado");
+  });
 });

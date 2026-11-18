@@ -1,0 +1,195 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.title {
+  font-family: var(--font-family-headings);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.titleIcon {
+  color: var(--color-brand-primary);
+}
+
+.description {
+  font-family: var(--font-family-body);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Optical Medical Explanation Banner */
+.opticalBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: var(--color-brand-surface);
+  border-left: 4px solid var(--color-brand-primary);
+}
+
+.opticalBannerIcon {
+  color: var(--color-brand-primary);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.opticalBannerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.opticalBannerTitle {
+  font-family: var(--font-family-headings);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-brand-text);
+}
+
+.opticalBannerText {
+  font-family: var(--font-family-body);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+/* Category Sections in Matrix */
+.matrixCategory {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.categoryTitle {
+  font-family: var(--font-family-headings);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryTitle::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-subtle);
+}
+
+.swatchesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.875rem;
+}
+
+/* Swatch Card */
+.swatchCard {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.swatchCard:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(15, 23, 42, 0.05);
+}
+
+.swatchPreview {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+}
+
+.standardSwatchDot {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  font-family: var(--font-family-body);
+  font-size: 0.675rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.contrastBadge {
+  font-family: var(--font-family-body);
+  font-size: 0.675rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+}
+
+.swatchDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+}
+
+.canonicalName {
+  font-family: var(--font-family-headings);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.perceivedName {
+  font-family: var(--font-family-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-brand-primary);
+}
+
+.opticalNote {
+  font-family: var(--font-family-body);
+  font-size: 0.725rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin-top: 0.125rem;
+}

@@ -37,6 +37,7 @@ Color must **never** be the sole indicator of meaning, state, subject, or urgenc
 ### 3. Visual Stress & Dyslexia (Meares-Irlen Considerations)
 - **Avoid Pure Black on Pure White:** High-contrast pure white (`#FFFFFF`) behind pitch black (`#000000`) can induce visual vibration, headaches, and "rivering" (optical illusion of white rivers running through text) for dyslexic and neurodivergent individuals.
 - **Soft Foundations:** Use soft slate neutrals (`#0F172A` text on `#F8FAFC` or `#F1F5F9` canvas) to ensure crisp legibility without sensory glare.
+- **Avoid Italics as Accessibility Substitutes:** As emphasized in the UFSM Chromatic Accessibility Guide (*Guia de Acessibilidade Cromática para Daltonismo*), slanted letterforms (italics) degrade letter silhouette recognition, trigger visual crowding, and create severe reading obstacles for individuals with dyslexia. Never use italics as an alternative indicator for color codes or accessibility highlights; use distinct border weights, underline offsets, or bold text instead.
 
 ### 4. Controlled Saturation (ASD & Sensory Overload)
 - Avoid hyper-saturated neon backgrounds that distract or overstimulate students with ASD.
@@ -64,6 +65,10 @@ Teachers and students use fixed color coding for school disciplines across binde
 | **Educação Física** | `--subject-pe` | `#0D9488` | `#F0FDFA` | `#2DD4BF` | `#115E59` | 7.5:1 (AAA) | Motor skills, physical wellness, sports, team routines. |
 | **Língua Inglesa** | `--subject-languages` | `#CA8A04` | `#FEFCE8` | `#FACC15` | `#854D0E` | 7.4:1 (AAA) | Foreign language acquisition, vocabulary, international culture. |
 | **Filosofia / Sociologia** | `--subject-humanities`| `#78716C` | `#F5F5F4` | `#A8A29E` | `#44403C` | 7.7:1 (AAA) | Critical thinking, ethics, societal organization. |
+
+> [!WARNING]
+> **Risky Chromatic Pairs in Default Mode:**
+> Empirical research in chromatic accessibility (*Guia de Acessibilidade Cromática para Daltonismo*, UFSM / Coletivo UX) identifies **Green + Orange** and **Blue + Purple** as high-risk confusion pairings across red-green color vision deficiencies. In AdaptEdu's default palette, **História (Orange) vs. Geografia (Green)** and **Matemática (Blue) vs. Química/Biologia (Purple)** must ALWAYS be accompanied by their persistent geometric iconography (⏳ vs. 🌍 and 🧮 vs. 🧪) and explicit text labels. Never rely solely on color to differentiate subjects, ensuring students and educators with undiagnosed mild CVD are not excluded.
 
 ---
 
@@ -123,14 +128,16 @@ AdaptEdu provides **four dedicated CVD operational modes** activated via the HTM
 ### 3. Tritanopia & Tritanomalia (S-Cone / Blue Defect)
 - **Prevalence:** Rare (~0.01% of the population, equal distribution between sexes).
 - **Physiology:** Malfunction or absence of blue-sensitive cone photoreceptors (S-cones).
-- **Perception Breakdown:** Blue and green are confused; yellow fades, disappears, or is perceived as light pink or light gray.
-- **Pedagogical Failure in Default Palette:** Yellow highlights (Dates/Formulas) disappear or blend into pink (Português); blue (Matemática/Definições) is confused with green (Geografia/Exemplos).
+- **Perception Breakdown:** Blue and green are confused; yellow fades, disappears, or is perceived as light pink or light gray. S-cone deficient individuals cannot distinguish short-wavelength light (blues, indigos, purples, violets).
+- **Pedagogical Failure in Default Palette:** Yellow highlights (Dates/Formulas) disappear or blend into pink (Português); blue (Matemática/Definições) is confused with green (Geografia/Exemplos); dark mode screens saturated in slate blue and indigo create cognitive strain and illegibility.
 - **AdaptEdu Remapping Strategy:**
-  - **Capitalizes on the Intact Red-Cyan Optical Axis:** Tritanopes perceive red and cyan with high clarity.
+  - **Capitalizes on the Intact Red-Cyan Optical Axis:** Tritanopes perceive red and cyan with sharp clarity.
   - **Conceitos-chave:** Uses **Pure Crimson Red (`#DC2626`)** — perceived with sharp distinction.
-  - **Datas, Fórmulas & Citações:** Shifted away from fading yellow to **Rich Purple / Violet (`#7C3AED`)**.
-  - **Definições & Matemática:** Shifted to **Deep Charcoal / Midnight Slate (`#334155` / `#0F172A`)**.
+  - **Datas, Fórmulas & Citações:** Remapped away from fading yellow and non-discernible purple/violet to **Warm Terracotta / Rust (`#C2410C`)**.
+  - **Definições & Matemática:** Shifted to **Deep Charcoal / Midnight Neutral (`#262626` / `#18181B`)**.
   - **Exemplos & Geografia:** Pure **Bright Cyan / Turquoise (`#06B6D4`)**.
+  - **Ciências:** Remapped away from purple/fuchsia to **Deep Teal (`#0E7490`)**.
+  - **Neutral Dark Foundation:** When dark mode is paired with Tritanopia, blue-tinted slate backgrounds (`#0B0F19`, `#1E293B`) are overridden with **pure neutral zinc darks (`#121212`, `#1C1C1C`, `#262626`)**, and brand tokens are remapped to **Teal/Cyan (`#0891B2` / `#06B6D4`)**.
 
 ---
 
@@ -138,15 +145,16 @@ AdaptEdu provides **four dedicated CVD operational modes** activated via the HTM
 - **Prevalence:** Very rare (~0.003%), highly debilitating.
 - **Physiology:** Complete absence or malfunction of all three cone systems. Vision is mediated solely by rod photoreceptors.
 - **Perception Breakdown:** Vision is entirely achromatic (black, white, and grays). Accompanied by **severe photophobia (extreme eye pain and blindness in standard daylight or bright screen glare)** and reduced visual acuity.
-- **Pedagogical Failure in Default Palette:** Complete loss of all chromatic cues, combined with physical pain from bright white backgrounds.
+- **Pedagogical Failure in Default Palette:** Complete loss of all chromatic cues, combined with physical pain from bright white backgrounds and extreme 21:1 luminance glare.
 - **AdaptEdu Remapping Strategy:**
-  - **🛡️ Photophobia Shield Foundation:** The canvas is dimmed to a soothing, anti-glare soft zinc/slate (`#F4F4F5` in light, `#18181B` in dark). Pure white glare is eliminated.
-  - **Strict Luminance Interval Stacking:** Tokens use calibrated grayscale reflectivity intervals (100% white, 75% light gray, 45% mid gray, 15% dark zinc).
+  - **🛡️ Anti-Glare Photophobia Shield:** Pure white surfaces (`#FFFFFF`) are strictly eradicated; replaced with soft matte anti-glare neutrals (`--bg-canvas: #E4E4E7`, `--bg-surface: #D4D4D8` in light mode; `#18181B`, `#27272A` in dark mode).
+  - **Anti-Glare Adaptive Structural Contrast:** When paired with High Contrast, luminance glare is avoided; instead, **structural contrast** is enforced via thick outlines (2px/3px solid, double, dotted, dashed borders) and geometric visual anchors.
+  - **Strict Luminance Interval Stacking:** Tokens use calibrated grayscale reflectivity intervals (matte gray, light gray, mid gray, dark zinc).
   - **Structural & Pattern Encodings (No-Color Dependent):**
     - **Conceitos-Chave:** Solid inverted dark badge with thick solid border (`border-left: 4px solid #18181b`) + bold weight.
     - **Definições:** Double stroke border (`border-left: 4px double #52525b`).
     - **Datas & Fórmulas:** Dotted border (`border-left: 4px dotted #71717a`) + bracket markers `[ 1945 ]`.
-    - **Exemplos:** Dashed border (`border-left: 4px dashed #a1a1aa`) + italic text.
+    - **Exemplos:** Dashed border (`border-left: 4px dashed #a1a1aa`) + underline decoration (avoiding italics to accommodate dyslexia as outlined in chromatic accessibility guidelines).
   - **Discipline Geometrical Badges:**
     - `[PT]` Português: Solid Pill + 📖
     - `[MAT]` Matemática: Square + 🧮
@@ -164,7 +172,7 @@ AdaptEdu provides **four dedicated CVD operational modes** activated via the HTM
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Conceito-Chave** (Urgência) | `#DC2626` (Red) | `#C2410C` (Burnt Vermilion) | `#BE185D` (Bright Magenta) | `#DC2626` (Crimson Red) | `#18181B` (Solid 4px Border) |
 | **Definições** (Regras) | `#0284C7` (Sky Blue) | `#0284C7` (Sky Blue) | `#0284C7` (Sky Blue) | `#334155` (Slate Charcoal) | `#52525B` (Double 4px Border) |
-| **Dados & Fórmulas** | `#D97706` (Amber) | `#D97706` (Amber) | `#CA8A04` (Warm Gold) | `#7C3AED` (Rich Purple) | `#71717A` (Dotted 4px Border) |
+| **Dados & Fórmulas** | `#D97706` (Amber) | `#D97706` (Amber) | `#CA8A04` (Warm Gold) | `#C2410C` (Terracota / Ferrugem) | `#71717A` (Dotted 4px Border) |
 | **Exemplos Práticos** | `#059669` (Green) | `#0891B2` (Bright Cyan) | `#0D9488` (Vibrant Teal) | `#06B6D4` (Turquoise) | `#A1A1AA` (Dashed 4px Border) |
 
 #### B. Discipline (Por Matéria) Remapping
@@ -175,7 +183,7 @@ AdaptEdu provides **four dedicated CVD operational modes** activated via the HTM
 | **Matemática** | Azul (`#2563EB`) | Azul Cobalto (`#1D4ED8`)| Azul Ultramar (`#1E40AF`)| Grafite Escuro (`#1E293B`)| Quadrado Sólido + 🧮 |
 | **História** | Laranja (`#EA580C`) | Ouro Quente (`#D97706`) | Âmbar Ocre (`#B45309`) | Terracota (`#C2410C`) | Hexágono + ⏳ |
 | **Geografia** | Verde (`#16A34A`) | Ciano Vivo (`#0891B2`) | Verde Azulado (`#0D9488`)| Turquesa (`#06B6D4`) | Círculo + 🌍 |
-| **Ciências** | Roxo (`#9333EA`) | Índigo Escuro (`#4338CA`)| Violeta (`#6D28D9`) | Fúcsia (`#C026D3`) | Losango + 🧪 |
+| **Ciências** | Roxo (`#9333EA`) | Índigo Escuro (`#4338CA`)| Violeta (`#6D28D9`) | Ciano Petróleo (`#0E7490`) | Losango + 🧪 |
 
 ---
 
@@ -421,6 +429,13 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
 
 /* 3. Tritanopia / Tritanomalia Mode (Blue-Cone Defect) */
 [data-cvd="tritanopia"] {
+  /* Brand Tokens remapped to Teal/Cyan for Tritanopia on the preserved Red-Cyan optical axis */
+  --color-brand-primary: #0891b2;
+  --color-brand-hover: #0e7490;
+  --color-brand-surface: #ecfeff;
+  --color-brand-border: #67e8f9;
+  --color-brand-text: #155e75;
+
   --hierarchy-key-base: #dc2626;
   --hierarchy-key-surface: #fef2f2;
   --hierarchy-key-border: #f87171;
@@ -431,10 +446,11 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
   --hierarchy-def-border: #64748b;
   --hierarchy-def-text: #0f172a;
 
-  --hierarchy-data-base: #7c3aed;
-  --hierarchy-data-surface: #faf5ff;
-  --hierarchy-data-border: #c084fc;
-  --hierarchy-data-text: #581c87;
+  /* Dados & Fórmulas: Remapped to Warm Terracotta / Rust (eradicating purple/violet) */
+  --hierarchy-data-base: #c2410c;
+  --hierarchy-data-surface: #fff7ed;
+  --hierarchy-data-border: #fb923c;
+  --hierarchy-data-text: #7c2d12;
 
   --hierarchy-example-base: #06b6d4;
   --hierarchy-example-surface: #ecfeff;
@@ -461,22 +477,80 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
   --subject-geography-border: #22d3ee;
   --subject-geography-text: #0e7490;
 
-  --subject-science-base: #c026d3;
-  --subject-science-surface: #fdf4ff;
-  --subject-science-border: #e879f9;
-  --subject-science-text: #701a75;
+  /* Ciências: Remapped to Deep Teal (eradicating purple/violet) */
+  --subject-science-base: #0e7490;
+  --subject-science-surface: #ecfeff;
+  --subject-science-border: #22d3ee;
+  --subject-science-text: #155e75;
+}
+
+[data-theme="dark"] [data-cvd="tritanopia"],
+[data-theme="dark"][data-cvd="tritanopia"] {
+  /* Neutral Zinc darks (eradicating blue-tinted slate) */
+  --bg-canvas: #121212;
+  --bg-surface: #1c1c1c;
+  --bg-subtle: #262626;
+  --border-subtle: #2e2e2e;
+  --border-strong: #404040;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-muted: #737373;
+
+  /* Brand Remapping in Dark Mode Tritanopia */
+  --color-brand-primary: #06b6d4;
+  --color-brand-hover: #22d3ee;
+  --color-brand-surface: #164e63;
+  --color-brand-border: #0891b2;
+  --color-brand-text: #cffafe;
+
+  --hierarchy-key-surface: #450a0a;
+  --hierarchy-key-border: #ef4444;
+  --hierarchy-key-text: #fecaca;
+
+  --hierarchy-def-surface: #262626;
+  --hierarchy-def-border: #52525b;
+  --hierarchy-def-text: #e4e4e7;
+
+  --hierarchy-data-surface: #431407;
+  --hierarchy-data-border: #ea580c;
+  --hierarchy-data-text: #fed7aa;
+
+  --hierarchy-example-surface: #083344;
+  --hierarchy-example-border: #06b6d4;
+  --hierarchy-example-text: #a5f3fc;
+
+  --subject-portuguese-surface: #4c0519;
+  --subject-portuguese-border: #f43f5e;
+  --subject-portuguese-text: #fecdd3;
+
+  --subject-math-surface: #1c1c1c;
+  --subject-math-border: #52525b;
+  --subject-math-text: #e4e4e7;
+
+  --subject-history-surface: #431407;
+  --subject-history-border: #ea580c;
+  --subject-history-text: #fed7aa;
+
+  --subject-geography-surface: #083344;
+  --subject-geography-border: #0891b2;
+  --subject-geography-text: #a5f3fc;
+
+  --subject-science-surface: #083344;
+  --subject-science-border: #0891b2;
+  --subject-science-text: #cffafe;
 }
 
 /* 4. Achromatopsia / Monocromia Mode (Complete Cone Absence & Photophobia Protection) */
 [data-cvd="achromatopsia"] {
-  --bg-canvas: #f4f4f5;
-  --bg-surface: #ffffff;
-  --bg-subtle: #e4e4e7;
-  --border-subtle: #d4d4d8;
-  --border-strong: #71717a;
+  /* Soft matte anti-glare neutrals (eradicating pure white glare) */
+  --bg-canvas: #e4e4e7;
+  --bg-surface: #d4d4d8;
+  --bg-subtle: #cbd5e1;
+  --border-subtle: #a1a1aa;
+  --border-strong: #52525b;
   --text-primary: #18181b;
-  --text-secondary: #3f3f46;
-  --text-muted: #71717a;
+  --text-secondary: #27272a;
+  --text-muted: #52525b;
 
   --hierarchy-key-base: #18181b;
   --hierarchy-key-surface: #27272a;
@@ -484,12 +558,12 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
   --hierarchy-key-text: #fafafa;
 
   --hierarchy-def-base: #3f3f46;
-  --hierarchy-def-surface: #e4e4e7;
+  --hierarchy-def-surface: #cbd5e1;
   --hierarchy-def-border: #52525b;
   --hierarchy-def-text: #18181b;
 
   --hierarchy-data-base: #52525b;
-  --hierarchy-data-surface: #f4f4f5;
+  --hierarchy-data-surface: #e4e4e7;
   --hierarchy-data-border: #71717a;
   --hierarchy-data-text: #27272a;
 
@@ -498,7 +572,7 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
   --hierarchy-example-border: #a1a1aa;
   --hierarchy-example-text: #3f3f46;
 
-  --subject-portuguese-surface: #e4e4e7;
+  --subject-portuguese-surface: #cbd5e1;
   --subject-portuguese-border: #27272a;
   --subject-portuguese-text: #09090b;
 
@@ -506,17 +580,42 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
   --subject-math-border: #18181b;
   --subject-math-text: #fafafa;
 
-  --subject-history-surface: #f4f4f5;
+  --subject-history-surface: #e4e4e7;
   --subject-history-border: #52525b;
   --subject-history-text: #18181b;
 
-  --subject-geography-surface: #e4e4e7;
+  --subject-geography-surface: #cbd5e1;
   --subject-geography-border: #71717a;
   --subject-geography-text: #18181b;
 
   --subject-science-surface: #d4d4d8;
   --subject-science-border: #3f3f46;
   --subject-science-text: #09090b;
+}
+
+/* High Contrast Mode for Achromatopsia (Anti-Glare Structural Contrast without Photophobia) */
+html[data-cvd="achromatopsia"][data-high-contrast="true"],
+[data-cvd="achromatopsia"][data-high-contrast="true"] {
+  --bg-canvas: #e4e4e7;
+  --bg-surface: #d4d4d8;
+  --bg-subtle: #cbd5e1;
+  --border-subtle: #52525b;
+  --border-strong: #18181b;
+  --text-primary: #09090b;
+  --text-secondary: #18181b;
+  --text-muted: #27272a;
+}
+
+html[data-theme="dark"][data-cvd="achromatopsia"][data-high-contrast="true"],
+[data-theme="dark"][data-cvd="achromatopsia"][data-high-contrast="true"] {
+  --bg-canvas: #18181b;
+  --bg-surface: #27272a;
+  --bg-subtle: #3f3f46;
+  --border-subtle: #71717a;
+  --border-strong: #f4f4f5;
+  --text-primary: #fafafa;
+  --text-secondary: #f4f4f5;
+  --text-muted: #d4d4d8;
 }
 
 /* Structural Non-Color Reinforcement for Achromatopsia */
@@ -535,7 +634,8 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
 
 [data-cvd="achromatopsia"] mark[class*="example"] {
   border-left: 4px dashed #a1a1aa !important;
-  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 ```
 
@@ -707,3 +807,12 @@ Before committing any component or style modification, verify:
 - [ ] **Photophobia Shield Active:** In Achromatopsia mode, is harsh pure-white glare `#FFFFFF` replaced with soft matte neutrals (`#F4F4F5` / `#18181B`)?
 - [ ] **Dark Mode Parity:** Are all CVD overrides mapped properly under dark mode?
 - [ ] **Language Integrity:** Are all UI labels in PT-BR while all CSS tokens, class names, and code comments remain in English?
+
+---
+
+## 🔗 Related Documentation
+
+- [apps/web/docs/GLOBAL.md](apps/web/docs/GLOBAL.md): Frontend Architecture Index.
+- [apps/web/docs/ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md): Universal Design, The Three Visual States, and Cognitive Accommodations.
+- [apps/web/docs/FONTS.md](apps/web/docs/FONTS.md): Typography & Cognitive Reading System.
+- [apps/web/docs/DESIGN_SYSTEM.md](apps/web/docs/DESIGN_SYSTEM.md): Component Specifications & Anatomy.

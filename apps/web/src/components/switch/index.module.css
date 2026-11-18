@@ -1,0 +1,182 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+  cursor: pointer;
+  user-select: none;
+}
+
+.description {
+  font-size: 0.825rem;
+  line-height: 1.4;
+  color: var(--text-secondary, #475569);
+  margin: 0;
+}
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  transition: outline-color 0.15s ease;
+}
+
+/* Expanded Touch Target for WCAG 2.2 Criterion 2.5.8 (min 44x44px touch area) */
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+  width: 100%;
+  height: 100%;
+}
+
+.switch:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #4338ca);
+  outline-offset: 3px;
+}
+
+.switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Track */
+.track {
+  position: relative;
+  display: inline-block;
+  background-color: var(--border-strong, #cbd5e1);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.checked .track {
+  background-color: var(--color-brand-primary, #4338ca);
+}
+
+/* Thumb */
+.thumb {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  background-color: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Size Variants */
+/* sm */
+.sm .track {
+  width: 36px;
+  height: 20px;
+}
+.sm .thumb {
+  width: 16px;
+  height: 16px;
+}
+.sm .checked .thumb {
+  transform: translate(16px, -50%);
+}
+
+/* md (default) */
+.md .track {
+  width: 48px;
+  height: 26px;
+}
+.md .thumb {
+  width: 20px;
+  height: 20px;
+  left: 3px;
+}
+.md .checked .thumb {
+  transform: translate(22px, -50%);
+}
+
+/* lg */
+.lg .track {
+  width: 58px;
+  height: 32px;
+}
+.lg .thumb {
+  width: 24px;
+  height: 24px;
+  left: 4px;
+}
+.lg .checked .thumb {
+  transform: translate(26px, -50%);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .thumb {
+    transition: none !important;
+  }
+}
+
+:global(body[data-reduced-motion="true"]) .track,
+:global([data-reduced-motion="true"]) .track,
+:global(body[data-reduced-motion="true"]) .thumb,
+:global([data-reduced-motion="true"]) .thumb {
+  transition: none !important;
+}
+
+/* High Contrast Structural Border */
+:global(body[data-high-contrast="true"]) .track,
+:global([data-high-contrast="true"]) .track {
+  border: 2px solid var(--border-strong, #000000);
+}
+
+:global(body[data-high-contrast="true"]) .switch:focus-visible,
+:global([data-high-contrast="true"]) .switch:focus-visible {
+  outline: 3px solid currentColor;
+}
+
+/* Forced Colors Mode / Windows High Contrast Support */
+@media (forced-colors: active) {
+  .track {
+    border: 2px solid ButtonText;
+  }
+
+  .checked .track {
+    background-color: Highlight;
+    border-color: Highlight;
+  }
+
+  .thumb {
+    background-color: ButtonText;
+  }
+
+  .checked .thumb {
+    background-color: HighlightText;
+  }
+
+  .switch:focus-visible {
+    outline: 3px solid Highlight;
+  }
+}

@@ -314,3 +314,13 @@ describe("Header Component", () => {
 });
 ```
 
+---
+
+## 🔗 Related Documentation
+
+- [apps/web/docs/GLOBAL.md](apps/web/docs/GLOBAL.md): Frontend Architecture Index.
+- [apps/web/docs/skills/component-a11y-audit](apps/web/docs/skills/component-a11y-audit/SKILL.md): Component A11y Audit & Unit Test Generator.
+- [apps/web/docs/ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md): Universal Design, WAI-ARIA & Inclusive Components.
+- [apps/web/docs/COLORS.md](apps/web/docs/COLORS.md): Interface & Pedagogical Color System & Tokens.
+- [apps/web/docs/FONTS.md](apps/web/docs/FONTS.md): Typography & Cognitive Reading System.
+

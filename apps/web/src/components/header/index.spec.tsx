@@ -1,8 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { fakerPT_BR as faker } from "@faker-js/faker";
 import { Header } from "./index";
+
+let mockCurrentPath = "/minha-sala";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+  }),
+  usePathname: () => mockCurrentPath,
+}));
 
 describe("Header Component", () => {
   beforeEach(() => {
@@ -13,6 +22,7 @@ describe("Header Component", () => {
     document.documentElement.removeAttribute("data-dyslexia");
     document.documentElement.removeAttribute("data-high-contrast");
     document.documentElement.removeAttribute("data-reduced-motion");
+    mockCurrentPath = "/minha-sala";
     vi.clearAllMocks();
   });
 
@@ -39,6 +49,15 @@ describe("Header Component", () => {
     await user.click(screen.getByRole("button", { name: /menu do usuário/i }));
     const minhaSalaItem = screen.getByRole("menuitem", { name: /^minha sala$/i });
     expect(minhaSalaItem).not.toHaveClass("menuItemActive");
+  });
+
+  it("marks Acessibilidade as active in user menu when sectionName is Acessibilidade", async () => {
+    const user = userEvent.setup();
+    render(<Header sectionName="Acessibilidade" />);
+
+    await user.click(screen.getByRole("button", { name: /menu do usuário/i }));
+    const a11yMenuItem = screen.getByRole("menuitem", { name: /^configurações$/i });
+    expect(a11yMenuItem).toHaveClass(/menuItemActive/);
   });
 
   it("handles single-word names and empty fallback initials", () => {
@@ -190,289 +209,34 @@ describe("Header Component", () => {
   });
 
   /* ========================================================================
-     Theme Mode (Dark / Light) & Accessibility Tests
+     Accessibility Link & Settings Routing Tests
      ======================================================================== */
 
-  it("toggles light and dark theme using the quick action button", async () => {
-    const user = userEvent.setup();
+  it("renders accessibility button as a direct link to /configuracoes/acessibilidade", () => {
     render(<Header />);
 
-    // Initially light mode
-    const themeButton = screen.getByRole("button", {
-      name: /alternar tema: mudar para modo escuro/i,
+    const a11yLink = screen.getByRole("link", {
+      name: /configurações de acessibilidade e visualização/i,
     });
-    expect(themeButton).toBeInTheDocument();
-    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
-
-    // Click to switch to dark mode
-    await user.click(themeButton);
-    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
-    expect(
-      screen.getByRole("button", { name: /alternar tema: mudar para modo claro/i })
-    ).toBeInTheDocument();
-
-    // Click again to switch back to light mode
-    await user.click(
-      screen.getByRole("button", { name: /alternar tema: mudar para modo claro/i })
-    );
-    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
+    expect(a11yLink).toBeInTheDocument();
+    expect(a11yLink).toHaveAttribute("href", "/configuracoes/acessibilidade");
   });
 
-  it("opens and closes accessibility settings popover via accessibility button", async () => {
-    const user = userEvent.setup();
+  it("applies active class to accessibility button when current path is /configuracoes/acessibilidade", () => {
+    mockCurrentPath = "/configuracoes/acessibilidade";
     render(<Header />);
 
-    const a11yButton = screen.getByRole("button", {
-      name: /opções de acessibilidade/i,
+    const a11yLink = screen.getByRole("link", {
+      name: /configurações de acessibilidade e visualização/i,
     });
-    expect(a11yButton).toHaveAttribute("aria-expanded", "false");
-
-    // Click to open
-    await user.click(a11yButton);
-    expect(a11yButton).toHaveAttribute("aria-expanded", "true");
-
-    const dialog = screen.getByRole("dialog", {
-      name: /opções de acessibilidade e tema/i,
-    });
-    expect(dialog).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /acessibilidade & exibição/i })
-    ).toBeInTheDocument();
-
-    // Click again to close
-    await user.click(a11yButton);
-    expect(a11yButton).toHaveAttribute("aria-expanded", "false");
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(a11yLink).toHaveClass(/actionButtonActive/);
   });
 
-  it("closes accessibility popover when clicking close button", async () => {
-    const user = userEvent.setup();
+  it("shows active accommodation indicator dot when accommodations are stored in localStorage", () => {
+    localStorage.setItem("adaptedu_high_contrast", "true");
     render(<Header />);
 
-    const a11yButton = screen.getByRole("button", {
-      name: /opções de acessibilidade/i,
-    });
-    await user.click(a11yButton);
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
-
-    const closeButton = screen.getByRole("button", {
-      name: /fechar painel de acessibilidade/i,
-    });
-    await user.click(closeButton);
-
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-  });
-
-  it("closes accessibility popover when Escape key is pressed", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    const a11yButton = screen.getByRole("button", {
-      name: /opções de acessibilidade/i,
-    });
-    await user.click(a11yButton);
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
-
-    await user.keyboard("{Escape}");
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-  });
-
-  it("closes accessibility popover when clicking outside", async () => {
-    const user = userEvent.setup();
-    render(
-      <div>
-        <div data-testid="outside-area">Outside</div>
-        <Header />
-      </div>
-    );
-
-    const a11yButton = screen.getByRole("button", {
-      name: /opções de acessibilidade/i,
-    });
-    await user.click(a11yButton);
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
-
-    await user.click(screen.getByTestId("outside-area"));
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-  });
-
-  it("mutually closes teacher menu when accessibility is opened, and vice-versa", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    const menuButton = screen.getByRole("button", { name: /menu do usuário/i });
-    const a11yButton = screen.getByRole("button", {
-      name: /opções de acessibilidade/i,
-    });
-
-    // Open teacher menu
-    await user.click(menuButton);
-    expect(screen.getByRole("menu")).toBeInTheDocument();
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-
-    // Opening accessibility closes teacher menu
-    await user.click(a11yButton);
-    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
-
-    // Opening teacher menu closes accessibility
-    await user.click(menuButton);
-    expect(screen.getByRole("menu")).toBeInTheDocument();
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-  });
-
-  it("switches theme inside the accessibility popover", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    await user.click(
-      screen.getByRole("button", { name: /opções de acessibilidade/i })
-    );
-
-    const dialog = screen.getByRole("dialog", {
-      name: /opções de acessibilidade e tema/i,
-    });
-
-    const darkThemeButton = within(dialog).getByRole("button", {
-      name: /^modo escuro$/i,
-    });
-    await user.click(darkThemeButton);
-    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
-
-    const lightThemeButton = within(dialog).getByRole("button", {
-      name: /^modo claro$/i,
-    });
-    await user.click(lightThemeButton);
-    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
-  });
-
-  it("changes color vision deficiency (CVD) mode via select dropdown", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    await user.click(
-      screen.getByRole("button", { name: /opções de acessibilidade/i })
-    );
-
-    const select = screen.getByRole("combobox", {
-      name: /selecionar modo de visão cromática para daltonismo/i,
-    });
-
-    await user.selectOptions(select, "deuteranopia");
-    expect(document.documentElement.getAttribute("data-cvd")).toBe("deuteranopia");
-
-    await user.selectOptions(select, "achromatopsia");
-    expect(document.documentElement.getAttribute("data-cvd")).toBe("achromatopsia");
-
-    await user.selectOptions(select, "default");
-    expect(document.documentElement.getAttribute("data-cvd")).toBeNull();
-  });
-
-  it("changes font size via option buttons", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    await user.click(
-      screen.getByRole("button", { name: /opções de acessibilidade/i })
-    );
-
-    const largeFontButton = screen.getByRole("button", {
-      name: /grande \(\+15%\)/i,
-    });
-    await user.click(largeFontButton);
-    expect(document.documentElement.getAttribute("data-font-size")).toBe("large");
-
-    const xLargeFontButton = screen.getByRole("button", {
-      name: /muito grande \(\+30%\)/i,
-    });
-    await user.click(xLargeFontButton);
-    expect(document.documentElement.getAttribute("data-font-size")).toBe("x-large");
-
-    const normalFontButton = screen.getByRole("button", {
-      name: /normal \(100%\)/i,
-    });
-    await user.click(normalFontButton);
-    expect(document.documentElement.getAttribute("data-font-size")).toBeNull();
-  });
-
-  it("toggles visual and sensory accommodation checkboxes", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    await user.click(
-      screen.getByRole("button", { name: /opções de acessibilidade/i })
-    );
-
-    const dyslexiaCheckbox = screen.getByRole("checkbox", {
-      name: /espaçamento para leitura/i,
-    });
-    await user.click(dyslexiaCheckbox);
-    expect(document.documentElement.getAttribute("data-dyslexia")).toBe("true");
-
-    const contrastCheckbox = screen.getByRole("checkbox", {
-      name: /alto contraste/i,
-    });
-    await user.click(contrastCheckbox);
-    expect(document.documentElement.getAttribute("data-high-contrast")).toBe("true");
-
-    const motionCheckbox = screen.getByRole("checkbox", {
-      name: /reduzir animações/i,
-    });
-    await user.click(motionCheckbox);
-    expect(document.documentElement.getAttribute("data-reduced-motion")).toBe("true");
-  });
-
-  it("resets accessibility settings when clicking restaurar configurações padrão", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    await user.click(
-      screen.getByRole("button", { name: /opções de acessibilidade/i })
-    );
-
-    // Apply adjustments
-    const select = screen.getByRole("combobox", {
-      name: /selecionar modo de visão cromática para daltonismo/i,
-    });
-    await user.selectOptions(select, "tritanopia");
-
-    const largeButton = screen.getByRole("button", {
-      name: /grande \(\+15%\)/i,
-    });
-    await user.click(largeButton);
-
-    expect(document.documentElement.getAttribute("data-cvd")).toBe("tritanopia");
-    expect(document.documentElement.getAttribute("data-font-size")).toBe("large");
-
-    // Click reset
-    const resetButton = screen.getByRole("button", {
-      name: /restaurar configurações padrão/i,
-    });
-    await user.click(resetButton);
-
-    expect(document.documentElement.getAttribute("data-cvd")).toBeNull();
-    expect(document.documentElement.getAttribute("data-font-size")).toBeNull();
-  });
-
-  it("shows active indicator dot when accessibility accommodations are enabled", async () => {
-    const user = userEvent.setup();
-    render(<Header />);
-
-    // Initially no active accommodations dot
-    expect(screen.queryByTitle("Acomodações ativas")).not.toBeInTheDocument();
-
-    // Open accessibility dialog and enable an accommodation
-    await user.click(
-      screen.getByRole("button", { name: /opções de acessibilidade/i })
-    );
-
-    const dyslexiaCheckbox = screen.getByRole("checkbox", {
-      name: /espaçamento para leitura/i,
-    });
-    await user.click(dyslexiaCheckbox);
-
-    // Now active accommodations dot is present
-    expect(screen.getByTitle("Acomodações ativas")).toBeInTheDocument();
+    expect(screen.getByTestId("accessibility-active-dot")).toBeInTheDocument();
   });
 
   /* ========================================================================
@@ -490,12 +254,11 @@ describe("Header Component", () => {
     // Initials should not exist
     expect(screen.queryByText("AS")).not.toBeInTheDocument();
 
-    // Theme & Accessibility controls should still be present
+    // Accessibility link should still be present
     expect(
-      screen.getByRole("button", { name: /alternar tema/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /opções de acessibilidade/i })
+      screen.getByRole("link", {
+        name: /configurações de acessibilidade e visualização/i,
+      })
     ).toBeInTheDocument();
   });
 
