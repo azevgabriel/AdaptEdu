@@ -87,17 +87,7 @@ AdaptEdu operationalizes the four core principles formulated in the UFSM Chromat
 ### 2. Principle of Attention (Princípio da Atenção)
 *Deliberate commitment to responsive contrast, luminance hierarchy, and optical comfort.*
 
-- **Guideline 6: Elimination of Forbidden Color Pairings:** Empirical CVD research (UFSM / Coletivo UX) demonstrates that certain color combinations create absolute confusion barriers across the red-green and blue-yellow deficiency spectrums. The following pairs must **NEVER** be used to distinguish competing information without prominent non-color differentiators:
-
-| Forbidden Chromatic Pairing | Affected CVD Conditions | AdaptEdu Resolution |
-| :--- | :--- | :--- |
-| **Vermelho + Verde** | Protanopia, Deuteranopia | Remapped to Bright Magenta / Cyan; supplemented by Check/Alert icons. |
-| **Verde + Marrom** | Protanopia, Deuteranopia | Prohibited; replaced with Teal (`#0D9488`) and Warm Gold (`#B45309`). |
-| **Verde + Laranja** | Protanopia, Deuteranopia | Default disciplines (História x Geografia) strictly require ⏳ vs. 🌍 icons. |
-| **Azul + Roxo** | Protanopia, Deuteranopia | Default disciplines (Matemática x Ciências) strictly require 🧮 vs. 🧪 icons. |
-| **Azul + Cinza** | Protanopia, Achromatopsia | Prohibited for text/surface differentiation; requires minimum 4.5:1 contrast. |
-| **Verde Claro + Amarelo**| Tritanopia, Protanopia | Forbidden; yellow replaced with Deep Amber (`#92400E`) over high-contrast base. |
-| **Verde + Azul** | Tritanopia | Cyan/Turquoise remapped away from green axis; separated by border tokens. |
+- **Guideline 6: Elimination of Forbidden Color Pairings:** Certain color combinations (Red+Green, Green+Orange, Blue+Purple, Green+Blue) create severe confusion barriers across red-green and blue-yellow deficiencies. The platform strictly forbids relying on color alone for these pairings; see [COLORS.md](apps/web/docs/COLORS.md) for the complete ophthalmological calibration matrix and token mappings.
 
 - **Guideline 7: Luminance Calibration (The Rod Photoreceptor Rule):** Human vision under color blindness relies on **rod photoreceptors (bastonetes)**, which perceive variations in **lightness (luminance)** rather than wavelength (hue). Ensure that adjacent tokens have distinct **relative luminance values**, guaranteeing that even when colors convert entirely to gray, their visual contrast remains unmistakable.
 - **Guideline 8: Monochromatic Lightness Stacking:** When using a single color hue to convey different tiers of data or urgency, limit the scale to **a maximum of 3 distinct lightness steps** (Low, Mid, High) with at least 25% Delta Lightness separation.

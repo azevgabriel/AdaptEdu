@@ -4,8 +4,8 @@ import userEvent from "@testing-library/user-event";
 import { ReadingAccommodations } from "./index";
 
 describe("ReadingAccommodations", () => {
-  it("renders all font size options, accommodation switches, and reset button", () => {
-    render(
+  it("renders all font size options and accommodation switches", () => {
+    const { container } = render(
       <ReadingAccommodations
         fontSize="normal"
         onFontSizeChange={vi.fn()}
@@ -15,7 +15,6 @@ describe("ReadingAccommodations", () => {
         onHighContrastChange={vi.fn()}
         reducedMotion={false}
         onReducedMotionChange={vi.fn()}
-        onReset={vi.fn()}
       />
     );
 
@@ -33,6 +32,10 @@ describe("ReadingAccommodations", () => {
       screen.getByRole("radio", { name: /fonte muito grande \(130%\)/i })
     ).toBeInTheDocument();
 
+    // Verifies that radio indicators are rendered in each font size card
+    const indicators = container.querySelectorAll('[class*="fontSizeIndicator"]');
+    expect(indicators.length).toBe(3);
+
     expect(
       screen.getByLabelText(/alto contraste estrutural/i)
     ).toBeInTheDocument();
@@ -41,10 +44,6 @@ describe("ReadingAccommodations", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByLabelText(/redução de movimento e animações/i)
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("button", { name: /restaurar configurações padrão/i })
     ).toBeInTheDocument();
   });
 
@@ -62,7 +61,6 @@ describe("ReadingAccommodations", () => {
         onHighContrastChange={vi.fn()}
         reducedMotion={false}
         onReducedMotionChange={vi.fn()}
-        onReset={vi.fn()}
       />
     );
 
@@ -88,7 +86,6 @@ describe("ReadingAccommodations", () => {
         onHighContrastChange={handleHighContrastChange}
         reducedMotion={false}
         onReducedMotionChange={handleReducedMotionChange}
-        onReset={vi.fn()}
       />
     );
 
@@ -105,29 +102,36 @@ describe("ReadingAccommodations", () => {
     expect(handleReducedMotionChange).toHaveBeenCalledWith(true);
   });
 
-  it("triggers onReset callback when reset button is clicked", async () => {
+  it("toggles accommodation switches when clicking anywhere on the card surface", async () => {
     const user = userEvent.setup();
-    const handleReset = vi.fn();
+    const handleHighContrastChange = vi.fn();
+    const handleDyslexiaChange = vi.fn();
+    const handleReducedMotionChange = vi.fn();
 
     render(
       <ReadingAccommodations
-        fontSize="large"
+        fontSize="normal"
         onFontSizeChange={vi.fn()}
-        dyslexiaFont={true}
-        onDyslexiaFontChange={vi.fn()}
-        highContrast={true}
-        onHighContrastChange={vi.fn()}
-        reducedMotion={true}
-        onReducedMotionChange={vi.fn()}
-        onReset={handleReset}
+        dyslexiaFont={false}
+        onDyslexiaFontChange={handleDyslexiaChange}
+        highContrast={false}
+        onHighContrastChange={handleHighContrastChange}
+        reducedMotion={false}
+        onReducedMotionChange={handleReducedMotionChange}
       />
     );
 
-    const resetBtn = screen.getByRole("button", {
-      name: /restaurar configurações padrão/i,
-    });
-    await user.click(resetBtn);
+    // Click on the text label / description inside the card rather than the switch button
+    const titleText = screen.getByText("Alto Contraste Estrutural (Anti-Ofuscamento)");
+    await user.click(titleText);
+    expect(handleHighContrastChange).toHaveBeenCalledWith(true);
 
-    expect(handleReset).toHaveBeenCalledTimes(1);
+    const dyslexiaDesc = screen.getByText(/amplia o espaçamento entre caracteres/i);
+    await user.click(dyslexiaDesc);
+    expect(handleDyslexiaChange).toHaveBeenCalledWith(true);
+
+    const motionTitle = screen.getByText("Redução de Movimento e Animações");
+    await user.click(motionTitle);
+    expect(handleReducedMotionChange).toHaveBeenCalledWith(true);
   });
 });

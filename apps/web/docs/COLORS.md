@@ -37,7 +37,7 @@ Color must **never** be the sole indicator of meaning, state, subject, or urgenc
 ### 3. Visual Stress & Dyslexia (Meares-Irlen Considerations)
 - **Avoid Pure Black on Pure White:** High-contrast pure white (`#FFFFFF`) behind pitch black (`#000000`) can induce visual vibration, headaches, and "rivering" (optical illusion of white rivers running through text) for dyslexic and neurodivergent individuals.
 - **Soft Foundations:** Use soft slate neutrals (`#0F172A` text on `#F8FAFC` or `#F1F5F9` canvas) to ensure crisp legibility without sensory glare.
-- **Avoid Italics as Accessibility Substitutes:** As emphasized in the UFSM Chromatic Accessibility Guide (*Guia de Acessibilidade Cromática para Daltonismo*), slanted letterforms (italics) degrade letter silhouette recognition, trigger visual crowding, and create severe reading obstacles for individuals with dyslexia. Never use italics as an alternative indicator for color codes or accessibility highlights; use distinct border weights, underline offsets, or bold text instead.
+- **Avoid Italics as Accessibility Substitutes:** Slanted letterforms degrade letter silhouette recognition and trigger visual crowding for dyslexic readers. See [FONTS.md](apps/web/docs/FONTS.md) for complete typography guidelines; use bold text, distinct borders, or underline offsets instead.
 
 ### 4. Controlled Saturation (ASD & Sensory Overload)
 - Avoid hyper-saturated neon backgrounds that distract or overstimulate students with ASD.
@@ -217,12 +217,13 @@ Dark Mode:
 
 ### 2. Brand Tokens
 
-AdaptEdu adopts an accessible **Deep Indigo / Educational Sapphire** as its core brand signature, symbolizing trust, focus, and clarity:
+AdaptEdu adopts an accessible **Educational Blue / Educational Sapphire** (`#2563EB`) as its core brand signature, symbolizing trust, focus, and clarity:
 
-- `--color-brand-primary`: `#4338CA` (Indigo 700 - Light mode button & active link fill)
-- `--color-brand-hover`: `#3730A3` (Indigo 800)
-- `--color-brand-surface`: `#EEF2FF` (Indigo 50)
-- `--color-brand-text`: `#312E81` (Indigo 900)
+- `--color-brand-primary`: `#2563EB` (Blue 600 - Light mode button & active link fill)
+- `--color-brand-hover`: `#1D4ED8` (Blue 700)
+- `--color-brand-surface`: `#EFF6FF` (Blue 50)
+- `--color-brand-border`: `#93C5FD` (Blue 300)
+- `--color-brand-text`: `#1E40AF` (Blue 800)
 
 ### 3. Feedback & Status Tokens
 
@@ -257,11 +258,11 @@ The complete implementation ready for `apps/web/src/app/globals.css`:
   --foreground: var(--text-primary);
 
   /* Brand Tokens */
-  --color-brand-primary: #4338ca;
-  --color-brand-hover: #3730a3;
-  --color-brand-surface: #eef2ff;
-  --color-brand-border: #a5b4fc;
-  --color-brand-text: #312e81;
+  --color-brand-primary: #2563eb;
+  --color-brand-hover: #1d4ed8;
+  --color-brand-surface: #eff6ff;
+  --color-brand-border: #93c5fd;
+  --color-brand-text: #1e40af;
 
   /* Semantic Feedback Tokens */
   --color-feedback-success-bg: #ecfdf5;

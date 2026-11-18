@@ -112,7 +112,7 @@ export function AuthProvider({
   }, [initialUser, baseApiUrl]);
 
   const loginWithGoogle = useCallback(
-    (returnUrl: string = "/minha-sala") => {
+    (returnUrl: string = "/configuracoes/acessibilidade") => {
       const targetUrl = new URL("/auth/google", baseApiUrl);
       if (returnUrl) {
         targetUrl.searchParams.set("returnUrl", returnUrl);

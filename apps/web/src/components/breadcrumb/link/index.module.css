@@ -1,0 +1,27 @@
+.link {
+  color: var(--color-brand-primary);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 4px;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: var(--color-brand-hover);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

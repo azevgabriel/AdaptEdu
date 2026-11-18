@@ -4,9 +4,11 @@ import userEvent from "@testing-library/user-event";
 import { ThemeSelector } from "./index";
 
 describe("ThemeSelector", () => {
-  it("renders light and dark mode option cards", () => {
+  it("renders light and dark mode option cards with radio indicators", () => {
     const handleThemeChange = vi.fn();
-    render(<ThemeSelector theme="light" onThemeChange={handleThemeChange} />);
+    const { container } = render(
+      <ThemeSelector theme="light" onThemeChange={handleThemeChange} />
+    );
 
     expect(
       screen.getByRole("heading", { name: /tema da interface/i })
@@ -17,6 +19,9 @@ describe("ThemeSelector", () => {
     expect(
       screen.getByRole("radio", { name: /ativar modo escuro/i })
     ).toBeInTheDocument();
+
+    const indicators = container.querySelectorAll('[class*="radioIndicator"]');
+    expect(indicators.length).toBeGreaterThanOrEqual(2);
   });
 
   it("indicates which theme is currently active", () => {

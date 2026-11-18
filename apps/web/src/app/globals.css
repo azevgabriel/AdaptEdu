@@ -32,11 +32,11 @@
   --color-brand: var(--color-brand-primary);
 
   /* Brand Tokens */
-  --color-brand-primary: #4338ca;
-  --color-brand-hover: #3730a3;
-  --color-brand-surface: #eef2ff;
-  --color-brand-border: #a5b4fc;
-  --color-brand-text: #312e81;
+  --color-brand-primary: #2563eb;
+  --color-brand-hover: #1d4ed8;
+  --color-brand-surface: #eff6ff;
+  --color-brand-border: #93c5fd;
+  --color-brand-text: #1e40af;
 
   /* Semantic Feedback Tokens */
   --color-feedback-success-bg: #ecfdf5;
@@ -169,11 +169,11 @@
   --color-brand: var(--color-brand-primary);
 
   /* Dark Mode Brand */
-  --color-brand-primary: #6366f1;
-  --color-brand-hover: #818cf8;
-  --color-brand-surface: #1e1b4b;
-  --color-brand-border: #4338ca;
-  --color-brand-text: #e0e7ff;
+  --color-brand-primary: #3b82f6;
+  --color-brand-hover: #60a5fa;
+  --color-brand-surface: #172554;
+  --color-brand-border: #1d4ed8;
+  --color-brand-text: #dbeafe;
 
   /* Dark Mode Feedback */
   --color-feedback-success-bg: #064e3b;
@@ -267,11 +267,11 @@
     --foreground: var(--text-primary);
 
     /* Dark Mode Brand */
-    --color-brand-primary: #6366f1;
-    --color-brand-hover: #818cf8;
-    --color-brand-surface: #1e1b4b;
-    --color-brand-border: #4338ca;
-    --color-brand-text: #e0e7ff;
+    --color-brand-primary: #3b82f6;
+    --color-brand-hover: #60a5fa;
+    --color-brand-surface: #172554;
+    --color-brand-border: #1d4ed8;
+    --color-brand-text: #dbeafe;
 
     /* Dark Mode Feedback */
     --color-feedback-success-bg: #064e3b;

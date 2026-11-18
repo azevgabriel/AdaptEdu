@@ -1,0 +1,35 @@
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: var(--bg-subtle);
+  color: var(--color-brand-primary);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+:global([data-selected="true"]) .cardIcon {
+  background-color: var(--color-brand-primary);
+  color: #ffffff;
+}
+
+@media (forced-colors: active) {
+  .cardIcon {
+    border: 1px solid ButtonText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardIcon {
+    transition: none;
+    transform: none;
+  }
+}
+
+:global([data-reduced-motion="true"]) .cardIcon {
+  transition: none;
+  transform: none;
+}

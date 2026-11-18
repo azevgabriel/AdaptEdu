@@ -29,7 +29,7 @@ describe("AccessibilitySettingsPage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders page header, breadcrumbs, selectors, launcher card, floating button, and footer in Portuguese", () => {
+  it("renders page header, breadcrumbs, selectors, floating button, and footer in Portuguese", () => {
     render(<AccessibilitySettingsPage />);
 
     expect(
@@ -38,12 +38,13 @@ describe("AccessibilitySettingsPage", () => {
       })
     ).toBeInTheDocument();
 
+    const breadcrumbNav = screen.getByRole("navigation", {
+      name: /navegação estrutural/i,
+    });
+    expect(breadcrumbNav).toBeInTheDocument();
     expect(
-      screen.getByRole("navigation", { name: /navegação estrutural/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /minha sala/i })
-    ).toBeInTheDocument();
+      within(breadcrumbNav).getByRole("link", { name: /^configurações$/i })
+    ).toHaveAttribute("href", "/configuracoes");
 
     expect(
       screen.getByRole("heading", { name: /tema da interface/i })
@@ -54,12 +55,6 @@ describe("AccessibilitySettingsPage", () => {
     expect(
       screen.getByRole("heading", {
         name: /acomodações de leitura & sensoriais/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("heading", {
-        name: /matriz cromática & prévia pedagógica/i,
       })
     ).toBeInTheDocument();
 
@@ -157,9 +152,9 @@ describe("AccessibilitySettingsPage", () => {
     // Initially drawer is not visible
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 
-    // Click launcher button to open drawer
+    // Click floating action button to open drawer
     const openBtn = screen.getByRole("button", {
-      name: /abrir painel lateral de validação de cores e prévia/i,
+      name: /validar cores e prévia em tempo real/i,
     });
     await user.click(openBtn);
 
@@ -216,9 +211,9 @@ describe("AccessibilitySettingsPage", () => {
     const user = userEvent.setup();
     render(<AccessibilitySettingsPage />);
 
-    // Open drawer via launcher
+    // Open drawer via floating action button
     const openBtn = screen.getByRole("button", {
-      name: /abrir painel lateral de validação de cores e prévia/i,
+      name: /validar cores e prévia em tempo real/i,
     });
     await user.click(openBtn);
 

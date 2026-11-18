@@ -1,0 +1,29 @@
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--border-subtle, #e2e8f0);
+  background-color: transparent;
+  color: var(--text-secondary, #475569);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.closeButton:hover {
+  background-color: var(--bg-subtle, #f1f5f9);
+  color: var(--text-primary, #0f172a);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #2563eb);
+  outline-offset: 2px;
+}
+
+:global(body[data-high-contrast="true"]) .closeButton,
+:global([data-high-contrast="true"]) .closeButton {
+  border: 2px solid var(--border-strong, #000000);
+}

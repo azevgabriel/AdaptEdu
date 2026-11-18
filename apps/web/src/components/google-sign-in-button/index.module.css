@@ -4,12 +4,13 @@
   justify-content: center;
   gap: 0.75rem;
   width: 100%;
+  min-height: 44px; /* WCAG 2.2 touch target criterion */
   padding: 0.875rem 1.5rem;
-  background-color: var(--bg-surface, #ffffff);
-  color: var(--text-primary, #0f172a);
-  border: 1.5px solid var(--border-strong, #cbd5e1);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-strong);
   border-radius: 0.625rem;
-  font-family: var(--font-family-body, inherit);
+  font-family: var(--font-family-body);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
@@ -17,28 +18,29 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
 }
 
 .googleButton:hover:not(:disabled) {
-  background-color: var(--bg-subtle, #f1f5f9);
-  border-color: var(--color-brand-primary, #4338ca);
-  color: var(--color-brand-primary, #4338ca);
+  background-color: var(--bg-subtle);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(67, 56, 202, 0.12);
 }
 
 .googleButton:focus-visible {
-  outline: 3px solid var(--color-brand-primary, #4338ca);
+  outline: 2px solid var(--color-brand-primary);
   outline-offset: 2px;
 }
 
 .googleButton:active:not(:disabled) {
   transform: translateY(0);
-  background-color: var(--border-subtle, #e2e8f0);
+  background-color: var(--bg-subtle);
 }
 
 .googleButton:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -54,3 +56,35 @@
   letter-spacing: -0.01em;
 }
 
+/* High Contrast Mode Accommodations */
+:global([data-high-contrast="true"]) .googleButton {
+  border-width: 2px;
+  border-color: var(--border-strong);
+}
+
+/* Windows High Contrast Mode */
+@media (forced-colors: active) {
+  .googleButton {
+    border: 2px solid ButtonBorder;
+  }
+
+  .googleButton:hover:not(:disabled),
+  .googleButton:focus-visible {
+    border-color: Highlight;
+  }
+}
+
+/* Reduced Motion Accommodations */
+@media (prefers-reduced-motion: reduce) {
+  .googleButton {
+    transition: none;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+:global([data-reduced-motion="true"]) .googleButton {
+  transition: none;
+  transform: none;
+  box-shadow: none;
+}

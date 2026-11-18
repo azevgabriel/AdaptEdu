@@ -1,0 +1,14 @@
+.cardBadge {
+  align-self: flex-start;
+}
+
+:global([data-selected="true"]) .cardBadge {
+  background-color: var(--color-brand-primary);
+  color: #ffffff;
+}
+
+@media (forced-colors: active) {
+  .cardBadge {
+    border: 1px solid ButtonText;
+  }
+}

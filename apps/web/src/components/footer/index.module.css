@@ -59,13 +59,13 @@
 }
 
 .footerLink:hover {
-  color: var(--color-brand-primary, #4338ca);
-  background-color: var(--color-brand-surface, #eef2ff);
-  border-color: var(--color-brand-border, #a5b4fc);
+  color: var(--color-brand-primary, #2563eb);
+  background-color: var(--color-brand-surface, #eff6ff);
+  border-color: var(--color-brand-border, #93c5fd);
 }
 
 .footerLink:focus-visible {
-  outline: 2px solid var(--color-brand-primary, #4338ca);
+  outline: 2px solid var(--color-brand-primary, #2563eb);
   outline-offset: 2px;
 }
 

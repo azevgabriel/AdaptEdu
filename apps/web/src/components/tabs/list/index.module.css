@@ -1,0 +1,42 @@
+.tabList {
+  display: flex;
+  position: relative;
+  border-bottom: 2px solid var(--border-subtle, #e2e8f0);
+  gap: 0.5rem;
+}
+
+.orientation-vertical {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 2px solid var(--border-subtle, #e2e8f0);
+}
+
+.fitted {
+  width: 100%;
+}
+
+/* Variant Line */
+.variant-line {
+  border-bottom: 2px solid var(--border-subtle, #e2e8f0);
+}
+
+/* Variant Enclosed */
+.variant-enclosed {
+  border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+  gap: 0.25rem;
+}
+
+/* Variant Pills */
+.variant-pills {
+  border-bottom: none;
+  background-color: var(--bg-subtle, #f1f5f9);
+  padding: 0.25rem;
+  border-radius: var(--radius-md, 8px);
+  gap: 0.25rem;
+}
+
+/* Sensory: High Contrast */
+:global(body[data-high-contrast="true"]) .tabList,
+:global([data-high-contrast="true"]) .tabList {
+  border-color: var(--border-strong, #000000);
+}

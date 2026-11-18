@@ -12,6 +12,50 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## Releases
 
+### Composable Design System, Lean Documentation Architecture, Anti-Slop Guidelines & Playwright CLI - 2026-11-18
+
+Resolves [#12](https://github.com/azevgabriel/AdaptEdu/issues/12).
+
+#### `apps/web` (Frontend) — `v2.0.0`
+
+- Modularized radio design primitives into a clean semantic folder architecture under `src/components/radio/`:
+  - `radio/group/`: `RadioGroup` and `RadioButton` (`RadioGroup.Item`) with roving `tabIndex` and keyboard cycling.
+  - `radio/indicator/`: `RadioIndicator` with size, sensory, and high-contrast support.
+  - `radio/card/`: Standardized, composable `RadioCard` supporting prop-driven card layouts (icon, title, badge, description, extra, indicator) as well as compound subcomponents (`RadioCard.Header`, `RadioCard.Title`, `RadioCard.Badge`, `RadioCard.Description`, `RadioCard.Extra`, `RadioCard.Icon`, `RadioCard.Indicator`).
+  - `radio/label/`: `RadioLabel` and `RadioDescription`.
+  - `radio/context.ts`: Decoupled `RadioGroupContext` and `RadioButtonContext`.
+  - `radio/index.ts`: Central barrel export aggregating all sub-primitives.
+- Consolidated ad-hoc radio implementations in `/configuracoes/acessibilidade`:
+  - Refactored `ThemeSelector` (`components/theme-selector/`) to use the composable `RadioCard` primitive.
+  - Refactored `CvdSelector` (`components/cvd-selector/`) to use `RadioCard`, eliminating manually duplicated radio indicator DOM and fixing italicized optical details per Dyslexia invariants.
+  - Refactored `ReadingAccommodations` (`components/reading-accommodations/`) font-size selector to use `RadioGroup.Item`.
+- Hardened accessibility and sensory ergonomics:
+  - Ensured $\ge 44\times44\text{px}$ touch targets across all compound items.
+  - Added complete Windows High Contrast Mode (`@media (forced-colors: active)`) and adaptive high-contrast (`[data-high-contrast="true"]`) support for indicators, borders, and cards.
+  - Enforced roving `tabIndex` and keyboard cycling (Arrow keys, Home, End, Space, Enter).
+- Established lean documentation architecture:
+  - Created high-density, low-token `apps/web/docs/COMPONENT_CHEAT_SHEET.md` (< 100 lines) as the primary fast-track entry point for routine agent onboarding.
+  - Updated `apps/web/docs/GLOBAL.md` to establish a tiered reading protocol, avoiding context window drag.
+  - Eliminated cross-document redundancies across `COLORS.md` and `ACCESSIBILITY.md`.
+  - Updated `DESIGN_SYSTEM.md` with compound component documentation.
+- Formulated Anti-Slop Web Design Guidelines & Art Direction:
+  - Authored `apps/web/docs/DESIGN_GUIDELINES.md` integrating principles from `Leonxlnx/taste-skill` and Vercel Labs' `web-design-guidelines`.
+  - Defined explicit sensory-friendly palette rules, tactile active states, Nunito/Inter typography pairing, and Brazilian Portuguese (PT-BR) UX writing standards under the non-diagnostic principle.
+- Standardized Primary Brand & Color Tokens:
+  - Replaced primary brand purple with pedagogical **Azul Educacional** (`#2563eb`), aligning with clarity and mathematics while harmonizing with other pedagogical color tokens.
+- Implemented Compound Design System Primitives:
+  - Created generic compound `Breadcrumb` component (`src/components/breadcrumb/`) following W3C WAI-ARIA breadcrumb navigation patterns.
+  - Refactored `Drawer` (`src/components/drawer/`) into a semantic compound subcomponent architecture (`Root`, `Body`, `Header`, `Footer`, `Close`, `Content`, `Overlay`, `Title`, `Description`).
+  - Created generic compound `Tabs` component (`src/components/tabs/`) with roving `tabIndex`, cyclical keyboard navigation, and generic state support.
+- Refactored Navigation & Accessibility Experience:
+  - Removed obsolete `/minha-sala` route directory and streamlined Header user dropdown menu down to active settings and logout.
+  - Standardized `RadioCard` indicators (`size="md"`, top-aligned flex positioning) across `ThemeSelector`, `CvdSelector`, and `ReadingAccommodations`.
+  - Transformed accommodation `toggleCard`s into full-surface clickable controls with tactile hover/active feedback.
+  - Increased page bottom spacing to prevent `FloatGroup` floating toolbar overlap collisions.
+- Integrated Playwright CLI Verification:
+  - Authored `apps/web/docs/PLAYWRIGHT_CLI.md` and created `apps/web/docs/skills/playwright-cli/SKILL.md` documenting token-efficient browser inspection, accessibility tree snapshots (`refs`), and lightweight smoke verification routines.
+- Expanded automated unit tests in `src/components/radio-group/index.spec.tsx` and `src/components/index.spec.ts`, achieving 100% test pass rate with 65 test files and 321 automated unit tests in `apps/web`.
+
 ### Visual Accessibility Settings, Chromatic Deficiency Matrix, Inclusive Switch & RadioGroup - 2026-11-17
 
 Resolves [#7](https://github.com/azevgabriel/AdaptEdu/issues/7) and [#10](https://github.com/azevgabriel/AdaptEdu/issues/10).

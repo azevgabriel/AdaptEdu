@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { fakerPT_BR as faker } from "@faker-js/faker";
 import { Header } from "./index";
 
-let mockCurrentPath = "/minha-sala";
+let mockCurrentPath = "/configuracoes/acessibilidade";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -22,7 +22,7 @@ describe("Header Component", () => {
     document.documentElement.removeAttribute("data-dyslexia");
     document.documentElement.removeAttribute("data-high-contrast");
     document.documentElement.removeAttribute("data-reduced-motion");
-    mockCurrentPath = "/minha-sala";
+    mockCurrentPath = "/configuracoes/acessibilidade";
     vi.clearAllMocks();
   });
 
@@ -31,24 +31,24 @@ describe("Header Component", () => {
 
     // Brand link with accessible name
     expect(
-      screen.getByRole("link", { name: /adaptEdu - início da minha sala/i })
+      screen.getByRole("link", { name: /adaptEdu - configurações/i })
     ).toBeInTheDocument();
 
     // Default section badge
-    expect(screen.getByText("Minha Sala")).toBeInTheDocument();
+    expect(screen.getByText("Configurações")).toBeInTheDocument();
   });
 
   it("renders custom section name when provided and adjusts active link styling", async () => {
     const user = userEvent.setup();
-    const customSection = "Planos de Aula Adaptados";
+    const customSection = "Outra Seção";
     render(<Header sectionName={customSection} />);
 
     expect(screen.getByText(customSection)).toBeInTheDocument();
 
-    // Open menu to test menu item active condition when sectionName !== "Minha Sala"
+    // Open menu to test menu item active condition
     await user.click(screen.getByRole("button", { name: /menu do usuário/i }));
-    const minhaSalaItem = screen.getByRole("menuitem", { name: /^minha sala$/i });
-    expect(minhaSalaItem).not.toHaveClass("menuItemActive");
+    const configItem = screen.getByRole("menuitem", { name: /^configurações$/i });
+    expect(configItem).not.toHaveClass("menuItemActive");
   });
 
   it("marks Acessibilidade as active in user menu when sectionName is Acessibilidade", async () => {
@@ -91,6 +91,33 @@ describe("Header Component", () => {
     ).toBeInTheDocument();
   });
 
+  it("safely handles and truncates extremely long teacher information with title tooltips", async () => {
+    const user = userEvent.setup();
+    const longTeacher = {
+      name: "Profª. Dra. Maria Aparecida de Albuquerque e Castro Silva dos Santos",
+      email: "maria.aparecida.albuquerque.castro@escola.educacao.sp.gov.br",
+      role: "Coordenadora Pedagógica e Especialista em Educação Especial e Inclusiva",
+      school: "Escola Estadual de Ensino Fundamental e Médio Professor Bento de Abreu Sampaio Vidal",
+      avatarUrl: "https://example.com/avatar.jpg",
+    };
+
+    render(<Header teacher={longTeacher} />);
+
+    // Profile button elements have title tooltips
+    const nameEls = screen.getAllByTitle(longTeacher.name);
+    expect(nameEls.length).toBeGreaterThanOrEqual(1);
+    expect(nameEls[0]).toHaveTextContent(longTeacher.name);
+
+    const roleEl = screen.getByTitle(longTeacher.role);
+    expect(roleEl).toBeInTheDocument();
+
+    // Open dropdown to check menu header
+    await user.click(screen.getByRole("button", { name: new RegExp(longTeacher.name, "i") }));
+
+    expect(screen.getByTitle(longTeacher.email)).toBeInTheDocument();
+    expect(screen.getByTitle(longTeacher.school)).toBeInTheDocument();
+  });
+
   it("opens and closes dropdown menu upon button click", async () => {
     const user = userEvent.setup();
     render(<Header />);
@@ -108,12 +135,6 @@ describe("Header Component", () => {
     expect(menu).toBeInTheDocument();
 
     // Verify navigation options rendered in PT-BR
-    expect(
-      screen.getByRole("menuitem", { name: /planos de aula adaptados/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("menuitem", { name: /estudantes & adaptações/i })
-    ).toBeInTheDocument();
     expect(
       screen.getByRole("menuitem", { name: /configurações/i })
     ).toBeInTheDocument();
@@ -202,7 +223,7 @@ describe("Header Component", () => {
     render(<Header />);
 
     await user.click(screen.getByRole("button", { name: /menu do usuário/i }));
-    const navLink = screen.getByRole("menuitem", { name: /planos de aula adaptados/i });
+    const navLink = screen.getByRole("menuitem", { name: /configurações/i });
     await user.click(navLink);
 
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();
@@ -272,7 +293,7 @@ describe("Header Component", () => {
     expect(brandLink).toHaveAttribute("href", "/");
 
     // Section badge should be omitted when not provided and showProfile is false
-    expect(screen.queryByText("Minha Sala")).not.toBeInTheDocument();
+    expect(screen.queryByText("Configurações")).not.toBeInTheDocument();
   });
 
   it("renders section badge when sectionName is explicitly provided and showProfile is false", () => {

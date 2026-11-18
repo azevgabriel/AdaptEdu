@@ -1,0 +1,83 @@
+/* Reusable Radio Indicator */
+.radioIndicator {
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  background-color: var(--bg-surface);
+}
+
+.radioIndicatorChecked {
+  border-color: var(--color-brand-primary);
+  background-color: var(--color-brand-primary);
+}
+
+.radioIndicatorDot {
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.indicatorSm {
+  width: 16px;
+  height: 16px;
+}
+
+.indicatorSm .radioIndicatorDot {
+  width: 6px;
+  height: 6px;
+}
+
+.indicatorMd {
+  width: 20px;
+  height: 20px;
+}
+
+.indicatorMd .radioIndicatorDot {
+  width: 8px;
+  height: 8px;
+}
+
+.indicatorLg {
+  width: 24px;
+  height: 24px;
+}
+
+.indicatorLg .radioIndicatorDot {
+  width: 10px;
+  height: 10px;
+}
+
+/* High Contrast Mode Accommodations */
+:global([data-high-contrast="true"]) .radioIndicator {
+  border-width: 2.5px;
+}
+
+/* Windows High Contrast Mode */
+@media (forced-colors: active) {
+  .radioIndicator {
+    border-color: ButtonText;
+  }
+
+  .radioIndicatorChecked {
+    border-color: Highlight;
+    background-color: Highlight;
+  }
+
+  .radioIndicatorDot {
+    background-color: HighlightText;
+  }
+}
+
+/* Reduced Motion Accommodations */
+@media (prefers-reduced-motion: reduce) {
+  .radioIndicator {
+    transition: none;
+  }
+}
+
+:global([data-reduced-motion="true"]) .radioIndicator {
+  transition: none;
+}

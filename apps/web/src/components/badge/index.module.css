@@ -1,0 +1,123 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  font-family: var(--font-family-body);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+/* Shapes */
+.pill {
+  border-radius: 9999px;
+}
+
+/* Sizes */
+.sizeSm {
+  font-size: 0.7rem;
+  padding: 0.125rem 0.375rem;
+}
+
+.sizeMd {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.sizeLg {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+}
+
+/* Standard Status & Brand Variants */
+.variantNeutral {
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  border-color: var(--border-subtle);
+}
+
+.variantBrand {
+  background-color: var(--color-brand-surface);
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-border);
+}
+
+.variantSuccess {
+  background-color: var(--color-feedback-success-bg);
+  color: var(--color-feedback-success-text);
+  border-color: var(--color-feedback-success-border);
+}
+
+.variantWarning {
+  background-color: var(--color-feedback-warning-bg);
+  color: var(--color-feedback-warning-text);
+  border-color: var(--color-feedback-warning-border);
+}
+
+.variantDanger {
+  background-color: var(--color-feedback-error-bg);
+  color: var(--color-feedback-error-text);
+  border-color: var(--color-feedback-error-border);
+}
+
+.variantInfo {
+  background-color: var(--color-feedback-info-bg);
+  color: var(--color-feedback-info-text);
+  border-color: var(--color-feedback-info-border);
+}
+
+.variantOutline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+/* Pedagogical Hierarchy Variants (with CVD remapping support) */
+.variantKeyConcept {
+  background-color: var(--hierarchy-key-surface);
+  color: var(--hierarchy-key-text);
+  border-color: var(--hierarchy-key-border);
+}
+
+.variantDefinition {
+  background-color: var(--hierarchy-def-surface);
+  color: var(--hierarchy-def-text);
+  border-color: var(--hierarchy-def-border);
+}
+
+.variantData {
+  background-color: var(--hierarchy-data-surface);
+  color: var(--hierarchy-data-text);
+  border-color: var(--hierarchy-data-border);
+}
+
+.variantExample {
+  background-color: var(--hierarchy-example-surface);
+  color: var(--hierarchy-example-text);
+  border-color: var(--hierarchy-example-border);
+}
+
+/* Icon Container */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* High Contrast & Forced Colors */
+@media (forced-colors: active) {
+  .badge {
+    border: 1.5px solid CanvasText;
+  }
+}
+
+:global([data-high-contrast="true"]) .badge {
+  border-width: 2px;
+}

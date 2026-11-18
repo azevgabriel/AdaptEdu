@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import type { Metadata } from "next";
-import { Header, GoogleSignInButton, Footer } from "@/components";
+import { Header, GoogleSignInButton, Footer, Badge } from "@/components";
+import { CheckIcon, ClockIcon, UsersIcon } from "@/assets/icons";
 import { LoginAuthCard } from "./components";
 import styles from "./page.module.css";
 
@@ -34,30 +35,19 @@ export default function LoginPage() {
 
           {/* Neurodiversity Coverage Badges */}
           <div className={styles.neurodiversityList} aria-label="Condições e neurodivergências atendidas">
-            <span className={styles.neuroPill}>Autismo (TEA)</span>
-            <span className={styles.neuroPill}>TDAH</span>
-            <span className={styles.neuroPill}>Dislexia</span>
-            <span className={styles.neuroPill}>Discalculia</span>
-            <span className={styles.neuroPill}>Síndrome de Tourette</span>
-            <span className={styles.neuroPill}>Processamento Visual (Daltonismo)</span>
+            <Badge variant="outline" pill size="md">Autismo (TEA)</Badge>
+            <Badge variant="outline" pill size="md">TDAH</Badge>
+            <Badge variant="outline" pill size="md">Dislexia</Badge>
+            <Badge variant="outline" pill size="md">Discalculia</Badge>
+            <Badge variant="outline" pill size="md">Síndrome de Tourette</Badge>
+            <Badge variant="outline" pill size="md">Processamento Visual (Daltonismo)</Badge>
           </div>
 
           {/* Core Feature Highlights */}
           <div className={styles.featuresList}>
             <div className={styles.featureItem}>
               <div className={styles.featureIconBox} aria-hidden="true">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <CheckIcon size={18} />
               </div>
               <div className={styles.featureItemText}>
                 <span className={styles.featureItemTitle}>Soluções práticas de baixo custo</span>
@@ -69,19 +59,7 @@ export default function LoginPage() {
 
             <div className={styles.featureItem}>
               <div className={styles.featureIconBox} aria-hidden="true">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 6v6l4 2" />
-                </svg>
+                <ClockIcon size={18} />
               </div>
               <div className={styles.featureItemText}>
                 <span className={styles.featureItemTitle}>Redução da sobrecarga docente</span>
@@ -93,21 +71,7 @@ export default function LoginPage() {
 
             <div className={styles.featureItem}>
               <div className={styles.featureIconBox} aria-hidden="true">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
+                <UsersIcon size={18} />
               </div>
               <div className={styles.featureItemText}>
                 <span className={styles.featureItemTitle}>Combate à evasão escolar</span>
@@ -125,7 +89,7 @@ export default function LoginPage() {
             fallback={
               <div className={styles.authCard}>
                 <div className={styles.authActions}>
-                  <GoogleSignInButton returnUrl="/minha-sala" />
+                  <GoogleSignInButton returnUrl="/configuracoes/acessibilidade" />
                 </div>
               </div>
             }
