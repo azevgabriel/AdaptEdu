@@ -12,14 +12,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## Releases
 
-### Visual Accessibility Settings, Chromatic Deficiency Matrix & Color System Corrections - 2026-11-17
-Resolves [#7](https://github.com/azevgabriel/AdaptEdu/issues/7).
+### Visual Accessibility Settings, Chromatic Deficiency Matrix, Inclusive Switch & RadioGroup - 2026-11-17
+
+Resolves [#7](https://github.com/azevgabriel/AdaptEdu/issues/7) and [#10](https://github.com/azevgabriel/AdaptEdu/issues/10).
 
 #### `apps/web` (Frontend) — `v1.3.0`
+
 - Created dedicated visual accessibility settings route at `/configuracoes/acessibilidade` (`src/app/configuracoes/acessibilidade/page.tsx`, `page.module.css`, `page.spec.tsx`).
 - Created `/configuracoes` entry point redirecting directly to `/configuracoes/acessibilidade` (`src/app/configuracoes/page.tsx`, `page.spec.tsx`).
+- Implemented generic `RadioGroup` and `RadioButton` components (`src/components/radio-group/`) following WAI-ARIA APG compound composition guidelines, supporting cyclic arrow navigation, render props, and compound syntax (`RadioGroup.Item`, `RadioGroup.Indicator`).
+- Refactored `ThemeSelector`, `CvdSelector`, and `ReadingAccommodations` to use the standardized `RadioGroup` and `RadioButton` components.
+- Enhanced `Switch` component (`src/components/switch/`) following Heydon Pickering's Inclusive Components pattern with expanded touch target ($\ge 44\times44\text{px}$), Windows High Contrast (`@media (forced-colors: active)`).
 - Implemented generic `Drawer` component (`src/components/drawer/`) providing an accessible lateral slide-out panel with focus management, Escape key dismiss, backdrop click dismiss, body scroll lock, size options (`sm`, `md`, `lg`, `xl`, `full`), positions (`right`, `left`), and modal/non-modal integration.
-- Implemented generic `Switch` component (`src/components/switch/`) with full keyboard and WAI-ARIA switch semantics (`role="switch"`, `aria-checked`), supporting multiple sizes (`sm`, `md`, `lg`), label, description, and high-contrast/reduced-motion styles.
 - Componentized `ChromaticSwatchCard` (`src/app/configuracoes/acessibilidade/components/chromatic-swatch-card/`) eliminating duplicate card markup across hierarchy and discipline lists in `ChromaticMatrix`.
 - Refactored `ReadingAccommodations` and `HandoutPreview` to utilize the reusable `Switch` component.
 - Integrated interactive lateral validation `Drawer` on `/configuracoes/acessibilidade`: allows teachers to validate color matrix swatches and test pedagogical handout adaptations in real time via a tabbed interface ("Prévia: Roteiro Pedagógico" & "Matriz de Comparação Cromática") as options are toggled, accessible via a launcher card and sticky floating action button (`Validar Cores & Prévia`).
@@ -35,13 +39,14 @@ Resolves [#7](https://github.com/azevgabriel/AdaptEdu/issues/7).
 - Fixed severe chromatic and sensory contradictions in design tokens (`apps/web/docs/COLORS.md` and `apps/web/src/app/globals.css`):
   - **Tritanopia Dark Mode Fix:** Overrode `--bg-canvas`, `--bg-surface`, and `--bg-subtle` in `[data-cvd="tritanopia"]` with neutral Zinc darks (`#121212`, `#1c1c1c`, `#262626`) instead of short-wavelength blue-tinted slate; remapped brand tokens to Teal/Cyan (`#0891b2`); eradicated all purple/violet reliance from "Dados & Fórmulas" (remapped to Terracotta `#c2410c`) and "Ciências" (remapped to Deep Teal `#0e7490`).
   - **Achromatopsia Anti-Glare & High-Contrast Photophobia Fix:** Eradicated pure white `#ffffff` surfaces in light-mode Achromatopsia, replacing them with soft matte anti-glare neutrals (`--bg-canvas: #e4e4e7`, `--bg-surface: #d4d4d8`); enforced structural contrast (thick 2px/3px borders, dashed/dotted patterns, distinct geometric icons) under High Contrast without photophobic luminance glare.
-- Maintained 99.60% statement coverage, 95.51% branch coverage, and 100% function coverage with 127 automated tests passing.
-
+- Audited and reinforced accessibility across all shared UI components (`GoogleSignInButton`, `Footer`, `Drawer`, `Avatar`, `Switch`, `RadioGroup`) with 153 automated tests passing across 26 test suites.
 
 ### Google OAuth 2.0, Route Protection & Security Baseline - 2026-11-17
+
 Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1) and [#6](https://github.com/azevgabriel/AdaptEdu/issues/6).
 
 #### `apps/web` (Frontend) — `v1.2.0`
+
 - Created `/login` presentation and login page (`src/app/login/page.tsx`, `login-auth-card.tsx`, `page.module.css`).
 - Presented AdaptEdu's core mission: accessible pedagogical adaptations for neurodivergent students (autism, ADHD, dyslexia, dyscalculia, Tourette syndrome) to reduce teacher overload and prevent school dropout.
 - Implemented accessible, WCAG 2.1 AA compliant `GoogleSignInButton` component with Google vector branding and neurodiversity-friendly focus states.
@@ -52,6 +57,7 @@ Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1) and [#6](https:/
 - Added comprehensive unit and integration test suites reaching 99.51% statement coverage and 100% function coverage.
 
 #### `apps/api` (Backend) — `v1.2.0`
+
 - Added `User` model and `Role` enum to Prisma schema (`prisma/schema.prisma`) with `id`, `email`, `name`, `avatarUrl`, `googleId`, `role`, `createdAt`, and `updatedAt`.
 - Authored and applied initial database migration (`20261117000000_init_user_model`).
 - Created `PrismaModule` and `PrismaService` extending PrismaClient for PostgreSQL connection lifecycle management.
@@ -67,16 +73,20 @@ Resolves [#1](https://github.com/azevgabriel/AdaptEdu/issues/1) and [#6](https:/
 - Added test suites for Prisma service, JWT guard, auth service, and auth controller with 99.07% statement coverage and 100% function coverage.
 
 #### `apps/engine` (AI & Reasoning Engine)
+
 - Documented AI engine security guidelines (safe deserialization, ban on `eval`/`exec`, constant-time comparisons, Pydantic validation) in `apps/engine/docs/SECURITY.md`.
 
 #### Repository Governance & CI/CD
+
 - Established mandatory AI PR code review security protocol in `docs/skills/code-review-security/SKILL.md` (covering IDOR, parameter tampering, data exposure, sanitization, and dependency audits).
 - Integrated automated vulnerability audits (`npm audit` for web/api and `pip-audit` for engine) in `.github/workflows/ci.yml`.
 
 ### Testing & CI Coverage Gate - 2026-11-17
+
 Resolves [#3](https://github.com/azevgabriel/AdaptEdu/issues/3).
 
 #### `apps/web` (Frontend) — `v1.1.0`
+
 - Integrated Vitest coverage reporter with `@vitest/coverage-v8`.
 - Added test suites for App Router pages and layouts (`page.spec.tsx`, `minha-sala/page.spec.tsx`, `minha-sala/layout.spec.tsx`, `components/index.spec.ts`).
 - Enhanced Header component test coverage to 100% across statements, branches, functions, and lines.
@@ -84,21 +94,25 @@ Resolves [#3](https://github.com/azevgabriel/AdaptEdu/issues/3).
 - Added `test:cov` and `test:coverage` npm scripts in `package.json`.
 
 #### `apps/api` (Backend) — `v1.1.0`
+
 - Added unit test suites for `AppService` and `AppModule`.
 - Configured Vitest coverage reporter with v8 provider and coverage thresholds in `vitest.config.ts`.
 - Maintained 100% lines, functions, and statements test coverage.
 
 #### `apps/engine` (AI Engine) — `v1.1.0`
+
 - Established official FastAPI testing layer following FastAPI tutorial conventions.
 - Added `pytest` and `pytest-cov` test suites for FastAPI routes and version utility.
 - Added executable test and coverage scripts (`scripts/test.sh`, `scripts/test_cov.sh`).
 - Configured pytest and coverage thresholds (>= 90%) in `pyproject.toml`.
 
 #### Continuous Integration (`.github/workflows/ci.yml`)
+
 - Created automated PR and push workflow for `main` branch.
 - Runs parallel jobs validating tests and enforcing >= 90% test coverage across `apps/web`, `apps/api`, and `apps/engine`.
 
 ### Initial Setup - 2026-11-17
+
 - Initialized core monorepo architecture with `apps/api`, `apps/engine`, and `apps/web`.
 - Initialized container orchestration with Docker Compose.
 - Established repository standards, GitHub MCP workflows, and accessibility guidelines.

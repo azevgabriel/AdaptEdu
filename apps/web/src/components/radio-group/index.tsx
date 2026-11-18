@@ -24,7 +24,7 @@ export interface RadioGroupContextValue<T = string> {
   orientation?: "horizontal" | "vertical";
 }
 
-const RadioGroupContext = createContext<RadioGroupContextValue<unknown> | null>(null);
+const RadioGroupContext = createContext<RadioGroupContextValue<string> | null>(null);
 
 export function useRadioGroup<T = string>(): RadioGroupContextValue<T> {
   const context = useContext(RadioGroupContext);
@@ -43,7 +43,7 @@ export interface RadioButtonContextValue<T = string> {
   size: "sm" | "md" | "lg";
 }
 
-const RadioButtonContext = createContext<RadioButtonContextValue<unknown> | null>(null);
+const RadioButtonContext = createContext<RadioButtonContextValue<string> | null>(null);
 
 export function useRadioButton<T = string>(): RadioButtonContextValue<T> | null {
   return useContext(RadioButtonContext) as unknown as RadioButtonContextValue<T> | null;
@@ -194,7 +194,9 @@ function RadioButtonRoot<T = string>({
         } ${isDisabled ? styles.disabled : ""} ${className || ""}`.trim();
 
   return (
-    <RadioButtonContext.Provider value={contextValue}>
+    <RadioButtonContext.Provider
+      value={contextValue as unknown as RadioButtonContextValue<string>}
+    >
       <button
         id={buttonId}
         type="button"
@@ -382,7 +384,9 @@ function RadioGroupRoot<T = string>({
   );
 
   return (
-    <RadioGroupContext.Provider value={contextValue}>
+    <RadioGroupContext.Provider
+      value={contextValue as unknown as RadioGroupContextValue<string>}
+    >
       <div
         ref={containerRef}
         role="radiogroup"
