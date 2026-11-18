@@ -16,11 +16,7 @@ export interface ReadingAccommodationsProps {
   onReducedMotionChange: (val: boolean) => void;
 }
 
-const FONT_SIZE_OPTIONS: {
-  id: FontSizeMode;
-  name: string;
-  previewSize: string;
-}[] = [
+const FONT_SIZE_OPTIONS: { id: FontSizeMode; name: string; previewSize: string }[] = [
   { id: "normal", name: "Normal (100%)", previewSize: "1.1rem" },
   { id: "large", name: "Grande (115%)", previewSize: "1.35rem" },
   { id: "x-large", name: "Muito Grande (130%)", previewSize: "1.65rem" },
@@ -135,9 +131,8 @@ export function ReadingAccommodations({
               Espaçamento de Leitura para Dislexia & TDAH
             </span>
             <p className={styles.toggleDescription}>
-              Amplia o espaçamento entre caracteres (+0.04em), palavras (+0.1em)
-              e linhas (1.75) para mitigar aglomerações e linhas flutuantes
-              (&quot;rivering&quot;).
+              Amplia o espaçamento entre caracteres (+0.04em), palavras (+0.1em) e
+              linhas (1.75) para mitigar aglomerações e linhas flutuantes (&quot;rivering&quot;).
             </p>
           </div>
           <Switch

@@ -15,10 +15,11 @@ import styles from "./index.module.css";
 /*                              RadioCard Primitive                           */
 /* -------------------------------------------------------------------------- */
 
-export interface RadioCardProps<T = string> extends Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "value" | "onChange" | "children" | "title"
-> {
+export interface RadioCardProps<T = string>
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    "value" | "onChange" | "children" | "title"
+  > {
   value: T;
   title?: React.ReactNode;
   description?: React.ReactNode;
@@ -43,10 +44,7 @@ export function RadioCardHeader({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div
-      className={`${styles.cardHeader} ${className || ""}`.trim()}
-      {...props}
-    >
+    <div className={`${styles.cardHeader} ${className || ""}`.trim()} {...props}>
       {children}
     </div>
   );
@@ -58,10 +56,7 @@ export function RadioCardTitle({
   ...props
 }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
-    <span
-      className={`${styles.cardTitle} ${className || ""}`.trim()}
-      {...props}
-    >
+    <span className={`${styles.cardTitle} ${className || ""}`.trim()} {...props}>
       {children}
     </span>
   );
@@ -73,10 +68,7 @@ export function RadioCardBadge({
   ...props
 }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
-    <span
-      className={`${styles.cardBadge} ${className || ""}`.trim()}
-      {...props}
-    >
+    <span className={`${styles.cardBadge} ${className || ""}`.trim()} {...props}>
       {children}
     </span>
   );
@@ -185,7 +177,7 @@ function RadioCardRoot<T = string>({
       value,
       size: "md",
     }),
-    [isChecked, isDisabled, value],
+    [isChecked, isDisabled, value]
   );
 
   const renderedContent =
@@ -230,19 +222,14 @@ function RadioCardRoot<T = string>({
                 <div className={styles.cardBody}>
                   <div className={styles.cardHeader}>
                     <div className={styles.cardTitleWrapper}>
-                      {title && (
-                        <span className={styles.cardTitle}>{title}</span>
-                      )}
+                      {title && <span className={styles.cardTitle}>{title}</span>}
                       {badge && (
                         <span className={styles.cardBadge}>{badge}</span>
                       )}
                     </div>
                     {showIndicator && (
                       <div className={styles.cardIndicatorWrapper}>
-                        <RadioIndicator
-                          checked={isChecked}
-                          size={indicatorSize}
-                        />
+                        <RadioIndicator checked={isChecked} size={indicatorSize} />
                       </div>
                     )}
                   </div>
@@ -260,10 +247,7 @@ function RadioCardRoot<T = string>({
                   </div>
                   {showIndicator && (
                     <div className={styles.cardIndicatorWrapper}>
-                      <RadioIndicator
-                        checked={isChecked}
-                        size={indicatorSize}
-                      />
+                      <RadioIndicator checked={isChecked} size={indicatorSize} />
                     </div>
                   )}
                 </div>
@@ -282,7 +266,7 @@ function RadioCardRoot<T = string>({
 }
 
 export type RadioCardComponent = (<T = string>(
-  props: RadioCardProps<T>,
+  props: RadioCardProps<T>
 ) => React.ReactElement | null) & {
   Header: typeof RadioCardHeader;
   Title: typeof RadioCardTitle;
