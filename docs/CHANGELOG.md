@@ -12,6 +12,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## Releases
 
+### Brazilian Legislation & Accessibility Guidelines for Inclusive Education - 2026-11-18
+
+Resolves [#9](https://github.com/azevgabriel/AdaptEdu/issues/9).
+
+#### `apps/web` (Frontend) — `v2.1.0`
+
+- Authored centralized legal reference guide in [`docs/ACCESSIBILITY_GUIDELINES.md`](docs/ACCESSIBILITY_GUIDELINES.md), establishing the statutory baseline for inclusive education across the platform.
+- Detailed constitutional and infraconstitutional mandates:
+  - Right to accessibility services, permanence, and dedicated school support professionals (*profissional de apoio escolar*) under Lei Federal nº 13.146/2015 (LBI, Art. 28), Lei Federal nº 12.764/2012 (TEA, Art. 3º), and Decreto Federal nº 6.949/2009 (CDPD, Art. 24).
+  - Early and continuous instruction of Libras, Braille, and assistive technology resources under LBI Art. 28 and Lei Federal nº 9.394/1996 (LDB, Art. 60-A).
+  - Complex communication needs & Augmentative and Alternative Communication (AAC / CAA) low-tech priority (communication boards with pictograms) under LBI Art. 28, Inciso XIX.
+  - Accessibility requirements in selective admissions, vocational, and higher education under LBI Arts. 28 & 30 and LDB Cap. V-A (public notices in Libras, accessible examination formats, time extensions, and assistive resources).
+  - Bilingual education for the deaf recognizing Libras as primary language (L1) and written Portuguese as secondary language (L2) under LDB Cap. V-A, Lei Federal nº 10.436/2002, and LBI Art. 28.
+  - National Book and Didactic Material Program (PNLD) accessible format mandates under Decreto Federal nº 9.099/2017 Art. 25.
+- Created Platform Architectural Mapping Matrix connecting each statutory mandate to current and planned platform modules across `apps/web`, `apps/api`, and `apps/engine`.
+- Contextualized Brazilian inclusive education legislation on the login page (`src/app/login/`): added a supportive note referencing the Lei Brasileira de Inclusão (LBI nº 13.146/15) and LDB right to adapted pedagogical resources, positioning AdaptEdu as a light, practical partner for public school educators.
+- Styled the educator login action card (`.cardColumn`) with sticky viewport vertical centering (`top: max(5rem, calc(50vh - 255px))`) on desktop and modernized global overflow to `overflow-x: clip` in `src/app/globals.css`, ensuring the login card remains visible and centered on screen as the teacher scrolls through pedagogical features and legal guidelines.
+- Cross-referenced the guidelines in root [`AGENTS.md`](AGENTS.md) and [`apps/web/docs/GLOBAL.md`](apps/web/docs/GLOBAL.md).
+- Updated `apps/web` version to `v2.1.0` and synchronized the web version badge in [`README.md`](README.md).
+
 ### Composable Design System, Lean Documentation Architecture, Anti-Slop Guidelines & Playwright CLI - 2026-11-18
 
 Resolves [#12](https://github.com/azevgabriel/AdaptEdu/issues/12).
