@@ -41,9 +41,20 @@ Resolves [#12](https://github.com/azevgabriel/AdaptEdu/issues/12).
 - Formulated Anti-Slop Web Design Guidelines & Art Direction:
   - Authored `apps/web/docs/DESIGN_GUIDELINES.md` integrating principles from `Leonxlnx/taste-skill` and Vercel Labs' `web-design-guidelines`.
   - Defined explicit sensory-friendly palette rules, tactile active states, Nunito/Inter typography pairing, and Brazilian Portuguese (PT-BR) UX writing standards under the non-diagnostic principle.
+- Standardized Primary Brand & Color Tokens:
+  - Replaced primary brand purple with pedagogical **Azul Educacional** (`#2563eb`), aligning with clarity and mathematics while harmonizing with other pedagogical color tokens.
+- Implemented Compound Design System Primitives:
+  - Created generic compound `Breadcrumb` component (`src/components/breadcrumb/`) following W3C WAI-ARIA breadcrumb navigation patterns.
+  - Refactored `Drawer` (`src/components/drawer/`) into a semantic compound subcomponent architecture (`Root`, `Body`, `Header`, `Footer`, `Close`, `Content`, `Overlay`, `Title`, `Description`).
+  - Created generic compound `Tabs` component (`src/components/tabs/`) with roving `tabIndex`, cyclical keyboard navigation, and generic state support.
+- Refactored Navigation & Accessibility Experience:
+  - Removed obsolete `/minha-sala` route directory and streamlined Header user dropdown menu down to active settings and logout.
+  - Standardized `RadioCard` indicators (`size="md"`, top-aligned flex positioning) across `ThemeSelector`, `CvdSelector`, and `ReadingAccommodations`.
+  - Transformed accommodation `toggleCard`s into full-surface clickable controls with tactile hover/active feedback.
+  - Increased page bottom spacing to prevent `FloatGroup` floating toolbar overlap collisions.
 - Integrated Playwright CLI Verification:
   - Authored `apps/web/docs/PLAYWRIGHT_CLI.md` and created `apps/web/docs/skills/playwright-cli/SKILL.md` documenting token-efficient browser inspection, accessibility tree snapshots (`refs`), and lightweight smoke verification routines.
-- Expanded automated unit tests in `src/components/radio-group/index.spec.tsx` and `src/components/index.spec.ts`, achieving 100% test coverage across `radio-group`, `theme-selector`, `cvd-selector`, and `reading-accommodations`, with 159 tests passing in `apps/web`.
+- Expanded automated unit tests in `src/components/radio-group/index.spec.tsx` and `src/components/index.spec.ts`, achieving 100% test pass rate with 65 test files and 321 automated unit tests in `apps/web`.
 
 ### Visual Accessibility Settings, Chromatic Deficiency Matrix, Inclusive Switch & RadioGroup - 2026-11-17
 
