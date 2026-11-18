@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Header, Footer, Drawer } from "@/components";
 import { useAuth } from "@/contexts/auth-context";
@@ -14,35 +14,10 @@ import {
 } from "./components";
 import styles from "./page.module.css";
 
-function subscribeMediaQuery(callback: () => void) {
-  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-    return () => {};
-  }
-  const mq = window.matchMedia("(max-width: 1024px)");
-  mq.addEventListener("change", callback);
-  return () => mq.removeEventListener("change", callback);
-}
-
-function getMediaQuerySnapshot() {
-  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-    return false;
-  }
-  return window.matchMedia("(max-width: 1024px)").matches;
-}
-
-function getMediaQueryServerSnapshot() {
-  return false;
-}
-
 export default function AccessibilitySettingsPage() {
   const { user, signOut } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [activeDrawerTab, setActiveDrawerTab] = useState<"handout" | "matrix">("handout");
-  const isMobile = useSyncExternalStore(
-    subscribeMediaQuery,
-    getMediaQuerySnapshot,
-    getMediaQueryServerSnapshot
-  );
 
   const {
     theme,
@@ -231,7 +206,6 @@ export default function AccessibilitySettingsPage() {
         description="Acompanhe as mudanças visuais em tempo real conforme você personaliza as opções na tela."
         size="xl"
         position="right"
-        isModal={isMobile}
       >
         <div
           className={styles.drawerTabNav}

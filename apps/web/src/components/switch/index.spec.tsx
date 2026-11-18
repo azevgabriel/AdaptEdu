@@ -84,4 +84,35 @@ describe("Switch Component", () => {
     rerender(<Switch checked={false} onChange={vi.fn()} size="lg" ariaLabel="Grande" />);
     expect(container.firstChild).toHaveClass(/lg/);
   });
+
+  it("programmatically associates label via htmlFor and description via aria-describedby", () => {
+    render(
+      <Switch
+        id="dyslexia-switch"
+        checked={true}
+        onChange={vi.fn()}
+        label="Fonte para Dislexia"
+        description="Aumenta o espaçamento de caracteres e linhas."
+      />
+    );
+
+    const switchBtn = screen.getByRole("switch", { name: "Fonte para Dislexia" });
+    const labelEl = screen.getByText("Fonte para Dislexia");
+    const descEl = screen.getByText("Aumenta o espaçamento de caracteres e linhas.");
+
+    expect(labelEl).toHaveAttribute("for", "dyslexia-switch");
+    expect(switchBtn).toHaveAttribute("aria-describedby", descEl.id);
+  });
+
+  it("has type='button' and does not toggle on unrecognized key presses", () => {
+    const handleChange = vi.fn();
+    render(<Switch checked={false} onChange={handleChange} ariaLabel="Apenas Teclas" />);
+    const switchBtn = screen.getByRole("switch", { name: "Apenas Teclas" });
+
+    expect(switchBtn).toHaveAttribute("type", "button");
+
+    fireEvent.keyDown(switchBtn, { key: "Tab" });
+    fireEvent.keyDown(switchBtn, { key: "Escape" });
+    expect(handleChange).not.toHaveBeenCalled();
+  });
 });

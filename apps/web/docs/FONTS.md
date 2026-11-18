@@ -56,7 +56,7 @@ The typography strategy is built around a deliberate dual-font architecture:
 
 ## ⚙️ Technical Configuration (Next.js & CSS Variables)
 
-Fonts are loaded and optimized using Next.js font optimization (`next/font/google`) in [src/app/layout.tsx](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/web/src/app/layout.tsx). This guarantees:
+Fonts are loaded and optimized using Next.js font optimization (`next/font/google`) in [apps/web/src/app/layout.tsx](apps/web/src/app/layout.tsx). This guarantees:
 - **Zero Layout Shift (CLS):** Next.js pre-calculates font metrics and generates fallback sizes.
 - **Self-Hosted Privacy:** Font binaries are downloaded at build time and served locally from the same domain; no third-party requests are sent to Google servers at runtime (complying with LGPD).
 - **Display Swap:** `display: "swap"` ensures text remains visible during font loading.
@@ -83,7 +83,7 @@ export const inter = Inter({
 
 ### Global CSS Design Tokens (`globals.css`)
 
-The injected font variables are mapped to global typography tokens in [src/app/globals.css](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/web/src/app/globals.css):
+The injected font variables are mapped to global typography tokens in [apps/web/src/app/globals.css](apps/web/src/app/globals.css):
 
 ```css
 :root {
@@ -165,9 +165,19 @@ When styling text across AdaptEdu components, developers and coding agents **MUS
 - Reserve uppercase exclusively for short acronyms (e.g. `PEI`, `TEA`, `TDAH`, `BNCC`) or very small category badges (maximum 1–2 words).
 
 ### 5. High Contrast Standard (WCAG 1.4.3 & 1.4.6)
-- Text must always satisfy the contrast guidelines established in [COLORS.md](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/web/docs/COLORS.md):
+- Text must always satisfy the contrast guidelines established in [apps/web/docs/COLORS.md](apps/web/docs/COLORS.md):
   - Normal text: minimum **4.5:1** contrast against direct background.
   - Large text (≥ 18pt or ≥ 14pt bold): minimum **3:1** contrast.
+
+### 6. Avoid Italics for Reading Accommodations (Dyslexia Invariant)
+- **Do not use italicized text (`font-style: italic`) as an emphasis or accessibility substitution marker.**
+- As established in chromatic accessibility and neurodiversity research (*Guia de Acessibilidade Cromática para Daltonismo*, UFSM), slanted letterforms distort character silhouettes, increase visual crowding, and hinder word shape recognition for dyslexic individuals.
+- Use **bold weight** (`font-weight: 600` or `700`), **underline decoration** (`text-decoration: underline`), or **geometric border indicators** instead of italics for pedagogical highlights.
+
+### 7. Small Text Resilience & Color Perception (CVD Invariant)
+- Avoid using bare micro-text (`.text-xs` / 12px) for critical chromatic legends or discipline markers.
+- Reducing font size diminishes the physical surface area of the color, drastically increasing color confusion for students and educators with Color Vision Deficiencies (CVD / Daltonismo).
+- Color tags and badges must maintain at least `.text-label` (14px) or be paired with prominent non-color iconography (e.g., 🧮, 📖, 🌍).
 
 ---
 
@@ -219,7 +229,8 @@ export function PageHeading({ title, subtitle }: { title: string; subtitle: stri
 
 ## 🔗 Related Documentation
 
-- [GLOBAL.md](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/web/docs/GLOBAL.md): Frontend Architecture Index.
-- [COLORS.md](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/web/docs/COLORS.md): Interface & Pedagogical Color System.
-- [NEXTJS.md](file:///Users/azevgabriel/Desktop/GitHub/Pessoais/AdaptEdu/apps/web/docs/NEXTJS.md): Next.js App Router & Agent Architecture.
+- [apps/web/docs/GLOBAL.md](apps/web/docs/GLOBAL.md): Frontend Architecture Index.
+- [apps/web/docs/ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md): Universal Design, The Three Visual States, and Cognitive Accommodations.
+- [apps/web/docs/COLORS.md](apps/web/docs/COLORS.md): Interface & Pedagogical Color System.
+- [apps/web/docs/NEXTJS.md](apps/web/docs/NEXTJS.md): Next.js App Router & Agent Architecture.
 

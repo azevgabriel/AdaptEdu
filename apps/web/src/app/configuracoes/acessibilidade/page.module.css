@@ -283,7 +283,7 @@
 
 .drawerTabButton:hover {
   color: var(--text-primary);
-  background-color: var(--color-surface-hover, #f4f4f5);
+  background-color: var(--bg-subtle, #f1f5f9);
   border-radius: var(--radius-sm, 6px) var(--radius-sm, 6px) 0 0;
 }
 

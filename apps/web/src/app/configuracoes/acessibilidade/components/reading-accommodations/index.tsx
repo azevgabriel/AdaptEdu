@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Switch } from "@/components";
+import { Switch, RadioGroup, RadioButton } from "@/components";
 import type { FontSizeMode } from "@/hooks/use-accessibility";
 import styles from "./index.module.css";
 
@@ -54,37 +54,31 @@ export function ReadingAccommodations({
         <span className={styles.sectionLabel} id="font-size-group-label">
           Escala de Tamanho da Fonte
         </span>
-        <div
+        <RadioGroup
+          value={fontSize}
+          onChange={onFontSizeChange}
+          ariaLabelledBy="font-size-group-label"
           className={styles.fontSizeGrid}
-          role="radiogroup"
-          aria-labelledby="font-size-group-label"
         >
-          {FONT_SIZE_OPTIONS.map((opt) => {
-            const isSelected = fontSize === opt.id;
-            return (
-              <button
-                key={opt.id}
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                className={`${styles.fontSizeButton} ${
-                  isSelected ? styles.fontSizeButtonActive : ""
-                }`}
-                onClick={() => onFontSizeChange(opt.id)}
-                aria-label={`Fonte ${opt.name}`}
+          {FONT_SIZE_OPTIONS.map((opt) => (
+            <RadioButton
+              key={opt.id}
+              value={opt.id}
+              ariaLabel={`Fonte ${opt.name}`}
+              className={styles.fontSizeButton}
+              activeClassName={styles.fontSizeButtonActive}
+            >
+              <span
+                className={styles.sampleLetter}
+                style={{ fontSize: opt.previewSize }}
+                aria-hidden="true"
               >
-                <span
-                  className={styles.sampleLetter}
-                  style={{ fontSize: opt.previewSize }}
-                  aria-hidden="true"
-                >
-                  Aa
-                </span>
-                <span className={styles.fontSizeName}>{opt.name}</span>
-              </button>
-            );
-          })}
-        </div>
+                Aa
+              </span>
+              <span className={styles.fontSizeName}>{opt.name}</span>
+            </RadioButton>
+          ))}
+        </RadioGroup>
       </div>
 
       {/* Toggles */}

@@ -37,6 +37,7 @@ Color must **never** be the sole indicator of meaning, state, subject, or urgenc
 ### 3. Visual Stress & Dyslexia (Meares-Irlen Considerations)
 - **Avoid Pure Black on Pure White:** High-contrast pure white (`#FFFFFF`) behind pitch black (`#000000`) can induce visual vibration, headaches, and "rivering" (optical illusion of white rivers running through text) for dyslexic and neurodivergent individuals.
 - **Soft Foundations:** Use soft slate neutrals (`#0F172A` text on `#F8FAFC` or `#F1F5F9` canvas) to ensure crisp legibility without sensory glare.
+- **Avoid Italics as Accessibility Substitutes:** As emphasized in the UFSM Chromatic Accessibility Guide (*Guia de Acessibilidade Cromática para Daltonismo*), slanted letterforms (italics) degrade letter silhouette recognition, trigger visual crowding, and create severe reading obstacles for individuals with dyslexia. Never use italics as an alternative indicator for color codes or accessibility highlights; use distinct border weights, underline offsets, or bold text instead.
 
 ### 4. Controlled Saturation (ASD & Sensory Overload)
 - Avoid hyper-saturated neon backgrounds that distract or overstimulate students with ASD.
@@ -64,6 +65,10 @@ Teachers and students use fixed color coding for school disciplines across binde
 | **Educação Física** | `--subject-pe` | `#0D9488` | `#F0FDFA` | `#2DD4BF` | `#115E59` | 7.5:1 (AAA) | Motor skills, physical wellness, sports, team routines. |
 | **Língua Inglesa** | `--subject-languages` | `#CA8A04` | `#FEFCE8` | `#FACC15` | `#854D0E` | 7.4:1 (AAA) | Foreign language acquisition, vocabulary, international culture. |
 | **Filosofia / Sociologia** | `--subject-humanities`| `#78716C` | `#F5F5F4` | `#A8A29E` | `#44403C` | 7.7:1 (AAA) | Critical thinking, ethics, societal organization. |
+
+> [!WARNING]
+> **Risky Chromatic Pairs in Default Mode:**
+> Empirical research in chromatic accessibility (*Guia de Acessibilidade Cromática para Daltonismo*, UFSM / Coletivo UX) identifies **Green + Orange** and **Blue + Purple** as high-risk confusion pairings across red-green color vision deficiencies. In AdaptEdu's default palette, **História (Orange) vs. Geografia (Green)** and **Matemática (Blue) vs. Química/Biologia (Purple)** must ALWAYS be accompanied by their persistent geometric iconography (⏳ vs. 🌍 and 🧮 vs. 🧪) and explicit text labels. Never rely solely on color to differentiate subjects, ensuring students and educators with undiagnosed mild CVD are not excluded.
 
 ---
 
@@ -149,7 +154,7 @@ AdaptEdu provides **four dedicated CVD operational modes** activated via the HTM
     - **Conceitos-Chave:** Solid inverted dark badge with thick solid border (`border-left: 4px solid #18181b`) + bold weight.
     - **Definições:** Double stroke border (`border-left: 4px double #52525b`).
     - **Datas & Fórmulas:** Dotted border (`border-left: 4px dotted #71717a`) + bracket markers `[ 1945 ]`.
-    - **Exemplos:** Dashed border (`border-left: 4px dashed #a1a1aa`) + italic text.
+    - **Exemplos:** Dashed border (`border-left: 4px dashed #a1a1aa`) + underline decoration (avoiding italics to accommodate dyslexia as outlined in chromatic accessibility guidelines).
   - **Discipline Geometrical Badges:**
     - `[PT]` Português: Solid Pill + 📖
     - `[MAT]` Matemática: Square + 🧮
@@ -629,7 +634,8 @@ html[data-theme="dark"][data-cvd="achromatopsia"][data-high-contrast="true"],
 
 [data-cvd="achromatopsia"] mark[class*="example"] {
   border-left: 4px dashed #a1a1aa !important;
-  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 ```
 
@@ -801,3 +807,12 @@ Before committing any component or style modification, verify:
 - [ ] **Photophobia Shield Active:** In Achromatopsia mode, is harsh pure-white glare `#FFFFFF` replaced with soft matte neutrals (`#F4F4F5` / `#18181B`)?
 - [ ] **Dark Mode Parity:** Are all CVD overrides mapped properly under dark mode?
 - [ ] **Language Integrity:** Are all UI labels in PT-BR while all CSS tokens, class names, and code comments remain in English?
+
+---
+
+## 🔗 Related Documentation
+
+- [apps/web/docs/GLOBAL.md](apps/web/docs/GLOBAL.md): Frontend Architecture Index.
+- [apps/web/docs/ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md): Universal Design, The Three Visual States, and Cognitive Accommodations.
+- [apps/web/docs/FONTS.md](apps/web/docs/FONTS.md): Typography & Cognitive Reading System.
+- [apps/web/docs/DESIGN_SYSTEM.md](apps/web/docs/DESIGN_SYSTEM.md): Component Specifications & Anatomy.

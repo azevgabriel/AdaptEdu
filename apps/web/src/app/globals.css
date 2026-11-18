@@ -22,6 +22,14 @@
   /* Backward Compatibility Defaults */
   --background: var(--bg-canvas);
   --foreground: var(--text-primary);
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-subtle);
+  --color-text: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-brand: var(--color-brand-primary);
 
   /* Brand Tokens */
   --color-brand-primary: #4338ca;
@@ -151,6 +159,14 @@
   /* Backward Compatibility Defaults */
   --background: var(--bg-canvas);
   --foreground: var(--text-primary);
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-subtle);
+  --color-text: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-brand: var(--color-brand-primary);
 
   /* Dark Mode Brand */
   --color-brand-primary: #6366f1;
@@ -969,7 +985,8 @@
 
 [data-cvd="achromatopsia"] mark[class*="example"] {
   border-left: 4px dashed #a1a1aa !important;
-  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 html {

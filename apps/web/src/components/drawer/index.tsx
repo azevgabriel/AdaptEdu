@@ -15,6 +15,7 @@ export interface DrawerProps {
   footer?: React.ReactNode;
   position?: "right" | "left";
   size?: "sm" | "md" | "lg" | "xl" | "full";
+  overlay?: boolean;
   isModal?: boolean;
   closeOnEscape?: boolean;
   closeOnOverlayClick?: boolean;
@@ -32,7 +33,8 @@ export function Drawer({
   footer,
   position = "right",
   size = "md",
-  isModal = true,
+  overlay = true,
+  isModal,
   closeOnEscape = true,
   closeOnOverlayClick = true,
   ariaLabel,
@@ -44,74 +46,131 @@ export function Drawer({
   const descId = `drawer-desc-${generatedId}`;
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
   const isMounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
-  // Handle body scroll locking
-  useEffect(() => {
-    if (!isOpen || !isModal) return;
+  const showOverlay = isModal !== undefined ? isModal : overlay;
 
-    const originalOverflow = document.body.style.overflow;
+  // Handle document & body scroll locking
+  useEffect(() => {
+    if (!isOpen || !showOverlay) return;
+
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
+
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.overflow = originalBodyOverflow;
     };
-  }, [isOpen, isModal]);
+  }, [isOpen, showOverlay]);
 
-  // Handle keyboard Escape
+  // Focus trap and keyboard navigation (Tab cycling & Escape)
   useEffect(() => {
-    if (!isOpen || !closeOnEscape) return;
+    if (!isOpen) return;
+
+    if (typeof document !== "undefined" && document.activeElement instanceof HTMLElement) {
+      previousActiveElementRef.current = document.activeElement;
+    }
+
+    const getFocusableElements = (): HTMLElement[] => {
+      if (!drawerRef.current) return [];
+      const focusableSelector =
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])';
+      return Array.from(
+        drawerRef.current.querySelectorAll<HTMLElement>(focusableSelector)
+      );
+    };
+
+    // Auto-focus close button on open
+    const focusable = getFocusableElements();
+    if (closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    } else if (focusable.length > 0) {
+      focusable[0].focus();
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && closeOnEscape) {
         event.stopPropagation();
         onClose();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const elements = getFocusableElements();
+        if (elements.length === 0) {
+          event.preventDefault();
+          return;
+        }
+
+        const firstElement = elements[0];
+        const lastElement = elements[elements.length - 1];
+
+        if (event.shiftKey) {
+          // Shift + Tab: moving backwards
+          if (
+            document.activeElement === firstElement ||
+            !drawerRef.current?.contains(document.activeElement)
+          ) {
+            event.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab: moving forwards
+          if (
+            document.activeElement === lastElement ||
+            !drawerRef.current?.contains(document.activeElement)
+          ) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      previousActiveElementRef.current?.focus();
     };
   }, [isOpen, closeOnEscape, onClose]);
-
-  // Auto focus close button when opened
-  useEffect(() => {
-    if (isOpen) {
-      closeButtonRef.current?.focus();
-    }
-  }, [isOpen]);
 
   if (!isOpen || !isMounted) {
     return null;
   }
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (closeOnOverlayClick && e.target === e.currentTarget) {
+  const handleOverlayClick = () => {
+    if (closeOnOverlayClick) {
       onClose();
     }
   };
 
   const drawerContent = (
-    <div
-      className={`${styles.root} ${isModal ? styles.modal : styles.nonModal}`}
-      onClick={handleBackdropClick}
-      data-testid="drawer-root"
-    >
-      {/* Optional Backdrop */}
-      {isModal && <div className={styles.backdrop} aria-hidden="true" />}
+    <div className={styles.root} data-testid="drawer-root">
+      {/* Overlay Backdrop */}
+      {showOverlay && (
+        <div
+          className={styles.overlay}
+          onClick={handleOverlayClick}
+          aria-hidden="true"
+          data-testid="drawer-overlay"
+        />
+      )}
 
       {/* Drawer Panel */}
       <section
         ref={drawerRef}
         role="dialog"
-        aria-modal={isModal}
+        aria-modal={showOverlay}
         aria-label={ariaLabel}
         aria-labelledby={title ? titleId : undefined}
         aria-describedby={description ? descId : undefined}
         className={`${styles.panel} ${styles[position]} ${styles[size]} ${className || ""}`.trim()}
         tabIndex={-1}
-        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <header className={styles.header}>

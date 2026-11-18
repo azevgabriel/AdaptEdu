@@ -10,7 +10,7 @@ AdaptEdu is designed to empower Brazilian public school teachers to include neur
 
 1. **Reusability & Single Responsibility:** Common elements (such as application headers, footers, and authentication buttons) live in `src/components/` and are re-exported through the central barrel (`src/components/index.ts`). Avoid recreating local copies of headers, navigation bars, or buttons across pages.
 2. **Context-Adaptive States:** Global components are designed to adapt cleanly between authenticated and unauthenticated contexts. For example, `Header` supports an unauthenticated public mode (`showProfile={false}`) that conceals teacher profile dropdowns while keeping theme and accessibility controls active.
-3. **Accessibility by Default (a11y):** All components comply with **WCAG 2.1 AA** (striving for AAA on text contrast), supporting screen readers (semantic HTML, descriptive ARIA attributes), full keyboard navigation (focus rings, `Escape` key listeners, outside click dismissals), and user-controlled sensory accommodations (contrast reinforcement, dyslexic spacing, font scaling, CVD modes, reduced motion).
+3. **Accessibility by Default & Mandatory Reading Gate:** All components comply with **WCAG 2.1/2.2 AA** (targeting AAA on text contrast), supporting screen readers (semantic HTML, descriptive ARIA attributes), full keyboard navigation (focus rings, `Escape` key listeners, outside click dismissals), and user-controlled sensory accommodations. Before authoring or refactoring any component, developers and agents **must strictly read and adhere to [COLORS.md](apps/web/docs/COLORS.md), [FONTS.md](apps/web/docs/FONTS.md), and [ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md)**.
 4. **Standard Component Anatomy:** Every global component strictly follows the co-located directory structure established in [NAMING_CONVENTIONS.md](apps/web/docs/NAMING_CONVENTIONS.md):
    ```
    src/components/<component-name>/
@@ -225,6 +225,184 @@ import { Avatar } from "@/components";
 
 ---
 
+### 5. `Switch`
+
+- **Directory:** `src/components/switch/`
+- **Component File:** `src/components/switch/index.tsx`
+- **Style File:** `src/components/switch/index.module.css`
+- **Test File:** `src/components/switch/index.spec.tsx`
+- **Barrel Export:** `export * from "./switch";` in `src/components/index.ts`
+
+#### Overview
+The `Switch` component provides an accessible toggle switch (`role="switch"`) following WAI-ARIA and Inclusive Design specifications. Designed for system preferences and accommodations (such as high contrast, dyslexia spacing, and reduced motion), it supports keyboard interaction (Space and Enter toggling), optional label/description grouping, and full focus rings.
+
+#### Component Props (`SwitchProps`)
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `checked` | `boolean` | **Required** | Current checked status of the switch. |
+| `onChange` | `(checked: boolean) => void` | **Required** | Callback invoked when the switch state changes. |
+| `id` | `string` | Auto-generated | Unique identifier for form and label association. |
+| `label` | `React.ReactNode` | `undefined` | Optional visible text label. |
+| `description` | `React.ReactNode` | `undefined` | Optional auxiliary description text. |
+| `disabled` | `boolean` | `false` | Disables the switch from user interaction. |
+| `ariaLabel` | `string` | `undefined` | Screen reader label when a visible label element is omitted. |
+| `ariaLabelledBy` | `string` | `undefined` | ID of external label element. |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Visual scale variant. |
+| `className` | `string` | `""` | Optional additional CSS classes. |
+
+---
+
+### 6. `Drawer`
+
+- **Directory:** `src/components/drawer/`
+- **Component File:** `src/components/drawer/index.tsx`
+- **Style File:** `src/components/drawer/index.module.css`
+- **Test File:** `src/components/drawer/index.spec.tsx`
+- **Barrel Export:** `export * from "./drawer";` in `src/components/index.ts`
+
+#### Overview
+The `Drawer` component implements an accessible sliding side panel rendered via a React Portal directly to `document.body`. It incorporates scroll locking, backdrop overlay click dismissals, `Escape` key listeners, and a robust focus trap cycling focus between interactive elements with focus return upon closing.
+
+---
+
+### 7. `RadioGroup` & `RadioButton`
+
+- **Directory:** `src/components/radio-group/` (also re-exported through `src/components/radio-button/`)
+- **Component File:** `src/components/radio-group/index.tsx`
+- **Style File:** `src/components/radio-group/index.module.css`
+- **Test File:** `src/components/radio-group/index.spec.tsx`
+- **Barrel Export:** `export * from "./radio-group";` in `src/components/index.ts`
+
+#### Overview
+`RadioGroup` and `RadioButton` provide a generic, composition-first single-selection system adhering strictly to the **W3C WAI-ARIA Radio Group APG pattern**. They replace ad-hoc button groups across the application (e.g., in theme pickers, daltonism/CVD mode selectors, and font scaling grids) with a unified, standardized interface.
+
+#### Key Architectural & Composition Features
+1. **Compound Component Flexibility:** Can be used either as named imports (`RadioGroup`, `RadioButton`, `RadioIndicator`) or compound subcomponents (`RadioGroup.Item`, `RadioGroup.Indicator`, `RadioButton.Indicator`).
+2. **Context-Driven State:** Subcomponents automatically subscribe to the active selection without manual prop drilling.
+3. **Full Keyboard APG Navigation:**
+   - `ArrowDown` & `ArrowRight`: Move focus and selection to the next enabled radio option (with cyclic wrap-around).
+   - `ArrowUp` & `ArrowLeft`: Move focus and selection to the previous enabled radio option (with cyclic wrap-around).
+   - `Home` & `End`: Jump focus and selection directly to the first or last enabled radio item.
+   - `Space`: Selects the focused radio option.
+   - `Tab` / `Shift+Tab`: Natural navigation into and out of the group (only the checked radio, or first enabled radio if none is checked, receives tab focus).
+4. **Adaptive Custom Card Support:** Supports standard styled radios (with circular indicator, label, and description), rich interactive cards (e.g. `themeCard`, `optionCard`), and dynamic render props `({ checked, disabled, value }) => ReactNode`.
+5. **Universal Design & Contrast:** Enforces WCAG 2.2 touch target minimums (44px height), high-contrast active borders (`3px` under `data-high-contrast="true"`), and reduced-motion resilience.
+
+#### Component Props
+
+##### `RadioGroupProps<T>`
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `value` | `T` | `undefined` | Controlled value of the selected radio button. |
+| `defaultValue` | `T` | `undefined` | Initial value for uncontrolled usage. |
+| `onChange` | `(value: T) => void` | `undefined` | Callback invoked when selection changes. |
+| `name` | `string` | Auto-generated | Form group identifier. |
+| `disabled` | `boolean` | `false` | Disables the entire radio group. |
+| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` | Orientation for WAI-ARIA and flex layout. |
+| `ariaLabel` | `string` | `undefined` | Accessible label for the group. |
+| `ariaLabelledBy` | `string` | `undefined` | ID of element labeling the radio group. |
+| `ariaDescribedBy` | `string` | `undefined` | ID of element describing the radio group. |
+| `className` | `string` | `""` | Optional CSS class name (e.g. grid layout). |
+| `children` | `React.ReactNode` | **Required** | Composable radio button items and layout containers. |
+
+##### `RadioButtonProps<T>`
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `value` | `T` | **Required** | Unique value represented by this radio option. |
+| `label` | `React.ReactNode` | `undefined` | Optional primary visible label. |
+| `description` | `React.ReactNode` | `undefined` | Optional secondary description text. |
+| `disabled` | `boolean` | `false` | Disables this individual radio option. |
+| `variant` | `"default" \| "custom"` | `"default"` (or `"custom"` if children are passed without label) | Layout mode. |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Dimension variant for standard radios. |
+| `activeClassName` | `string` | `undefined` | Additional class name applied when checked. |
+| `indicator` | `React.ReactNode` | `<RadioIndicator />` | Custom indicator element override. |
+| `ariaLabel` | `string` | `undefined` | Accessible label override. |
+| `children` | `ReactNode \| (state) => ReactNode` | `undefined` | Custom content or render prop receiving `{ checked, disabled, value }`. |
+
+#### Usage Examples
+
+##### A. Standard Labeled Radio Group (Form Controls)
+```tsx
+import { RadioGroup, RadioButton } from "@/components";
+
+<RadioGroup value={role} onChange={setRole} ariaLabel="Selecione o perfil de atuação">
+  <RadioButton
+    value="TEACHER"
+    label="Professor(a)"
+    description="Acesso a planos de aula, adaptações e turmas"
+  />
+  <RadioButton
+    value="COORDINATOR"
+    label="Coordenação Pedagógica"
+    description="Supervisão escolar e relatórios de inclusão"
+  />
+</RadioGroup>
+```
+
+##### B. Interactive Selection Cards (Theme / CVD Mode Pickers)
+```tsx
+import { RadioGroup, RadioButton } from "@/components";
+import styles from "./index.module.css";
+
+<RadioGroup
+  value={theme}
+  onChange={onThemeChange}
+  ariaLabel="Tema da interface"
+  className={styles.cardsGrid}
+>
+  <RadioButton
+    value="light"
+    ariaLabel="Ativar Modo Claro"
+    className={styles.themeCard}
+    activeClassName={styles.themeCardActive}
+  >
+    <div className={styles.iconWrapper}>
+      <SunIcon />
+    </div>
+    <div className={styles.cardContent}>
+      <span>Modo Claro</span>
+      <p>Fundo claro suave que reduz o ofuscamento.</p>
+    </div>
+  </RadioButton>
+
+  <RadioButton
+    value="dark"
+    ariaLabel="Ativar Modo Escuro"
+    className={styles.themeCard}
+    activeClassName={styles.themeCardActive}
+  >
+    <div className={styles.iconWrapper}>
+      <MoonIcon />
+    </div>
+    <div className={styles.cardContent}>
+      <span>Modo Escuro</span>
+      <p>Fundo escuro profundo para descanso ocular.</p>
+    </div>
+  </RadioButton>
+</RadioGroup>
+```
+
+##### C. Compound Syntax with `<RadioGroup.Item>` and `<RadioGroup.Indicator>`
+```tsx
+import { RadioGroup } from "@/components";
+
+<RadioGroup value={fontSize} onChange={onFontSizeChange} orientation="horizontal">
+  <RadioGroup.Item value="normal" ariaLabel="Fonte Normal">
+    <RadioGroup.Indicator />
+    <span>Normal (100%)</span>
+  </RadioGroup.Item>
+  <RadioGroup.Item value="large" ariaLabel="Fonte Grande">
+    <RadioGroup.Indicator />
+    <span>Grande (115%)</span>
+  </RadioGroup.Item>
+</RadioGroup>
+```
+
+---
+
 ## 🧭 Route-Scoped Internal Components (`src/app/**/components/`)
 
 Components that are specific to a single route segment are organized in sub-directories within that route to keep the global `src/components/` namespace lean.
@@ -291,6 +469,8 @@ Before creating a new UI component, follow this checklist to maintain design sys
 ## 🔗 Related Documentation
 
 - [GLOBAL.md](apps/web/docs/GLOBAL.md): Global frontend entry point and architecture index.
+- [ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md): Universal Design, WAI-ARIA & Inclusive Components.
+- [skills/component-a11y-audit](apps/web/docs/skills/component-a11y-audit/SKILL.md): Component A11y Audit & Unit Test Generator.
 - [NAMING_CONVENTIONS.md](apps/web/docs/NAMING_CONVENTIONS.md): Code standards, file structure, and identifier rules.
 - [COLORS.md](apps/web/docs/COLORS.md): Complete interface and pedagogical color code specifications.
 - [FONTS.md](apps/web/docs/FONTS.md): Typography scale, dual-font hierarchy, and dyslexia accommodations.

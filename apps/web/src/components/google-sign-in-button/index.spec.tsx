@@ -85,4 +85,34 @@ describe("GoogleSignInButton", () => {
     await user.click(button);
     expect(handleSignIn).not.toHaveBeenCalled();
   });
+
+  it("renders with native type='button' and decorative logo marked aria-hidden='true'", () => {
+    const { container } = render(<GoogleSignInButton />);
+    const button = screen.getByRole("button", {
+      name: /entrar com a conta institucional google/i,
+    });
+
+    expect(button).toHaveAttribute("type", "button");
+    const iconWrapper = container.querySelector('[class*="googleIconBox"]');
+    expect(iconWrapper).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("supports keyboard activation via Enter and Space keys", async () => {
+    const user = userEvent.setup();
+    const handleSignIn = vi.fn();
+
+    render(<GoogleSignInButton onSignIn={handleSignIn} />);
+    const button = screen.getByRole("button", {
+      name: /entrar com a conta institucional google/i,
+    });
+
+    button.focus();
+    expect(button).toHaveFocus();
+
+    await user.keyboard("{Enter}");
+    expect(handleSignIn).toHaveBeenCalledTimes(1);
+
+    await user.keyboard(" ");
+    expect(handleSignIn).toHaveBeenCalledTimes(2);
+  });
 });

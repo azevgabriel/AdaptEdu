@@ -212,33 +212,23 @@ describe("AccessibilitySettingsPage", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it("attaches matchMedia listener for mobile modal behavior when available", () => {
-    let changeListener: ((e: MediaQueryListEvent) => void) | null = null;
-    const addEventListenerMock = vi.fn((event: string, handler: EventListenerOrEventListenerObject) => {
-      if (event === "change") changeListener = handler as (e: MediaQueryListEvent) => void;
+  it("closes the drawer when clicking on the overlay backdrop outside the panel", async () => {
+    const user = userEvent.setup();
+    render(<AccessibilitySettingsPage />);
+
+    // Open drawer via launcher
+    const openBtn = screen.getByRole("button", {
+      name: /abrir painel lateral de validação de cores e prévia/i,
     });
-    const removeEventListenerMock = vi.fn();
+    await user.click(openBtn);
 
-    window.matchMedia = vi.fn().mockImplementation((query: string) => ({
-      matches: true,
-      media: query,
-      onchange: null,
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      addEventListener: addEventListenerMock,
-      removeEventListener: removeEventListenerMock,
-      dispatchEvent: vi.fn(),
-    }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    const overlay = screen.getByTestId("drawer-overlay");
+    expect(overlay).toBeInTheDocument();
 
-    const { unmount } = render(<AccessibilitySettingsPage />);
-    expect(window.matchMedia).toHaveBeenCalledWith("(max-width: 1024px)");
+    // Click outside on the overlay
+    await user.click(overlay);
 
-    if (changeListener) {
-      const listener: (e: MediaQueryListEvent) => void = changeListener;
-      listener({ matches: false } as MediaQueryListEvent);
-    }
-
-    unmount();
-    expect(removeEventListenerMock).toHaveBeenCalledWith("change", expect.any(Function));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

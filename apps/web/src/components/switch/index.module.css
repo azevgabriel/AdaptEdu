@@ -14,7 +14,7 @@
 .label {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-text, #18181b);
+  color: var(--text-primary, #0f172a);
   cursor: pointer;
   user-select: none;
 }
@@ -22,7 +22,7 @@
 .description {
   font-size: 0.825rem;
   line-height: 1.4;
-  color: var(--color-text-secondary, #71717a);
+  color: var(--text-secondary, #475569);
   margin: 0;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .switch:focus-visible {
-  outline: 2px solid var(--color-brand, #2563eb);
+  outline: 2px solid var(--color-brand-primary, #4338ca);
   outline-offset: 3px;
 }
 
@@ -54,14 +54,14 @@
 .track {
   position: relative;
   display: inline-block;
-  background-color: var(--color-border-strong, #cbd5e1);
+  background-color: var(--border-strong, #cbd5e1);
   border-radius: 9999px;
   transition: background-color 0.2s ease, border-color 0.2s ease;
   box-sizing: border-box;
 }
 
 .checked .track {
-  background-color: var(--color-brand, #2563eb);
+  background-color: var(--color-brand-primary, #4338ca);
 }
 
 /* Thumb */
@@ -127,15 +127,19 @@
 }
 
 :global(body[data-reduced-motion="true"]) .track,
-:global(body[data-reduced-motion="true"]) .thumb {
+:global([data-reduced-motion="true"]) .track,
+:global(body[data-reduced-motion="true"]) .thumb,
+:global([data-reduced-motion="true"]) .thumb {
   transition: none !important;
 }
 
 /* High Contrast Structural Border */
-:global(body[data-high-contrast="true"]) .track {
-  border: 2px solid var(--color-border-strong, #000000);
+:global(body[data-high-contrast="true"]) .track,
+:global([data-high-contrast="true"]) .track {
+  border: 2px solid var(--border-strong, #000000);
 }
 
-:global(body[data-high-contrast="true"]) .switch:focus-visible {
+:global(body[data-high-contrast="true"]) .switch:focus-visible,
+:global([data-high-contrast="true"]) .switch:focus-visible {
   outline: 3px solid currentColor;
 }

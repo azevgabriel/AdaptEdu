@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { RadioGroup, RadioButton } from "@/components";
 import type { ThemeMode } from "@/hooks/use-accessibility";
 import styles from "./index.module.css";
 
@@ -25,17 +26,18 @@ export function ThemeSelector({ theme, onThemeChange }: ThemeSelectorProps) {
         </p>
       </div>
 
-      <div className={styles.cardsGrid} role="radiogroup" aria-label="Tema da interface">
+      <RadioGroup
+        value={theme}
+        onChange={onThemeChange}
+        ariaLabel="Tema da interface"
+        className={styles.cardsGrid}
+      >
         {/* Light Mode Card */}
-        <button
-          type="button"
-          role="radio"
-          aria-checked={theme === "light"}
-          className={`${styles.themeCard} ${
-            theme === "light" ? styles.themeCardActive : ""
-          }`}
-          onClick={() => onThemeChange("light")}
-          aria-label="Ativar Modo Claro"
+        <RadioButton
+          value="light"
+          ariaLabel="Ativar Modo Claro"
+          className={styles.themeCard}
+          activeClassName={styles.themeCardActive}
         >
           <div className={styles.iconWrapper} aria-hidden="true">
             {/* Sun Icon */}
@@ -72,18 +74,14 @@ export function ThemeSelector({ theme, onThemeChange }: ThemeSelectorProps) {
               durante o dia.
             </p>
           </div>
-        </button>
+        </RadioButton>
 
         {/* Dark Mode Card */}
-        <button
-          type="button"
-          role="radio"
-          aria-checked={theme === "dark"}
-          className={`${styles.themeCard} ${
-            theme === "dark" ? styles.themeCardActive : ""
-          }`}
-          onClick={() => onThemeChange("dark")}
-          aria-label="Ativar Modo Escuro"
+        <RadioButton
+          value="dark"
+          ariaLabel="Ativar Modo Escuro"
+          className={styles.themeCard}
+          activeClassName={styles.themeCardActive}
         >
           <div className={styles.iconWrapper} aria-hidden="true">
             {/* Moon Icon */}
@@ -112,8 +110,8 @@ export function ThemeSelector({ theme, onThemeChange }: ThemeSelectorProps) {
               iluminação.
             </p>
           </div>
-        </button>
-      </div>
+        </RadioButton>
+      </RadioGroup>
     </section>
   );
 }

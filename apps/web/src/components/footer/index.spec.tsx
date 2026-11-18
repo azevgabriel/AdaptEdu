@@ -64,4 +64,24 @@ describe("Footer", () => {
     const { container } = render(<Footer className="custom-footer-class" />);
     expect(container.querySelector("footer")).toHaveClass("custom-footer-class");
   });
+
+  it("renders semantic landmarks: contentinfo footer and accessible navigation", () => {
+    render(<Footer />);
+    const footerLandmark = screen.getByRole("contentinfo");
+    expect(footerLandmark).toBeInTheDocument();
+
+    const navLandmark = screen.getByRole("navigation", {
+      name: /links institucionais e do desenvolvedor/i,
+    });
+    expect(navLandmark).toBeInTheDocument();
+  });
+
+  it("marks decorative SVG icons inside external links with aria-hidden='true'", () => {
+    const { container } = render(<Footer />);
+    const linkIcons = container.querySelectorAll('[class*="linkIcon"]');
+    expect(linkIcons.length).toBe(2);
+    linkIcons.forEach((icon) => {
+      expect(icon).toHaveAttribute("aria-hidden", "true");
+    });
+  });
 });
