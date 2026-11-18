@@ -25,7 +25,6 @@ Resolves [#12](https://github.com/azevgabriel/AdaptEdu/issues/12).
   - `radio/label/`: `RadioLabel` and `RadioDescription`.
   - `radio/context.ts`: Decoupled `RadioGroupContext` and `RadioButtonContext`.
   - `radio/index.ts`: Central barrel export aggregating all sub-primitives.
-  - `radio-group/index.ts` & `radio-button/index.ts`: Backwards-compatible re-exports.
 - Consolidated ad-hoc radio implementations in `/configuracoes/acessibilidade`:
   - Refactored `ThemeSelector` (`components/theme-selector/`) to use the composable `RadioCard` primitive.
   - Refactored `CvdSelector` (`components/cvd-selector/`) to use `RadioCard`, eliminating manually duplicated radio indicator DOM and fixing italicized optical details per Dyslexia invariants.
