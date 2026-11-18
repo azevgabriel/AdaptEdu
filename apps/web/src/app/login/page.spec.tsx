@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import LoginPage, { metadata } from "./page";
 
 describe("LoginPage", () => {
@@ -42,6 +42,16 @@ describe("LoginPage", () => {
     expect(screen.getByText("Dislexia")).toBeInTheDocument();
     expect(screen.getByText("Discalculia")).toBeInTheDocument();
     expect(screen.getByText("Síndrome de Tourette")).toBeInTheDocument();
+
+    // Brazilian legislation note
+    const legalNote = screen.getByRole("note", {
+      name: /legislação brasileira de educação inclusiva/i,
+    });
+    expect(legalNote).toBeInTheDocument();
+    expect(
+      within(legalNote).getByText(/lei brasileira de inclusão \(lbi nº 13\.146\/15\)/i),
+    ).toBeInTheDocument();
+    expect(within(legalNote).getByText(/ldb/i)).toBeInTheDocument();
 
     // Teacher Auth Card
     expect(

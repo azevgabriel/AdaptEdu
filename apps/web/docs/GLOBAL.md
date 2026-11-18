@@ -19,6 +19,8 @@ The AdaptEdu **Frontend** is the primary interactive user interface designed to 
 
 ## 📖 Architecture & Local Guidelines
 
+- [ACCESSIBILITY_GUIDELINES.md](docs/ACCESSIBILITY_GUIDELINES.md): Centralized Brazilian educational legislation and accessibility guidelines (LBI 13.146/2015, LDB 9.394/1996, Lei 12.764/2012, Lei 10.436/2002, Dec. 6.949/2009, Dec. 9.099/2017) and platform architectural mapping matrix.
+- [LGPD.md](docs/LGPD.md): Centralized Brazilian General Data Protection Law (LGPD) guidelines, data minimization, cookie hygiene, and client privacy protocols.
 - [COMPONENT_CHEAT_SHEET.md](apps/web/docs/COMPONENT_CHEAT_SHEET.md): **Default Quick Entry Point (< 100 lines)** — Essential non-negotiables (tokens, contrast, dual-font, Never Color Alone, First Rule of ARIA, 44px target) for rapid, token-efficient agent onboarding.
 - [DESIGN_GUIDELINES.md](apps/web/docs/DESIGN_GUIDELINES.md): Visual identity, anti-slop art direction (Leonxlnx/taste-skill & Vercel Labs standards), sensory-friendly surfaces, and PT-BR UX writing.
 - [DESIGN_SYSTEM.md](apps/web/docs/DESIGN_SYSTEM.md): Component catalog, reusable UI patterns, props specifications, accessibility accommodations, and component directory anatomy.
@@ -59,7 +61,7 @@ To conserve context window budget and prevent reasoning degradation:
 2. **For visual identity, styling choices, or microcopy:**
    Consult **[DESIGN_GUIDELINES.md](apps/web/docs/DESIGN_GUIDELINES.md)**.
 3. **For new architectural primitives, complex composite patterns, or deep calibrations:**
-   Consult the deep reference specifications: [COLORS.md](apps/web/docs/COLORS.md), [FONTS.md](apps/web/docs/FONTS.md), and [ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md).
+   Consult the deep reference specifications: [COLORS.md](apps/web/docs/COLORS.md), [FONTS.md](apps/web/docs/FONTS.md), and [ACCESSIBILITY.md](apps/web/docs/ACCESSIBILITY.md), and verify statutory pedagogical mandates against [ACCESSIBILITY_GUIDELINES.md](docs/ACCESSIBILITY_GUIDELINES.md).
 
 ---
 

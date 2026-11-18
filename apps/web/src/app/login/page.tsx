@@ -1,7 +1,12 @@
 import React, { Suspense } from "react";
 import type { Metadata } from "next";
-import { Header, GoogleSignInButton, Footer, Badge } from "@/components";
-import { CheckIcon, ClockIcon, UsersIcon } from "@/assets/icons";
+import { Header, GoogleSignInButton, Footer, Badge, Card } from "@/components";
+import {
+  CheckIcon,
+  ClockIcon,
+  UsersIcon,
+  DocumentIcon,
+} from "@/assets/icons";
 import { LoginAuthCard } from "./components";
 import styles from "./page.module.css";
 
@@ -19,7 +24,7 @@ export default function LoginPage() {
 
       {/* Main Two-Column Layout */}
       <main className={styles.mainGrid}>
-        {/* Left Column: Mission & Educational Value */}
+        {/* Left Column: Mission, Legal Context & Educational Value */}
         <section className={styles.presentationColumn} aria-labelledby="mission-heading">
           <span className={styles.missionTag}>PLATAFORMA PEDAGÓGICA ABERTA</span>
 
@@ -43,6 +48,28 @@ export default function LoginPage() {
             <Badge variant="outline" pill size="md">Processamento Visual (Daltonismo)</Badge>
           </div>
 
+          {/* Brazilian Legislation Note */}
+          <Card
+            variant="subtle"
+            role="note"
+            aria-label="Legislação brasileira de educação inclusiva"
+            className={styles.legalCallout}
+          >
+            <div className={styles.legalCalloutContent}>
+              <Card.Icon className={styles.legalCalloutIcon}>
+                <DocumentIcon size={18} />
+              </Card.Icon>
+              <Card.Body>
+                <Card.Description className={styles.legalCalloutText}>
+                  A <strong>Lei Brasileira de Inclusão (LBI nº 13.146/15)</strong> e a{" "}
+                  <strong>LDB</strong> asseguram a todo estudante o direito a recursos
+                  pedagógicos adaptados e acessíveis. O AdaptEdu ajuda você a levar essas
+                  práticas para a rotina da sua turma de forma leve e viável.
+                </Card.Description>
+              </Card.Body>
+            </div>
+          </Card>
+
           {/* Core Feature Highlights */}
           <div className={styles.featuresList}>
             <div className={styles.featureItem}>
@@ -50,7 +77,7 @@ export default function LoginPage() {
                 <CheckIcon size={18} />
               </div>
               <div className={styles.featureItemText}>
-                <span className={styles.featureItemTitle}>Soluções práticas de baixo custo</span>
+                <span className={styles.featureItemTitle}>Soluções práticas e de baixo custo</span>
                 <span className={styles.featureItemDescription}>
                   Adaptações de disposição de carteiras, rotinas visuais e mediação pedagógica sem demandar materiais caros.
                 </span>
@@ -87,11 +114,11 @@ export default function LoginPage() {
         <section className={styles.cardColumn} aria-labelledby="auth-card-title">
           <Suspense
             fallback={
-              <div className={styles.authCard}>
+              <Card className={styles.authCard}>
                 <div className={styles.authActions}>
                   <GoogleSignInButton returnUrl="/configuracoes/acessibilidade" />
                 </div>
-              </div>
+              </Card>
             }
           >
             <LoginAuthCard />

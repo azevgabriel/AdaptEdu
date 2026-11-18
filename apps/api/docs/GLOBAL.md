@@ -18,6 +18,7 @@ The AdaptEdu **Backend Core** is the authoritative boundary for business logic, 
 
 ## 📖 Architecture & Local Guidelines
 
+- [LGPD.md](docs/LGPD.md): Centralized Brazilian General Data Protection Law (LGPD) guidelines, data classification, and backend privacy protocols.
 - [NESTJS.md](apps/api/docs/NESTJS.md): NestJS standards (ESM, NodeAdapter, Vitest, Standard Schema) and observability via NestJS Observe.
 - [SECURITY.md](apps/api/docs/SECURITY.md): Backend security guidelines (defenses against IDOR, sanitization, CORS, rate limiting, and dependency auditing).
 
