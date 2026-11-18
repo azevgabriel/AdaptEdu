@@ -37,7 +37,7 @@ Color must **never** be the sole indicator of meaning, state, subject, or urgenc
 ### 3. Visual Stress & Dyslexia (Meares-Irlen Considerations)
 - **Avoid Pure Black on Pure White:** High-contrast pure white (`#FFFFFF`) behind pitch black (`#000000`) can induce visual vibration, headaches, and "rivering" (optical illusion of white rivers running through text) for dyslexic and neurodivergent individuals.
 - **Soft Foundations:** Use soft slate neutrals (`#0F172A` text on `#F8FAFC` or `#F1F5F9` canvas) to ensure crisp legibility without sensory glare.
-- **Avoid Italics as Accessibility Substitutes:** As emphasized in the UFSM Chromatic Accessibility Guide (*Guia de Acessibilidade Cromática para Daltonismo*), slanted letterforms (italics) degrade letter silhouette recognition, trigger visual crowding, and create severe reading obstacles for individuals with dyslexia. Never use italics as an alternative indicator for color codes or accessibility highlights; use distinct border weights, underline offsets, or bold text instead.
+- **Avoid Italics as Accessibility Substitutes:** Slanted letterforms degrade letter silhouette recognition and trigger visual crowding for dyslexic readers. See [FONTS.md](apps/web/docs/FONTS.md) for complete typography guidelines; use bold text, distinct borders, or underline offsets instead.
 
 ### 4. Controlled Saturation (ASD & Sensory Overload)
 - Avoid hyper-saturated neon backgrounds that distract or overstimulate students with ASD.

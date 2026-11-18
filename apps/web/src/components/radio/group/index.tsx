@@ -1,116 +1,30 @@
 "use client";
 
 import React, {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useId,
   useMemo,
   useRef,
   useState,
 } from "react";
+import {
+  RadioGroupContext,
+  RadioButtonContext,
+  useRadioGroup,
+  type RadioGroupContextValue,
+  type RadioButtonContextValue,
+  type RadioButtonState,
+  type RadioButtonRenderProp,
+} from "../context";
+import { RadioIndicator } from "../indicator";
+import { RadioLabel, RadioDescription } from "../label";
+import { RadioCard } from "../card";
 import styles from "./index.module.css";
-
-/* -------------------------------------------------------------------------- */
-/*                               Context & Types                              */
-/* -------------------------------------------------------------------------- */
-
-export interface RadioGroupContextValue<T = string> {
-  name: string;
-  value: T | undefined;
-  onChange: (value: T) => void;
-  disabled?: boolean;
-  orientation?: "horizontal" | "vertical";
-}
-
-const RadioGroupContext = createContext<RadioGroupContextValue<string> | null>(null);
-
-export function useRadioGroup<T = string>(): RadioGroupContextValue<T> {
-  const context = useContext(RadioGroupContext);
-  if (!context) {
-    throw new Error(
-      "useRadioGroup must be used within a <RadioGroup> component."
-    );
-  }
-  return context as unknown as RadioGroupContextValue<T>;
-}
-
-export interface RadioButtonContextValue<T = string> {
-  checked: boolean;
-  disabled: boolean;
-  value: T;
-  size: "sm" | "md" | "lg";
-}
-
-const RadioButtonContext = createContext<RadioButtonContextValue<string> | null>(null);
-
-export function useRadioButton<T = string>(): RadioButtonContextValue<T> | null {
-  return useContext(RadioButtonContext) as unknown as RadioButtonContextValue<T> | null;
-}
-
-/* -------------------------------------------------------------------------- */
-/*                            RadioIndicator Component                        */
-/* -------------------------------------------------------------------------- */
-
-export interface RadioIndicatorProps {
-  checked?: boolean;
-  size?: "sm" | "md" | "lg";
-  className?: string;
-  dotClassName?: string;
-  style?: React.CSSProperties;
-}
-
-export function RadioIndicator({
-  checked: checkedProp,
-  size: sizeProp,
-  className,
-  dotClassName,
-  style,
-}: RadioIndicatorProps) {
-  const radioContext = useRadioButton();
-  const checked = checkedProp ?? radioContext?.checked ?? false;
-  const size = sizeProp ?? radioContext?.size ?? "md";
-
-  const sizeClass =
-    size === "sm"
-      ? styles.indicatorSm
-      : size === "lg"
-      ? styles.indicatorLg
-      : styles.indicatorMd;
-
-  return (
-    <span
-      className={`${styles.radioIndicator} ${sizeClass} ${
-        checked ? styles.radioIndicatorChecked : ""
-      } ${className || ""}`.trim()}
-      aria-hidden="true"
-      style={style}
-    >
-      {checked && (
-        <span
-          className={`${styles.radioIndicatorDot} ${
-            dotClassName || ""
-          }`.trim()}
-        />
-      )}
-    </span>
-  );
-}
 
 /* -------------------------------------------------------------------------- */
 /*                            RadioButton Component                           */
 /* -------------------------------------------------------------------------- */
-
-export interface RadioButtonState<T = string> {
-  checked: boolean;
-  disabled: boolean;
-  value: T;
-}
-
-export type RadioButtonRenderProp<T = string> = (
-  state: RadioButtonState<T>
-) => React.ReactNode;
 
 export interface RadioButtonProps<T = string>
   extends Omit<
@@ -241,10 +155,14 @@ export type RadioButtonComponent = (<T = string>(
   props: RadioButtonProps<T>
 ) => React.ReactElement | null) & {
   Indicator: typeof RadioIndicator;
+  Label: typeof RadioLabel;
+  Description: typeof RadioDescription;
 };
 
 export const RadioButton = Object.assign(RadioButtonRoot, {
   Indicator: RadioIndicator,
+  Label: RadioLabel,
+  Description: RadioDescription,
 }) as RadioButtonComponent;
 
 /* -------------------------------------------------------------------------- */
@@ -412,9 +330,15 @@ export type RadioGroupComponent = (<T = string>(
 ) => React.ReactElement | null) & {
   Item: typeof RadioButton;
   Indicator: typeof RadioIndicator;
+  Label: typeof RadioLabel;
+  Description: typeof RadioDescription;
+  Card: typeof RadioCard;
 };
 
 export const RadioGroup = Object.assign(RadioGroupRoot, {
   Item: RadioButton,
   Indicator: RadioIndicator,
+  Label: RadioLabel,
+  Description: RadioDescription,
+  Card: RadioCard,
 }) as RadioGroupComponent;

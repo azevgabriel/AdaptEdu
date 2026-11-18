@@ -46,4 +46,16 @@ describe("Components Barrel Export", () => {
     expect(components.RadioIndicator).toBeDefined();
     expect(typeof components.RadioIndicator).toBe("function");
   });
+
+  it("exports RadioCard component", () => {
+    expect(components.RadioCard).toBeDefined();
+    expect(typeof components.RadioCard).toBe("function");
+  });
+
+  it("exports RadioLabel and RadioDescription components", () => {
+    expect(components.RadioLabel).toBeDefined();
+    expect(typeof components.RadioLabel).toBe("function");
+    expect(components.RadioDescription).toBeDefined();
+    expect(typeof components.RadioDescription).toBe("function");
+  });
 });

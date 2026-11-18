@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Switch, RadioGroup, RadioButton } from "@/components";
+import { Switch, RadioGroup } from "@/components";
 import type { FontSizeMode } from "@/hooks/use-accessibility";
 import styles from "./index.module.css";
 
@@ -61,7 +61,7 @@ export function ReadingAccommodations({
           className={styles.fontSizeGrid}
         >
           {FONT_SIZE_OPTIONS.map((opt) => (
-            <RadioButton
+            <RadioGroup.Item
               key={opt.id}
               value={opt.id}
               ariaLabel={`Fonte ${opt.name}`}
@@ -76,7 +76,7 @@ export function ReadingAccommodations({
                 Aa
               </span>
               <span className={styles.fontSizeName}>{opt.name}</span>
-            </RadioButton>
+            </RadioGroup.Item>
           ))}
         </RadioGroup>
       </div>

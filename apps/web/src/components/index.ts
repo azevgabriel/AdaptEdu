@@ -4,5 +4,4 @@ export * from "./footer";
 export * from "./avatar";
 export * from "./switch";
 export * from "./drawer";
-export * from "./radio-group";
-export * from "./radio-button";
+export * from "./radio";

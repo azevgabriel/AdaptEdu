@@ -268,11 +268,9 @@ The `Drawer` component implements an accessible sliding side panel rendered via 
 
 ### 7. `RadioGroup` & `RadioButton`
 
-- **Directory:** `src/components/radio-group/` (also re-exported through `src/components/radio-button/`)
-- **Component File:** `src/components/radio-group/index.tsx`
-- **Style File:** `src/components/radio-group/index.module.css`
-- **Test File:** `src/components/radio-group/index.spec.tsx`
-- **Barrel Export:** `export * from "./radio-group";` in `src/components/index.ts`
+- **Directory:** `src/components/radio/` (with modular sub-packages `group/`, `indicator/`, `card/`, `label/`; re-exported through `src/components/index.ts`)
+- **Component Files:** `src/components/radio/group/index.tsx`, `card/index.tsx`, `indicator/index.tsx`, `label/index.tsx`
+- **Barrel Export:** `export * from "./radio";` in `src/components/index.ts`
 
 #### Overview
 `RadioGroup` and `RadioButton` provide a generic, composition-first single-selection system adhering strictly to the **W3C WAI-ARIA Radio Group APG pattern**. They replace ad-hoc button groups across the application (e.g., in theme pickers, daltonism/CVD mode selectors, and font scaling grids) with a unified, standardized interface.
@@ -342,10 +340,9 @@ import { RadioGroup, RadioButton } from "@/components";
 </RadioGroup>
 ```
 
-##### B. Interactive Selection Cards (Theme / CVD Mode Pickers)
+##### B. Standardized Composable Cards with `<RadioCard>` or `<RadioGroup.Card>`
 ```tsx
-import { RadioGroup, RadioButton } from "@/components";
-import styles from "./index.module.css";
+import { RadioGroup, RadioCard } from "@/components";
 
 <RadioGroup
   value={theme}
@@ -353,50 +350,39 @@ import styles from "./index.module.css";
   ariaLabel="Tema da interface"
   className={styles.cardsGrid}
 >
-  <RadioButton
+  <RadioCard
     value="light"
+    title="Modo Claro"
+    badge={theme === "light" ? "Ativo" : undefined}
+    description="Fundo claro suave que reduz o ofuscamento."
+    icon={<SunIcon />}
     ariaLabel="Ativar Modo Claro"
-    className={styles.themeCard}
-    activeClassName={styles.themeCardActive}
-  >
-    <div className={styles.iconWrapper}>
-      <SunIcon />
-    </div>
-    <div className={styles.cardContent}>
-      <span>Modo Claro</span>
-      <p>Fundo claro suave que reduz o ofuscamento.</p>
-    </div>
-  </RadioButton>
-
-  <RadioButton
+  />
+  <RadioCard
     value="dark"
+    title="Modo Escuro"
+    badge={theme === "dark" ? "Ativo" : undefined}
+    description="Fundo escuro profundo para descanso ocular."
+    icon={<MoonIcon />}
     ariaLabel="Ativar Modo Escuro"
-    className={styles.themeCard}
-    activeClassName={styles.themeCardActive}
-  >
-    <div className={styles.iconWrapper}>
-      <MoonIcon />
-    </div>
-    <div className={styles.cardContent}>
-      <span>Modo Escuro</span>
-      <p>Fundo escuro profundo para descanso ocular.</p>
-    </div>
-  </RadioButton>
+  />
 </RadioGroup>
 ```
 
-##### C. Compound Syntax with `<RadioGroup.Item>` and `<RadioGroup.Indicator>`
+##### C. Compound Syntax with `<RadioGroup.Item>`, `<RadioGroup.Indicator>`, `<RadioGroup.Label>`, `<RadioGroup.Description>`
 ```tsx
 import { RadioGroup } from "@/components";
 
 <RadioGroup value={fontSize} onChange={onFontSizeChange} orientation="horizontal">
   <RadioGroup.Item value="normal" ariaLabel="Fonte Normal">
     <RadioGroup.Indicator />
-    <span>Normal (100%)</span>
+    <RadioGroup.Label>Normal (100%)</RadioGroup.Label>
+    <RadioGroup.Description>Tamanho de leitura padrão</RadioGroup.Description>
   </RadioGroup.Item>
   <RadioGroup.Item value="large" ariaLabel="Fonte Grande">
     <RadioGroup.Indicator />
-    <span>Grande (115%)</span>
+    <RadioGroup.Label>Grande (115%)</RadioGroup.Label>
+    <RadioGroup.Description>Ampliado para baixa visão</RadioGroup.Description>
   </RadioGroup.Item>
 </RadioGroup>
 ```

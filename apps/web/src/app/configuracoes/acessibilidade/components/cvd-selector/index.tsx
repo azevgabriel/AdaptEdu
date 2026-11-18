@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { RadioGroup, RadioButton } from "@/components";
+import { RadioGroup, RadioCard } from "@/components";
 import type { ColorVisionMode } from "@/hooks/use-accessibility";
 import styles from "./index.module.css";
 
@@ -75,31 +75,18 @@ export function CvdSelector({ cvdMode, onCvdChange }: CvdSelectorProps) {
         ariaLabel="Modo de visão de cores para daltonismo"
         className={styles.optionsGrid}
       >
-        {CVD_OPTIONS.map((option) => {
-          const isSelected = cvdMode === option.id;
-          return (
-            <RadioButton
-              key={option.id}
-              value={option.id}
-              ariaLabel={`Modo ${option.name}`}
-              className={styles.optionCard}
-              activeClassName={styles.optionCardActive}
-            >
-              <div className={styles.cardHeader}>
-                <div className={styles.cardTitleWrapper}>
-                  <span className={styles.cardTitle}>{option.name}</span>
-                </div>
-                <div className={styles.radioIndicator} aria-hidden="true">
-                  {isSelected && <span className={styles.radioIndicatorDot} />}
-                </div>
-              </div>
-
-              <span className={styles.coneBadge}>{option.badge}</span>
-              <p className={styles.cardDescription}>{option.description}</p>
-              <span className={styles.opticalDetails}>{option.opticalDetails}</span>
-            </RadioButton>
-          );
-        })}
+        {CVD_OPTIONS.map((option) => (
+          <RadioCard
+            key={option.id}
+            value={option.id}
+            ariaLabel={`Modo ${option.name}`}
+            title={option.name}
+            badge={option.badge}
+            description={option.description}
+            extra={option.opticalDetails}
+            showIndicator
+          />
+        ))}
       </RadioGroup>
     </section>
   );

@@ -3,13 +3,9 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { fakerPT_BR as faker } from "@faker-js/faker";
-import {
-  RadioGroup,
-  RadioButton,
-  RadioIndicator,
-} from "./index";
+import { RadioGroup, RadioButton } from "./index";
 
-describe("RadioGroup & RadioButton Components", () => {
+describe("RadioGroup & RadioButton Component Suite", () => {
   it("renders default radio items with Portuguese labels and descriptions", () => {
     const label1 = faker.lorem.words(2);
     const desc1 = faker.lorem.sentence();
@@ -136,16 +132,18 @@ describe("RadioGroup & RadioButton Components", () => {
     expect(screen.getByText("Inativo")).toBeInTheDocument();
   });
 
-  it("supports compound component syntax (RadioGroup.Item and RadioGroup.Indicator)", () => {
+  it("supports compound component syntax (RadioGroup.Item, RadioGroup.Indicator, RadioGroup.Label, RadioGroup.Description)", () => {
     render(
       <RadioGroup value="item-1" onChange={vi.fn()} ariaLabel="Composto">
         <RadioGroup.Item value="item-1" ariaLabel="Item 1">
           <RadioGroup.Indicator />
-          <span>Rótulo Composto</span>
+          <RadioGroup.Label>Rótulo Composto</RadioGroup.Label>
+          <RadioGroup.Description>Descrição Composta</RadioGroup.Description>
         </RadioGroup.Item>
         <RadioGroup.Item value="item-2" ariaLabel="Item 2">
           <RadioButton.Indicator />
-          <span>Outro Rótulo</span>
+          <RadioButton.Label>Outro Rótulo</RadioButton.Label>
+          <RadioButton.Description>Outra Descrição</RadioButton.Description>
         </RadioGroup.Item>
       </RadioGroup>
     );
@@ -153,6 +151,9 @@ describe("RadioGroup & RadioButton Components", () => {
     const item1 = screen.getByRole("radio", { name: "Item 1" });
     expect(item1).toHaveAttribute("aria-checked", "true");
     expect(screen.getByText("Rótulo Composto")).toBeInTheDocument();
+    expect(screen.getByText("Descrição Composta")).toBeInTheDocument();
+    expect(screen.getByText("Outro Rótulo")).toBeInTheDocument();
+    expect(screen.getByText("Outra Descrição")).toBeInTheDocument();
   });
 
   it("navigates options via keyboard arrows, Home, and End", () => {
@@ -206,6 +207,24 @@ describe("RadioGroup & RadioButton Components", () => {
     expect(handleChange).toHaveBeenCalledWith("opt3");
   });
 
+  it("ensures first enabled radio has tabIndex 0 when none is selected", () => {
+    render(
+      <RadioGroup ariaLabel="Nenhum Selecionado">
+        <RadioButton value="opt1" label="Opção 1" disabled />
+        <RadioButton value="opt2" label="Opção 2" />
+        <RadioButton value="opt3" label="Opção 3" />
+      </RadioGroup>
+    );
+
+    const radio1 = screen.getByRole("radio", { name: "Opção 1" });
+    const radio2 = screen.getByRole("radio", { name: "Opção 2" });
+    const radio3 = screen.getByRole("radio", { name: "Opção 3" });
+
+    expect(radio1).toHaveAttribute("tabindex", "-1");
+    expect(radio2).toHaveAttribute("tabindex", "0");
+    expect(radio3).toHaveAttribute("tabindex", "-1");
+  });
+
   it("respects group-level disabled state", async () => {
     const user = userEvent.setup();
     const handleChange = vi.fn();
@@ -253,12 +272,18 @@ describe("RadioGroup & RadioButton Components", () => {
     expect(handleChange).toHaveBeenCalledWith("opt3");
   });
 
-  it("renders standalone RadioIndicator with custom sizes and styles", () => {
-    const { container, rerender } = render(<RadioIndicator checked={true} size="lg" />);
-    const indicator = container.firstChild as HTMLElement;
-    expect(indicator).toHaveAttribute("aria-hidden", "true");
+  it("throws when useRadioGroup is used outside RadioGroup context", () => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    rerender(<RadioIndicator checked={false} size="sm" />);
-    expect(container.querySelector(".radioIndicatorDot")).toBeNull();
+    function InvalidConsumer() {
+      RadioButton({ value: "test" });
+      return null;
+    }
+
+    expect(() => render(<InvalidConsumer />)).toThrow(
+      "useRadioGroup must be used within a <RadioGroup> component."
+    );
+
+    spy.mockRestore();
   });
 });
